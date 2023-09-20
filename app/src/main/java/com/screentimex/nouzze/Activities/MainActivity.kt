@@ -1,7 +1,8 @@
-package com.screentimex.nouzze
+package com.screentimex.nouzze.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.screentimex.nouzze.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

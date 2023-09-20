@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1032365301599",
+    "project_id": "nouzze-701dd",
+    "storage_bucket": "nouzze-701dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032365301599:android:780ebb1fce3b97243460ea",
+        "android_client_info": {
+          "package_name": "com.screentimex.nouzze"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUlhVr9hNtJlJrLYQNjq2OuAFsHwPJTyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
