@@ -11,6 +11,9 @@ object Constants {
     const val NAME: String = "name"
     const val PHONENUMBER: String = "phoneNumber"
     const val EMAIL: String = "email"
+    const val APPICONIMAGE: String = "appIconImage"
+    const val TIME: String = "appUsagetime"
+    const val APPNAME: String = "appName"
 
     fun getFileExtension(activity: Activity, uri: Uri?): String?{
         return MimeTypeMap.getSingleton().

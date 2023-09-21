@@ -9,6 +9,7 @@
     <dimen name="card_view_corner_radius">8dp</dimen>
     <dimen name="card_view_elevation">5dp</dimen>
     <dimen name="My_Profile_Activity_Picture_Size">100dp</dimen>
+    <dimen name="App_Icon_Image_Size">40dp</dimen>
     <dimen name="nav_image_circular_border_width">1dp</dimen>
     <dimen name="btn_paddingTopBottom">8dp</dimen>
     <dimen name="intro_text_marginStartEnd">20dp</dimen>
