@@ -9,7 +9,7 @@
     tools:openDrawer="start">
 
     <include
-        android:id="@+id/app_bar_drawer"
+        android:id="@+id/include_app_bar_layout"
         layout="@layout/app_bar_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -28,15 +28,6 @@
         <include
             android:id="@+id/nav_draawer_header_include"
             layout="@layout/nav_header_drawer" />
-
-        <ListView
-            android:id="@+id/channel_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/nav_draawer_header_include">
-
-
-        </ListView>
 
     </RelativeLayout>
     </com.google.android.material.navigation.NavigationView>

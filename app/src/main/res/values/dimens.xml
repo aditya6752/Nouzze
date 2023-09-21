@@ -13,4 +13,7 @@
     <dimen name="btn_paddingTopBottom">8dp</dimen>
     <dimen name="intro_text_marginStartEnd">20dp</dimen>
     <dimen name="btn_marginStartEnd">20dp</dimen>
+    <dimen name="nav_content_margin_StartEnd">16dp</dimen>
+    <dimen name="nav_content_margin_top">5dp</dimen>
+    <dimen name="nav_content_margin_bottom">10dp</dimen>
 </resources>

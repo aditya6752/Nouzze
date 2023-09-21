@@ -94,7 +94,7 @@
                 android:layout_marginBottom="30dp">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/phoneNumber_text_view"
+                    android:id="@+id/profilePhoneNumberTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/mobile_number"

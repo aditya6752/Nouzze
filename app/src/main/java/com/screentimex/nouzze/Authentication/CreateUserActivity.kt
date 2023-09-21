@@ -1,103 +1,109 @@
 package com.screentimex.nouzze.Authentication
 
-import android.content.Context
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.ImageView
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityCreateUserBinding
+import com.screentimex.nouzze.models.Constants
+import com.screentimex.nouzze.models.ProfileDetails
 
 class CreateUserActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityCreateUserBinding
-    private var imageUrl : Uri? = null
-    private lateinit var databaseReference : DatabaseReference
+    private lateinit var mFireStore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setUpActionBar()
+        mFireStore = FirebaseFirestore.getInstance()
+        binding.signUpButton.setOnClickListener {
+            binding.progressBarButton.visibility = View.VISIBLE
+            registerUser()
+        }
+    }
 
-        binding.createSpinner.visibility = View.INVISIBLE
-
-        binding.createUserBtn.setOnClickListener {
-            val userName = binding.createUserNameTxt.text.toString()
-            val email = binding.createEmailTxt.text.toString()
-            val password = binding.createPasswordTxt.text.toString()
-
-            hideKeyboard()
-
-            if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() ) {
-                enableSpinner(true)
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val firrebaseUser: FirebaseUser = task.result!!.user!!
-
-                            Toast.makeText(
-                                this,
-                                "You are registered Successfully.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else {
-                            enableSpinner(false)
-                            Toast.makeText(
-                                this,
-                                task.exception!!.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+    private fun registerUser(){
+        val okCredentials = validateForm()
+        if(okCredentials.isBlank()){
+            val name = binding.userNameTextView.text.toString().trim{ it<=' '}
+            val email = binding.emailTextView.text.toString().trim{ it<=' '}.toLowerCase()
+            val password = binding.passwordTextView.text.toString().trim{ it<=' '}
+            FirebaseAuth.getInstance()
+                .createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        val firebaseUser: FirebaseUser = task.result!!.user!!
+                        val user = ProfileDetails(firebaseUser.uid, email, name)
+                        FireStoreClass().registerUser(this, user)
+                        Toast.makeText(this,"User Registered!!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, Drawer::class.java))
                     }
-                    .addOnFailureListener {
-                        enableSpinner(false)
-                        Toast.makeText(this, "Error Occured", Toast.LENGTH_SHORT).show()
+                    else{
+                        //hideProgressDialog()
+                        binding.progressBarButton.visibility = View.GONE
+                        showError(task.exception!!.message!!)
                     }
-
-            } else {
-                Toast.makeText(this, "All fields should be filled ", Toast.LENGTH_LONG).show()
-                enableSpinner(false)
-            }
+                }
+        }
+        else{
+            binding.progressBarButton.visibility = View.GONE
+            showError(okCredentials)
         }
     }
 
-
-    fun errorToast() {
-        Toast.makeText(this, "Something went wrong try again", Toast.LENGTH_LONG).show()
-        enableSpinner(false)
+    private fun validateForm(): String{
+        var lis: String = ""
+        if(binding.userNameTextView.text.toString().isEmpty())  lis = "Name"
+        else if(binding.emailTextView.text.toString().isEmpty())    lis = "Email"
+        else if(binding.passwordTextView.text.toString().isEmpty())     lis = "Password"
+        else if(binding.confirmPasswordTextView.text.toString().isEmpty())      lis = "Confirm Password"
+        else if(binding.confirmPasswordTextView.text.toString() != binding.passwordTextView.text.toString())
+            lis = "The Password Confirmation does not match."
+        return lis
     }
 
-    fun enableSpinner(enable: Boolean ){
-        val createuserbtn : Button = findViewById(R.id.createUserBtn)
+    fun userRegisteredSuccess(){
+        //hideProgressDialog()
+        startActivity(Intent(this, Drawer::class.java))
+        finish()
+    }
 
-        if ( enable ){
-            binding.createSpinner.visibility = View.VISIBLE
-        }else {
-            binding.createSpinner.visibility = View.INVISIBLE
+    private fun setUpActionBar() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+        setSupportActionBar(binding.customToolBar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Sign Up"
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
+        binding.customToolBar.setNavigationOnClickListener {
+            onBackPressed()
         }
-        createuserbtn.isEnabled = !enable
     }
 
-    fun getCurrentUUID() : String{
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        var currentUserId = ""
-        if ( currentUser != null ){
-            currentUserId = currentUser.uid
-        }
-        return currentUserId
+    fun showError(message: String){
+        val snackBar =
+            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        snackBarView.setBackgroundColor(
+            ContextCompat.getColor(
+                this@CreateUserActivity,
+                R.color.snackbarcolor
+            )
+        )
+        snackBar.show()
     }
-    fun hideKeyboard(){
-        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if ( inputManager.isAcceptingText ){
-            inputManager.hideSoftInputFromWindow(currentFocus!!.windowToken,0)
-        }
-    }
-
 }

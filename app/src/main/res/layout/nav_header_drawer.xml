@@ -2,25 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_header_height"
+    android:layout_height="200dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/side_nav_bar"
-    android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:gravity="bottom"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userImageNavHeader"
-        android:layout_width="70dp"
-        android:layout_height="72dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:layout_constraintBottom_toTopOf="@+id/loginButtonNavHeader"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/nav_content_margin_StartEnd"
+        android:layout_marginEnd="@dimen/nav_content_margin_StartEnd"
         android:src="@drawable/ic_user_holder"/>
 
     <TextView
@@ -28,33 +23,31 @@
         tools:text="Ritik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:textSize="18sp"
+        android:layout_marginStart="@dimen/nav_content_margin_StartEnd"
+        android:layout_marginEnd="@dimen/nav_content_margin_StartEnd"
         android:text="UserName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintStart_toEndOf="@+id/userImageNavHeader"
-        app:layout_constraintTop_toTopOf="@+id/userImageNavHeader" />
+        android:textStyle="bold"
+
+        />
 
     <TextView
         android:id="@+id/userEmailNavHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="GMail"
-        app:layout_constraintStart_toEndOf="@+id/userImageNavHeader"
-        app:layout_constraintTop_toBottomOf="@+id/userNameNavHeader"
+        android:text="Mail"
+        android:layout_marginStart="@dimen/nav_content_margin_StartEnd"
+        android:layout_marginEnd="@dimen/nav_content_margin_StartEnd"
         tools:text="ritikrawat2448@gmail.com" />
 
     <Button
-        android:id="@+id/loginButtonNavHeader"
+        android:id="@+id/logOutButton"
         android:layout_width="wrap_content"
-        android:layout_height="34dp"
+        android:layout_height="35dp"
         android:background="@android:color/transparent"
-        android:text="LOGIN"
-        android:textAlignment="textStart"
+        android:text="LogOut"
         android:textColor="@color/white"
         android:textSize="13sp"
-        android:layout_gravity="start"
         />
 
 </LinearLayout>
