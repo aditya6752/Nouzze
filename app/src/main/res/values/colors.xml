@@ -10,4 +10,5 @@
 
     <color name="purple_200">#023047</color>
     <color name="snackbarcolor">#cc2b5e</color>
+    <color name="splashScreenColor">#CFB1EE</color>
 </resources>

@@ -28,7 +28,6 @@ class FireStoreClass: AppCompatActivity() {
             }
     }
 
-
     fun loadUserData(activity: Activity){
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUUID())

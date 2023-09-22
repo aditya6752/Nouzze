@@ -18,7 +18,6 @@ import com.screentimex.nouzze.models.ScreenUsageData
 
 class Drawer : AppCompatActivity() {
     private lateinit var binding: ActivityDrawerBinding
-    private lateinit var mUserData: ProfileDetails
     companion object {
         const val MY_PROFILE_REQ_CODE = 101
     }
@@ -39,7 +38,6 @@ class Drawer : AppCompatActivity() {
             val intent = Intent(this@Drawer, ProfileActivity::class.java)
             startActivityForResult(intent, MY_PROFILE_REQ_CODE)
         }
-
         val testingAdapter = arrayListOf<ScreenUsageData>(
             ScreenUsageData(R.drawable.appicon.toString(), "Whatsapp", "1 Hour 30 Min"),
             ScreenUsageData(R.drawable.appicon.toString(), "Instagram", "30 Min")
@@ -79,7 +77,6 @@ class Drawer : AppCompatActivity() {
     }
 
     fun updateNavigationUserDetails(user: ProfileDetails){
-        mUserData = user
         Glide
             .with(this)
             .load(user.image)
