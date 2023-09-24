@@ -3,7 +3,6 @@ package com.screentimex.nouzze.Authentication
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -14,10 +13,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
+import com.screentimex.nouzze.Activities.Drawer
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityCreateUserBinding
-import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.ProfileDetails
 
 class CreateUserActivity : AppCompatActivity() {

@@ -7,10 +7,10 @@ import com.screentimex.nouzze.models.Product
 object DataService {
 
     val categories = listOf(
-        Category("SHIRTS" ,"shirts"),
-        Category("HOODIES" , "hoodie"),
-        Category("HATS", "hats"),
-        Category("BOTTLES", "bottle")
+        Category("SHIRTS" ,"Shirts"),
+        Category("HOODIES" , "Hoodie"),
+        Category("HATS", "Hats"),
+        Category("BOTTLES", "Bottle")
     )
 
     val Addressess = arrayListOf(
@@ -47,7 +47,7 @@ object DataService {
     )
 
     fun getProducts(category : String) : ArrayList<Product> {
-        return when (category ){ // we can also write return before each output ex : -> return shirts
+        return when (category){ // we can also write return before each output ex : -> return shirts
             "SHIRTS" -> shirts
             "HATS" -> hats
             "BOTTLES" -> bottles

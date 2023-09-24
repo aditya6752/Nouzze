@@ -5,11 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
-import com.google.api.Logging
-import com.screentimex.nouzze.Authentication.Drawer
 import com.screentimex.nouzze.Authentication.FireStoreClass
 import com.screentimex.nouzze.Authentication.LoginActivity
-import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivitySplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {

@@ -2,7 +2,6 @@ package com.screentimex.nouzze.Authentication
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,15 +11,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.screentimex.nouzze.Activities.MainActivity
-import com.screentimex.nouzze.Activities.ProfileActivity
+import com.screentimex.nouzze.Activities.Drawer
 import com.screentimex.nouzze.R
-import com.screentimex.nouzze.databinding.ActivityCreateUserBinding
 import com.screentimex.nouzze.databinding.ActivityLoginBinding
-import com.screentimex.nouzze.models.ProfileDetails
 
 class LoginActivity : AppCompatActivity() {
 

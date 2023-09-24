@@ -26,6 +26,8 @@ class AddAddress : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setUpActionBar()
         enableSpinner(false)
         binding.AddAddressButton.setOnClickListener {
             hideKeyboard()
@@ -40,8 +42,7 @@ class AddAddress : AppCompatActivity() {
             storeAddress()
         }else{
             enableSpinner(false)
-            Toast.makeText(this,"${okCredentials} Feild Empty ",Toast.LENGTH_SHORT).show()
-//            error(okCredentials)
+            showError(okCredentials)
         }
     }
 
@@ -109,10 +110,20 @@ class AddAddress : AppCompatActivity() {
         }
         return currentUserId
     }
-    fun hideKeyboard(){
+    private fun hideKeyboard(){
         val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         if ( inputManager.isAcceptingText ){
             inputManager.hideSoftInputFromWindow(currentFocus!!.windowToken,0)
+        }
+    }
+
+    private fun setUpActionBar() {
+        setSupportActionBar(binding.customToolBar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Add Address"
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
+        binding.customToolBar.setNavigationOnClickListener {
+            onBackPressed()
         }
     }
 }

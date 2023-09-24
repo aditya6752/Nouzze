@@ -1,14 +1,12 @@
 package com.screentimex.nouzze.Authentication
 
 import android.app.Activity
-import android.app.Application
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.screentimex.nouzze.Activities.Drawer
 import com.screentimex.nouzze.Activities.ProfileActivity
 import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.ProfileDetails

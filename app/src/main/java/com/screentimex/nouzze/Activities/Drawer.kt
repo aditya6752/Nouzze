@@ -1,4 +1,4 @@
-package com.screentimex.nouzze.Authentication
+package com.screentimex.nouzze.Activities
 
 import android.app.Activity
 import android.content.Intent
@@ -12,9 +12,9 @@ import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.screentimex.nouzze.Activities.ProfileActivity
-import com.screentimex.nouzze.Activities.StoreActivity
 import com.screentimex.nouzze.Adapters.UsageScreenRecyclerViewAdapter
+import com.screentimex.nouzze.Authentication.FireStoreClass
+import com.screentimex.nouzze.Authentication.LoginActivity
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityDrawerBinding
 import com.screentimex.nouzze.models.ProfileDetails
@@ -52,7 +52,18 @@ class Drawer : AppCompatActivity() {
         binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.adapter = mAdapter
 
 
-
+        // Recommend Friend, Settings, Help Button
+        binding.apply {
+            shareButton.setOnClickListener {
+                showToast("Share Button Working")
+            }
+            settingsButton.setOnClickListener {
+                showToast("Settings Button Working")
+            }
+            helpButton.setOnClickListener {
+                showToast("Help Button Working")
+            }
+        }
     }
 
     private fun setUpActionBar(){
@@ -74,7 +85,7 @@ class Drawer : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode== Activity.RESULT_OK && requestCode==MY_PROFILE_REQ_CODE){
+        if(resultCode== Activity.RESULT_OK && requestCode== MY_PROFILE_REQ_CODE){
             FireStoreClass().loadUserData(this)
             toggleDrawer()
         }
@@ -111,11 +122,14 @@ class Drawer : AppCompatActivity() {
         }
     }
 
+    private fun showToast(message: String) {
+        Toast.makeText(this@Drawer, message, Toast.LENGTH_LONG).show()
+    }
+
     fun signOut(){
         FirebaseAuth.getInstance().signOut()
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
-
 
 }

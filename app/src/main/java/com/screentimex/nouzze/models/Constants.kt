@@ -14,6 +14,7 @@ object Constants {
     const val APPICONIMAGE: String = "appIconImage"
     const val TIME: String = "appUsagetime"
     const val APPNAME: String = "appName"
+    const val PRODUCT_NAME: String = "productName"
 
     fun getFileExtension(activity: Activity, uri: Uri?): String?{
         return MimeTypeMap.getSingleton().

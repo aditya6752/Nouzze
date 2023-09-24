@@ -21,6 +21,7 @@ class Address : AppCompatActivity() {
         binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setUpActionBar()
         binding.addAddressButton.setOnClickListener {
             var intent = Intent(this,AddAddress::class.java)
             startActivity(intent)
@@ -33,5 +34,15 @@ class Address : AppCompatActivity() {
         var AddressAdapter = AddressAdapter(DataService.Addressess,this)
         AddressRecyclerView.adapter = AddressAdapter
 
+    }
+
+    private fun setUpActionBar() {
+        setSupportActionBar(binding.customToolBar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Address"
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
+        binding.customToolBar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 }
