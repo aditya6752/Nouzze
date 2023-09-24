@@ -40,8 +40,8 @@ class AddAddress : AppCompatActivity() {
             storeAddress()
         }else{
             enableSpinner(false)
-            Toast.makeText(this,"Error ${okCredentials}",Toast.LENGTH_SHORT).show()
-//            error("Ritik")
+            Toast.makeText(this,"${okCredentials} Feild Empty ",Toast.LENGTH_SHORT).show()
+//            error(okCredentials)
         }
     }
 
