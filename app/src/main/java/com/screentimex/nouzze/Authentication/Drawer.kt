@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.screentimex.nouzze.Activities.ProfileActivity
+import com.screentimex.nouzze.Activities.StoreActivity
 import com.screentimex.nouzze.Adapters.UsageScreenRecyclerViewAdapter
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityDrawerBinding
@@ -49,6 +50,9 @@ class Drawer : AppCompatActivity() {
             LinearLayoutManager(this@Drawer)
         val mAdapter = UsageScreenRecyclerViewAdapter(this, testingAdapter)
         binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.adapter = mAdapter
+
+
+
     }
 
     private fun setUpActionBar(){
@@ -98,7 +102,9 @@ class Drawer : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_icon -> {
-                Toast.makeText(this@Drawer, "Shop Working!!", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@Drawer, "Shop Working!!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this,StoreActivity::class.java)
+                startActivity(intent)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

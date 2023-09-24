@@ -1,5 +1,6 @@
 package com.screentimex.nouzze.Authentication
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -32,10 +33,12 @@ class LoginActivity : AppCompatActivity() {
         setUpActionBar()
 
         binding.loginButton.setOnClickListener {
+            hideKeyboard()
             binding.progressBarButton.visibility = View.VISIBLE
             signInAuth()
         }
         binding.signUpButton.setOnClickListener {
+            hideKeyboard()
             val intent = Intent(this@LoginActivity, CreateUserActivity::class.java)
             startActivity(intent)
         }
@@ -103,5 +106,11 @@ class LoginActivity : AppCompatActivity() {
             )
         )
         snackBar.show()
+    }
+    fun hideKeyboard(){
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if ( inputManager.isAcceptingText ){
+            inputManager.hideSoftInputFromWindow(currentFocus!!.windowToken,0)
+        }
     }
 }

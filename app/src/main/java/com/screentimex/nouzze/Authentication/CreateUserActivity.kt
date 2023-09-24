@@ -1,10 +1,12 @@
 package com.screentimex.nouzze.Authentication
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -30,6 +32,7 @@ class CreateUserActivity : AppCompatActivity() {
         setUpActionBar()
         mFireStore = FirebaseFirestore.getInstance()
         binding.signUpButton.setOnClickListener {
+            hideKeyboard()
             binding.progressBarButton.visibility = View.VISIBLE
             registerUser()
         }
@@ -105,5 +108,11 @@ class CreateUserActivity : AppCompatActivity() {
             )
         )
         snackBar.show()
+    }
+    fun hideKeyboard(){
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if ( inputManager.isAcceptingText ){
+            inputManager.hideSoftInputFromWindow(currentFocus!!.windowToken,0)
+        }
     }
 }

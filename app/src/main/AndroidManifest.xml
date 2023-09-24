@@ -38,6 +38,22 @@
             android:theme="@style/Theme.Nouzze.NoActionBar">
         </activity>
         <activity
+            android:name=".Activities.Address"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".Activities.Products"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".Activities.AddAddress"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".Activities.StoreActivity"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".Authentication.Drawer"
             android:exported="false"
             android:label="@string/title_activity_drawer"
