@@ -27,7 +27,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/AddAddressButton"
+            app:layout_constraintBottom_toTopOf="@id/addOrUpdateAddressButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:orientation="vertical">
@@ -44,7 +44,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Buyer_Name"
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Name" />
@@ -59,7 +59,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/Buyer_Name">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Mobile_Number"
+                    android:id="@+id/mobile_Number"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,10 +72,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_margin="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Mobile_Number">
+                app:layout_constraintTop_toBottomOf="@+id/mobile_Number">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Flat_Number"
+                    android:id="@+id/flat_Number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Flat,House no.,Building,Company,Apartment" />
@@ -87,10 +87,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_margin="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Flat_Number">
+                app:layout_constraintTop_toBottomOf="@+id/flat_Number">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Area"
+                    android:id="@+id/area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Area,Street,Sector,Village" />
@@ -102,10 +102,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_margin="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Area">
+                app:layout_constraintTop_toBottomOf="@+id/area">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Landmark"
+                    android:id="@+id/landmark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Landmark" />
@@ -117,10 +117,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_margin="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Landmark">
+                app:layout_constraintTop_toBottomOf="@+id/landmark">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Pincode"
+                    android:id="@+id/pincode"
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -133,10 +133,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_margin="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Pincode">
+                app:layout_constraintTop_toBottomOf="@+id/pincode">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/City"
+                    android:id="@+id/city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Town/City" />
@@ -151,17 +151,17 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="20dp"
-                app:layout_constraintTop_toBottomOf="@+id/City">
+                app:layout_constraintTop_toBottomOf="@+id/city">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/State"
+                    android:id="@+id/state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="State" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/AddAddressButton"
+                android:id="@+id/addOrUpdateAddressButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add Address"

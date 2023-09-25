@@ -12,7 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.screentimex.nouzze.Authentication.FireStoreClass
+import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityProfileBinding
 import com.screentimex.nouzze.models.Constants

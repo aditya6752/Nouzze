@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.screentimex.nouzze.Adapters.UsageScreenRecyclerViewAdapter
-import com.screentimex.nouzze.Authentication.FireStoreClass
-import com.screentimex.nouzze.Authentication.LoginActivity
+import com.screentimex.nouzze.Firebase.FireStoreClass
+import com.screentimex.nouzze.Firebase.SignInActivity
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityDrawerBinding
 import com.screentimex.nouzze.models.ProfileDetails
@@ -128,7 +128,7 @@ class Drawer : AppCompatActivity() {
 
     fun signOut(){
         FirebaseAuth.getInstance().signOut()
-        startActivity(Intent(this, LoginActivity::class.java))
+        startActivity(Intent(this, SignInActivity::class.java))
         finish()
     }
 

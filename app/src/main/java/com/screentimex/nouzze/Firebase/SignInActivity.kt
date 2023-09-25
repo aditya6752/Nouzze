@@ -1,4 +1,4 @@
-package com.screentimex.nouzze.Authentication
+package com.screentimex.nouzze.Firebase
 
 import android.content.Context
 import android.content.Intent
@@ -15,7 +15,7 @@ import com.screentimex.nouzze.Activities.Drawer
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityLoginBinding
 
-class LoginActivity : AppCompatActivity() {
+class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityLoginBinding
 
@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.signUpButton.setOnClickListener {
             hideKeyboard()
-            val intent = Intent(this@LoginActivity, CreateUserActivity::class.java)
+            val intent = Intent(this@SignInActivity, SignUpActivity::class.java)
             startActivity(intent)
         }
     }
@@ -70,8 +70,8 @@ class LoginActivity : AppCompatActivity() {
     fun signInSuccess(){
         //hideProgressDialog()
         binding.progressBarButton.visibility = View.GONE
-        Toast.makeText(this@LoginActivity, ":Login Success!!",Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this@LoginActivity, Drawer::class.java))
+        Toast.makeText(this@SignInActivity, ":Login Success!!",Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this@SignInActivity, Drawer::class.java))
         finish()
     }
     private fun setUpActionBar() {
@@ -94,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
         val snackBarView = snackBar.view
         snackBarView.setBackgroundColor(
             ContextCompat.getColor(
-                this@LoginActivity,
+                this@SignInActivity,
                 R.color.snackbarcolor
             )
         )

@@ -29,11 +29,11 @@
             android:exported="false"
             android:theme="@style/Theme.Nouzze.NoActionBar" />
         <activity
-            android:name=".Authentication.CreateUserActivity"
+            android:name=".Firebase.SignUpActivity"
             android:exported="false"
             android:theme="@style/Theme.Nouzze.NoActionBar" />
         <activity
-            android:name=".Authentication.LoginActivity"
+            android:name=".Firebase.SignInActivity"
             android:exported="false"
             android:theme="@style/Theme.Nouzze.NoActionBar">
         </activity>

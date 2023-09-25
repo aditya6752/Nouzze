@@ -1,4 +1,4 @@
-package com.screentimex.nouzze.Authentication
+package com.screentimex.nouzze.Firebase
 
 import android.content.Context
 import android.content.Intent
@@ -18,7 +18,7 @@ import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityCreateUserBinding
 import com.screentimex.nouzze.models.ProfileDetails
 
-class CreateUserActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityCreateUserBinding
     private lateinit var mFireStore: FirebaseFirestore
@@ -34,6 +34,7 @@ class CreateUserActivity : AppCompatActivity() {
             binding.progressBarButton.visibility = View.VISIBLE
             registerUser()
         }
+
     }
 
     private fun registerUser(){
@@ -101,7 +102,7 @@ class CreateUserActivity : AppCompatActivity() {
         val snackBarView = snackBar.view
         snackBarView.setBackgroundColor(
             ContextCompat.getColor(
-                this@CreateUserActivity,
+                this@SignUpActivity,
                 R.color.snackbarcolor
             )
         )

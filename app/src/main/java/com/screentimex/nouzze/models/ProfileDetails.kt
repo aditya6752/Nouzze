@@ -8,14 +8,16 @@ data class ProfileDetails(
     var email : String = "",
     var name : String = "",
     var image: String = "",
-    var phoneNumber: Long = 0
+    var phoneNumber: Long = 0,
+    var addressDetails: AddressDetails = AddressDetails()
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readLong()
+        parcel.readLong(),
+        parcel.readParcelable(AddressDetails::class.java.classLoader)!!
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -24,6 +26,7 @@ data class ProfileDetails(
         parcel.writeString(name)
         parcel.writeString(image)
         parcel.writeLong(phoneNumber)
+        parcel.writeParcelable(addressDetails, flags)
     }
 
     override fun describeContents(): Int {

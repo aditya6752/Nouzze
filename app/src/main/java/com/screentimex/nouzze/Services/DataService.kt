@@ -1,6 +1,6 @@
 package com.example.test.Services
 
-import com.screentimex.nouzze.models.Address
+import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Category
 import com.screentimex.nouzze.models.Product
 
@@ -13,8 +13,8 @@ object DataService {
         Category("BOTTLES", "Bottle")
     )
 
-    val Addressess = arrayListOf(
-        Address("Ritik Rawat","9999999999","183-B","Mayur Vihar Ph-3","Ghazipur Famous Hills"
+    val Addressesses = arrayListOf(
+        AddressDetails("Ritik Rawat","9999999999","183-B","Mayur Vihar Ph-3","Ghazipur Famous Hills"
         ,"110096","East Delhi","Delhi")
     )
 

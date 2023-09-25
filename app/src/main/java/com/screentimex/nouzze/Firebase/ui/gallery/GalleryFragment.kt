@@ -1,4 +1,4 @@
-package com.screentimex.nouzze.Authentication.ui.gallery
+package com.screentimex.nouzze.Firebase.ui.gallery
 
 import android.os.Bundle
 import android.view.LayoutInflater

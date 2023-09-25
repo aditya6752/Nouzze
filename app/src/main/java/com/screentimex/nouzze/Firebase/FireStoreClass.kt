@@ -1,20 +1,24 @@
-package com.screentimex.nouzze.Authentication
+package com.screentimex.nouzze.Firebase
 
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.screentimex.nouzze.Activities.AddAddress
+import com.screentimex.nouzze.Activities.Address
 import com.screentimex.nouzze.Activities.Drawer
 import com.screentimex.nouzze.Activities.ProfileActivity
+import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.ProfileDetails
 
 class FireStoreClass: AppCompatActivity() {
     private val mFireStore = FirebaseFirestore.getInstance()
 
-    fun registerUser(activity: CreateUserActivity, userInfo: ProfileDetails){
+    fun registerUser(activity: SignUpActivity, userInfo: ProfileDetails){
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUUID())
             .set(userInfo, SetOptions.merge()).addOnSuccessListener {
@@ -63,6 +67,46 @@ class FireStoreClass: AppCompatActivity() {
                 Log.e(activity.javaClass.simpleName,"dataanayltic", e)
             }
     }
+
+    fun addOrUpdateAddress(activity: AddAddress, addressDetails: AddressDetails) {
+        mFireStore.collection(Constants.ADDRESS)
+            .document(getCurrentUUID())
+            .set(addressDetails, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.addressAddedSuccessfully()
+            }.addOnFailureListener {
+                exception ->
+                Toast.makeText(activity, exception.toString(), Toast.LENGTH_LONG).show()
+                activity.finish()
+            }
+    }
+
+    fun getAddress(activity: Activity) {
+        mFireStore.collection(Constants.ADDRESS)
+            .document(getCurrentUUID())
+            .get()
+            .addOnSuccessListener { document ->
+                if(document.exists()) {
+                    val address = document.toObject(AddressDetails::class.java)
+                    if(activity is Address) {
+                        activity.getAddressFromDatabase(address!!)
+                    }
+                    else if(activity is AddAddress) {
+                        activity.populateActivity(address!!)
+                    }
+                } else {
+                    if(activity is Address) {
+                        activity.noAddressSaved()
+                    }
+                    else if(activity is AddAddress) {
+                        activity.noAddressInDatabase()
+                    }
+                }
+            }.addOnFailureListener { exception ->
+                Toast.makeText(activity, exception.toString(), Toast.LENGTH_LONG).show()
+            }
+    }
+
     fun getCurrentUUID(): String{
         val currentUser = FirebaseAuth.getInstance().currentUser
         var currentUserId = ""

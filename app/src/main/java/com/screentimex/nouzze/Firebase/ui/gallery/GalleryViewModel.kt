@@ -1,4 +1,4 @@
-package com.screentimex.nouzze.Authentication.ui.gallery
+package com.screentimex.nouzze.Firebase.ui.gallery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

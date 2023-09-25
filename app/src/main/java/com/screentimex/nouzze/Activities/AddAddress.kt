@@ -4,24 +4,20 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
-import com.google.firebase.ktx.Firebase
+import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityAddAddressBinding
-import com.screentimex.nouzze.models.Address
-import com.screentimex.nouzze.models.ProfileDetails
+import com.screentimex.nouzze.models.AddressDetails
+import com.screentimex.nouzze.models.Constants
 
 class AddAddress : AppCompatActivity() {
-
-    lateinit var binding : ActivityAddAddressBinding
+    private lateinit var binding : ActivityAddAddressBinding
+    private lateinit var currentSavedAddressDetails: AddressDetails
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddAddressBinding.inflate(layoutInflater)
@@ -29,14 +25,15 @@ class AddAddress : AppCompatActivity() {
 
         setUpActionBar()
         enableSpinner(false)
-        binding.AddAddressButton.setOnClickListener {
+        FireStoreClass().getAddress(this@AddAddress)
+        binding.addOrUpdateAddressButton.setOnClickListener {
             hideKeyboard()
             enableSpinner(true)
-            addAddressToDatabase()
+            addOrUpdateAddressToDatabase()
         }
     }
 
-    private fun addAddressToDatabase(){
+    private fun addOrUpdateAddressToDatabase(){
         val okCredentials = validateForm()
         if ( okCredentials.isBlank() ){
             storeAddress()
@@ -48,37 +45,52 @@ class AddAddress : AppCompatActivity() {
 
     private fun storeAddress() {
         enableSpinner(false)
-        val intent = Intent(this,com.screentimex.nouzze.Activities.Address::class.java)
+        val addressDetails = AddressDetails(
+            binding.name.text.toString(),
+            binding.mobileNumber.text.toString(),
+            binding.flatNumber.text.toString(),
+            binding.area.text.toString(),
+            binding.landmark.text.toString(),
+            binding.pincode.text.toString(),
+            binding.city.text.toString(),
+            binding.state.text.toString()
+        )
+        currentSavedAddressDetails = addressDetails
+        FireStoreClass().addOrUpdateAddress(this@AddAddress, addressDetails)
+    }
+
+    fun addressAddedSuccessfully() {
+        binding.addOrUpdateAddressButton.text = "Update Address"
+        val intent = Intent(this@AddAddress, Address::class.java)
+        intent.putExtra(Constants.ADDRESS, currentSavedAddressDetails)
         startActivity(intent)
-//        val name = ""
-//        val mobile = ""
-//        val flat = ""
-//        val area = ""
-//        val lanmark = ""
-//        val pincoe = ""
-//        val city = ""
-//        val state = ""
-//        val userInfo = Address()
-//        FirebaseFirestore.getInstance().collection("Address Information")
-//            .document(getCurrentUUID())
-//            .set(userInfo, SetOptions.merge()).addOnSuccessListener {
-//                Log.e("MyTag", "Register")
-//            }.addOnFailureListener {
-//                    _ ->
-//                Log.e("FireStoreClassSignUp","Error")
-//            }
+    }
+
+    fun populateActivity(addressDetails: AddressDetails) {
+        binding.name.setText(addressDetails.Name)
+        binding.mobileNumber.setText(addressDetails.Mobile_Number)
+        binding.flatNumber.setText(addressDetails.Flat_Number)
+        binding.area.setText(addressDetails.Area)
+        binding.landmark.setText(addressDetails.Landmark)
+        binding.pincode.setText(addressDetails.Pincode)
+        binding.city.setText(addressDetails.City)
+        binding.state.setText(addressDetails.State)
+        binding.addOrUpdateAddressButton.text = "Update Address"
+    }
+    fun noAddressInDatabase() {
+        binding.addOrUpdateAddressButton.text = "Add Address"
     }
 
     private fun validateForm(): String{
         var lis : String = ""
-        if(binding.BuyerName.text.toString().isEmpty())  lis = "Name"
-        else if(binding.MobileNumber.text.toString().isEmpty())    lis = "Mobile Number "
-        else if(binding.FlatNumber.text.toString().isEmpty())     lis = "Flat Number"
-        else if(binding.Area.text.toString().isEmpty())      lis = "Area"
-        else if(binding.Landmark.text.toString().isEmpty() ) lis = "Landmark"
-        else if (binding.Pincode.text.toString().isEmpty()) lis = "Pincode"
-        else if(binding.City.text.toString().isEmpty()) lis = "City"
-        else if(binding.State.text.toString().isEmpty()) lis = "State"
+        if(binding.name.text.toString().isEmpty())  lis = "Name"
+        else if(binding.mobileNumber.text.toString().isEmpty())    lis = "Mobile Number "
+        else if(binding.flatNumber.text.toString().isEmpty())     lis = "Flat Number"
+        else if(binding.area.text.toString().isEmpty())      lis = "Area"
+        else if(binding.landmark.text.toString().isEmpty() ) lis = "Landmark"
+        else if (binding.pincode.text.toString().isEmpty()) lis = "Pincode"
+        else if(binding.city.text.toString().isEmpty()) lis = "City"
+        else if(binding.state.text.toString().isEmpty()) lis = "State"
         return lis
     }
     fun showError(message: String){
@@ -100,7 +112,7 @@ class AddAddress : AppCompatActivity() {
         }else{
             binding.createSpinner.visibility = View.INVISIBLE
         }
-        binding.AddAddressButton.isEnabled = !enable
+        binding.addOrUpdateAddressButton.isEnabled = !enable
     }
     fun getCurrentUUID(): String{
         val currentUser = FirebaseAuth.getInstance().currentUser

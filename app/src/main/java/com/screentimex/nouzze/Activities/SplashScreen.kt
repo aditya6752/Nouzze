@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
-import com.screentimex.nouzze.Authentication.FireStoreClass
-import com.screentimex.nouzze.Authentication.LoginActivity
+import com.screentimex.nouzze.Firebase.FireStoreClass
+import com.screentimex.nouzze.Firebase.SignInActivity
 import com.screentimex.nouzze.databinding.ActivitySplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {
@@ -28,7 +28,7 @@ class SplashScreen : AppCompatActivity() {
                 startActivity(intent)
             }
             else{
-                val intent = Intent(this@SplashScreen, LoginActivity::class.java)
+                val intent = Intent(this@SplashScreen, SignInActivity::class.java)
                 startActivity(intent)
             }
             finish()

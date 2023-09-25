@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.screentimex.nouzze.models.Address
+import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.R
 
-class AddressAdapter(var AddressList : ArrayList<Address>, val context : Activity) : RecyclerView.Adapter<AddressAdapter.AddressViewModel>() {
+class AddressAdapter(var addressDetailsList : ArrayList<AddressDetails>, val context : Activity) : RecyclerView.Adapter<AddressAdapter.AddressViewModel>() {
     inner class AddressViewModel (itemView  : View) : RecyclerView.ViewHolder(itemView) {
         var Name = itemView.findViewById<TextView>(R.id.User_Name)
         var Area = itemView.findViewById<TextView>(R.id.User_Area_FlatNumber)
@@ -23,11 +23,11 @@ class AddressAdapter(var AddressList : ArrayList<Address>, val context : Activit
     }
 
     override fun getItemCount(): Int {
-        return AddressList.count()
+        return addressDetailsList.count()
     }
 
     override fun onBindViewHolder(holder: AddressViewModel, position: Int) {
-        var current_Item = AddressList[position]
+        var current_Item = addressDetailsList[position]
         holder.Name.text = current_Item.Name
         holder.Area.text = "${current_Item.Flat_Number} / ${current_Item.Area} /${current_Item.Landmark}"
         holder.City.text = "${current_Item.City} / ${current_Item.State} / ${current_Item.Pincode}"
