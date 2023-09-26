@@ -64,7 +64,6 @@ class AddAddress : AppCompatActivity() {
     fun addressAddedUpdateSuccessfully() {
         binding.addOrUpdateAddressButton.text = "Update Address"
         val intent = Intent(this@AddAddress, Address::class.java)
-        intent.putExtra(Constants.ADDRESS, currentSavedAddressDetails)
         startActivity(intent)
     }
 

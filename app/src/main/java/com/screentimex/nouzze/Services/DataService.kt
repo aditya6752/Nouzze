@@ -2,7 +2,7 @@ package com.example.test.Services
 
 import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Category
-import com.screentimex.nouzze.models.Product
+import com.screentimex.nouzze.models.ProductDetails
 
 object DataService {
 
@@ -19,34 +19,34 @@ object DataService {
     )
 
     val shirts = arrayListOf(
-        Product("White Shirt" , "$30",  "shirts" ),
-        Product("SLopes Light Grey" , "$20","shirt2"),
-        Product("SLopes Red" , "$32", "shirt3"),
-        Product("SLopes Hustle","$29","shirt4")
+        ProductDetails("White Shirt" , "$30",  "shirts" ),
+        ProductDetails("SLopes Light Grey" , "$20","shirt2"),
+        ProductDetails("SLopes Red" , "$32", "shirt3"),
+        ProductDetails("SLopes Hustle","$29","shirt4")
     )
 
     val hoodies = arrayListOf (
-        Product("Black Hoodie" , "$28",  "hoodie" ),
-        Product("SLopes Red" , "$20","hoodie2"),
-        Product("SLopes Gray" , "$22", "hoodie3"),
-        Product("SLopes Black","$34","hoodie4")
+        ProductDetails("Black Hoodie" , "$28",  "hoodie" ),
+        ProductDetails("SLopes Red" , "$20","hoodie2"),
+        ProductDetails("SLopes Gray" , "$22", "hoodie3"),
+        ProductDetails("SLopes Black","$34","hoodie4")
     )
 
     val hats = arrayListOf(
-        Product("Classic Hat" , "$18",  "hats" ),
-        Product("Black Slopes" , "$20","hat2"),
-        Product("White Slopes" , "$22", "hat3"),
-        Product("SLopes Snapback","$24","hat4")
+        ProductDetails("Classic Hat" , "$18",  "hats" ),
+        ProductDetails("Black Slopes" , "$20","hat2"),
+        ProductDetails("White Slopes" , "$22", "hat3"),
+        ProductDetails("SLopes Snapback","$24","hat4")
     )
 
     val bottles = arrayListOf(
-        Product("Green Bottle" , "$18",  "bottle" ),
-        Product("Black Slopes" , "$20","hat2"),
-        Product("White Slopes" , "$22", "hat3"),
-        Product("SLopes Snapback","$24","hat4")
+        ProductDetails("Green Bottle" , "$18",  "bottle" ),
+        ProductDetails("Black Slopes" , "$20","hat2"),
+        ProductDetails("White Slopes" , "$22", "hat3"),
+        ProductDetails("SLopes Snapback","$24","hat4")
     )
 
-    fun getProducts(category : String) : ArrayList<Product> {
+    fun getProducts(category : String) : ArrayList<ProductDetails> {
         return when (category){ // we can also write return before each output ex : -> return shirts
             "SHIRTS" -> shirts
             "HATS" -> hats

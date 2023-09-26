@@ -6,19 +6,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.test.Services.DataService
 import com.screentimex.nouzze.Adapters.AddressAdapter
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityAddressBinding
 import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Constants
+import com.screentimex.nouzze.models.ProductDetails
 
 class Address : AppCompatActivity() {
 
     lateinit var binding : ActivityAddressBinding
     lateinit var AddressRecyclerView : RecyclerView
-
+    lateinit var productDetails : ProductDetails
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +26,17 @@ class Address : AppCompatActivity() {
         setContentView(binding.root)
         setUpActionBar()
 
+        productDetails = intent.getParcelableExtra<ProductDetails>(Constants.PRODUCTDETAILS)!!
+
         FireStoreClass().getAddress(this@Address)
 
         binding.addOrUpdateAddressButton.setOnClickListener {
             startActivity(Intent(this@Address, AddAddress::class.java))
+        }
+        binding.proceedToBuy.setOnClickListener {
+            val intent = Intent(this,CheckOut::class.java)
+            intent.putExtra(Constants.PRODUCTDETAILS,productDetails)
+            startActivity(intent)
         }
     }
 

@@ -3,23 +3,19 @@ package com.screentimex.nouzze.Activities
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test.Services.DataService
 import com.screentimex.nouzze.Adapters.ProductAdapter
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityProductsBinding
-import com.screentimex.nouzze.databinding.ActivityProfileBinding
 import com.screentimex.nouzze.models.Constants
-import com.screentimex.nouzze.models.Product
-import java.util.Locale
+import com.screentimex.nouzze.models.ProductDetails
 
 class Products : AppCompatActivity() {
 
     lateinit var myRecyclerView: RecyclerView
-    lateinit var productList : ArrayList<Product>
+    lateinit var productDetailsList : ArrayList<ProductDetails>
 
     private lateinit var binding: ActivityProductsBinding
     private lateinit var productName: String
@@ -50,8 +46,8 @@ class Products : AppCompatActivity() {
 
         val layoutManager = GridLayoutManager(this , spanCount)
         myRecyclerView.layoutManager = layoutManager
-        productList = DataService.getProducts(productName)
-        myRecyclerView.adapter = ProductAdapter(productList,this@Products)
+        productDetailsList = DataService.getProducts(productName)
+        myRecyclerView.adapter = ProductAdapter(productDetailsList,this@Products)
 
     }
 

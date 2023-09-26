@@ -35,8 +35,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add a new address"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/proceed_to_buy"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -48,4 +49,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customToolBar"
         />
+
+    <Button
+        android:id="@+id/proceed_to_buy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Proceed To Buy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
