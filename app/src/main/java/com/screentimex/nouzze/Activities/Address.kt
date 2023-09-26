@@ -25,39 +25,43 @@ class Address : AppCompatActivity() {
         binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpActionBar()
+
         FireStoreClass().getAddress(this@Address)
+
         binding.addOrUpdateAddressButton.setOnClickListener {
             startActivity(Intent(this@Address, AddAddress::class.java))
         }
     }
 
+    // default address present in firebase -> update recycler view and Billing Button - Update Address
     fun getAddressFromDatabase(addressDetails: AddressDetails) {
         binding.apply {
-            YourAddress.visibility = View.VISIBLE
             AddressRecyclerView.visibility = View.VISIBLE
             noAddressTestView.visibility = View.GONE
+            // todo billing address button functionality change
         }
         binding.addOrUpdateAddressButton.text = "Update Address"
         setUpRecyclerView(addressDetails)
     }
 
+    // No address saved -> Billing button unClickable - Add Address
     fun noAddressSaved() {
         binding.apply {
-            YourAddress.visibility = View.GONE
             AddressRecyclerView.visibility = View.GONE
             noAddressTestView.visibility = View.VISIBLE
+            // todo billing address button functionality change
         }
     }
     private fun setUpRecyclerView(addressDetails: AddressDetails) {
         AddressRecyclerView = findViewById(R.id.Address_RecyclerView)
         AddressRecyclerView.layoutManager = LinearLayoutManager(this)
-        var AddressAdapter = AddressAdapter(arrayListOf(addressDetails),this)
+        val AddressAdapter = AddressAdapter(arrayListOf(addressDetails),this)
         AddressRecyclerView.adapter = AddressAdapter
     }
     private fun setUpActionBar() {
         setSupportActionBar(binding.customToolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Address"
+        supportActionBar?.title = "Saved Address"
         supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
         binding.customToolBar.setNavigationOnClickListener {
             onBackPressed()

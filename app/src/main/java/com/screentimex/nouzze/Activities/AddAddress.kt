@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.ActionBar
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -59,13 +60,15 @@ class AddAddress : AppCompatActivity() {
         FireStoreClass().addOrUpdateAddress(this@AddAddress, addressDetails)
     }
 
-    fun addressAddedSuccessfully() {
+    // add or update successfully
+    fun addressAddedUpdateSuccessfully() {
         binding.addOrUpdateAddressButton.text = "Update Address"
         val intent = Intent(this@AddAddress, Address::class.java)
         intent.putExtra(Constants.ADDRESS, currentSavedAddressDetails)
         startActivity(intent)
     }
 
+    // address already in firebase
     fun populateActivity(addressDetails: AddressDetails) {
         binding.name.setText(addressDetails.Name)
         binding.mobileNumber.setText(addressDetails.Mobile_Number)
@@ -77,6 +80,7 @@ class AddAddress : AppCompatActivity() {
         binding.state.setText(addressDetails.State)
         binding.addOrUpdateAddressButton.text = "Update Address"
     }
+    // no default address added to firebase
     fun noAddressInDatabase() {
         binding.addOrUpdateAddressButton.text = "Add Address"
     }

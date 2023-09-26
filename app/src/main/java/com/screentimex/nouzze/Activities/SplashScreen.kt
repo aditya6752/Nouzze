@@ -24,7 +24,7 @@ class SplashScreen : AppCompatActivity() {
         Handler().postDelayed({
             val currentUserId = FireStoreClass().getCurrentUUID()
             if(currentUserId.isNotEmpty()){
-                val intent = Intent(this@SplashScreen, Drawer::class.java)
+                val intent = Intent(this@SplashScreen, MainActivity::class.java)
                 startActivity(intent)
             }
             else{

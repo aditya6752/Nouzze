@@ -30,19 +30,6 @@
         android:gravity="center"
         />
 
-    <TextView
-        android:id="@+id/Your_Address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Your Addresses"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/customToolBar" />
-
     <Button
         android:id="@+id/addOrUpdateAddressButton"
         android:layout_width="match_parent"
@@ -59,6 +46,6 @@
         android:layout_margin="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Your_Address"
+        app:layout_constraintTop_toBottomOf="@+id/customToolBar"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

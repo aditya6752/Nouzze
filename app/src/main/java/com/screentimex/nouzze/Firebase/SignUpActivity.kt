@@ -13,7 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.screentimex.nouzze.Activities.Drawer
+import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityCreateUserBinding
 import com.screentimex.nouzze.models.ProfileDetails
@@ -50,7 +50,7 @@ class SignUpActivity : AppCompatActivity() {
                         val user = ProfileDetails(firebaseUser.uid, email, name)
                         FireStoreClass().registerUser(this, user)
                         Toast.makeText(this,"User Registered!!", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, Drawer::class.java))
+                        startActivity(Intent(this, MainActivity::class.java))
                     }
                     else{
                         //hideProgressDialog()
@@ -78,7 +78,7 @@ class SignUpActivity : AppCompatActivity() {
 
     fun userRegisteredSuccess(){
         //hideProgressDialog()
-        startActivity(Intent(this, Drawer::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 

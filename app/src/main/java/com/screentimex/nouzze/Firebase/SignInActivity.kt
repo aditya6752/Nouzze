@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.screentimex.nouzze.Activities.Drawer
+import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityLoginBinding
 
@@ -71,7 +71,7 @@ class SignInActivity : AppCompatActivity() {
         //hideProgressDialog()
         binding.progressBarButton.visibility = View.GONE
         Toast.makeText(this@SignInActivity, ":Login Success!!",Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this@SignInActivity, Drawer::class.java))
+        startActivity(Intent(this@SignInActivity, MainActivity::class.java))
         finish()
     }
     private fun setUpActionBar() {

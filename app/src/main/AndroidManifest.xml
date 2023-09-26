@@ -61,12 +61,12 @@
             android:theme="@style/Theme.Nouzze.NoActionBar">
         </activity>
         <activity
-            android:name=".Activities.Drawer"
+            android:name=".Activities.MainActivity"
             android:exported="false"
             android:label="@string/title_activity_drawer"
             android:theme="@style/Theme.Nouzze.NoActionBar"/>
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.IntroActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

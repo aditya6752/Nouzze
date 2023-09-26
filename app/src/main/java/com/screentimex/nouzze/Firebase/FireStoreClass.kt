@@ -9,7 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.screentimex.nouzze.Activities.AddAddress
 import com.screentimex.nouzze.Activities.Address
-import com.screentimex.nouzze.Activities.Drawer
+import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.Activities.ProfileActivity
 import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Constants
@@ -38,7 +38,7 @@ class FireStoreClass: AppCompatActivity() {
                 val loggedInUser = document.toObject(ProfileDetails::class.java)
                 if(loggedInUser!=null){
                     when(activity){
-                        is Drawer -> {
+                        is MainActivity -> {
                             Log.i("YourTag", "Check")
                             activity.updateNavigationUserDetails(loggedInUser)
                         }
@@ -73,7 +73,7 @@ class FireStoreClass: AppCompatActivity() {
             .document(getCurrentUUID())
             .set(addressDetails, SetOptions.merge())
             .addOnSuccessListener {
-                activity.addressAddedSuccessfully()
+                activity.addressAddedUpdateSuccessfully()
             }.addOnFailureListener {
                 exception ->
                 Toast.makeText(activity, exception.toString(), Toast.LENGTH_LONG).show()
