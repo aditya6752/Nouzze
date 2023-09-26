@@ -19,13 +19,8 @@
             android:exported="false" />
         <activity
             android:name=".Activities.SplashScreen"
-            android:exported="true"
+            android:exported="false"
             android:theme="@style/Theme.Nouzze.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.ProfileActivity"
@@ -62,10 +57,16 @@
             android:theme="@style/Theme.Nouzze.NoActionBar" />
         <activity
             android:name=".Activities.IntroActivity"
-            android:exported="false">
+            android:exported="true"
+            android:theme="@style/Theme.Nouzze.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
