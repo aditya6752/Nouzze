@@ -26,7 +26,9 @@ class Address : AppCompatActivity() {
         setContentView(binding.root)
         setUpActionBar()
 
-        productDetails = intent.getParcelableExtra<ProductDetails>(Constants.PRODUCTDETAILS)!!
+        if ( intent.hasExtra(Constants.PRODUCTDETAILS)) {
+            productDetails = intent.getParcelableExtra<ProductDetails>(Constants.PRODUCTDETAILS)!!
+        }
 
         FireStoreClass().getAddress(this@Address)
 
@@ -45,7 +47,7 @@ class Address : AppCompatActivity() {
         binding.apply {
             AddressRecyclerView.visibility = View.VISIBLE
             noAddressTestView.visibility = View.GONE
-            // todo billing address button functionality change
+            binding.proceedToBuy.isEnabled = true
         }
         binding.addOrUpdateAddressButton.text = "Update Address"
         setUpRecyclerView(addressDetails)
@@ -56,7 +58,7 @@ class Address : AppCompatActivity() {
         binding.apply {
             AddressRecyclerView.visibility = View.GONE
             noAddressTestView.visibility = View.VISIBLE
-            // todo billing address button functionality change
+            binding.proceedToBuy.isEnabled = false
         }
     }
     private fun setUpRecyclerView(addressDetails: AddressDetails) {
