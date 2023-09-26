@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.screentimex.nouzze.Activities.AddAddress
 import com.screentimex.nouzze.Activities.Address
+import com.screentimex.nouzze.Activities.CheckOut
 import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.Activities.ProfileActivity
 import com.screentimex.nouzze.models.AddressDetails
@@ -44,6 +45,9 @@ class FireStoreClass: AppCompatActivity() {
                         }
                         is ProfileActivity -> {
                             activity.getUserDataForProfile(loggedInUser)
+                        }
+                        is CheckOut -> {
+                            activity.getUserData(loggedInUser)
                         }
                     }
                 }
@@ -93,8 +97,11 @@ class FireStoreClass: AppCompatActivity() {
                     }
                     else if(activity is AddAddress) {
                         activity.populateActivity(address!!)
+                    }else if ( activity is CheckOut ){
+                        activity.populateAdress(address!!)
                     }
-                } else {
+                }
+                else {
                     if(activity is Address) {
                         activity.noAddressSaved()
                     }
