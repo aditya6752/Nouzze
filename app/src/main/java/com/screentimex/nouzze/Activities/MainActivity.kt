@@ -17,12 +17,14 @@ import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.Firebase.SignInActivity
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityDrawerBinding
+import com.screentimex.nouzze.models.ProductDetails
 import com.screentimex.nouzze.models.ProfileDetails
 import com.screentimex.nouzze.models.ScreenUsageData
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDrawerBinding
     private lateinit var mUser: FirebaseUser
+    private lateinit var mProfileDetails: ProfileDetails
     companion object {
         const val MY_PROFILE_REQ_CODE = 101
     }
@@ -32,8 +34,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpActionBar()
-
-        FireStoreClass().loadUserData(this@MainActivity)
 
         // email verification
         mUser = FirebaseAuth.getInstance().currentUser!!
@@ -108,6 +108,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateNavigationUserDetails(user: ProfileDetails){
+        mProfileDetails = user
         Glide
             .with(this)
             .load(user.image)
@@ -116,7 +117,9 @@ class MainActivity : AppCompatActivity() {
             .into(binding.navDraawerHeaderInclude.userImageNavHeader)
         binding.navDraawerHeaderInclude.userEmailNavHeader.text = user.email
         binding.navDraawerHeaderInclude.userNameNavHeader.text = user.name
+        binding.includeAppBarLayout.MainScreenUsageActivity.userPoints.text = "Points: " + user.points.toString()
     }
+
 
     private fun showToast(message: String) {
         Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
@@ -171,6 +174,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         checkEmailVerifiedOrNot()
+        FireStoreClass().loadUserData(this@MainActivity)
         super.onResume()
     }
     /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {

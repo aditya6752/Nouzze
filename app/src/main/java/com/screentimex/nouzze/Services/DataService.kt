@@ -19,31 +19,31 @@ object DataService {
     )
 
     val shirts = arrayListOf(
-        ProductDetails("White Shirt" , "$30",  "shirts" ),
-        ProductDetails("SLopes Light Grey" , "$20","shirt2"),
-        ProductDetails("SLopes Red" , "$32", "shirt3"),
-        ProductDetails("SLopes Hustle","$29","shirt4")
+        ProductDetails("White Shirt" , "30",  "shirts" ),
+        ProductDetails("SLopes Light Grey" , "20","shirt2"),
+        ProductDetails("SLopes Red" , "32", "shirt3"),
+        ProductDetails("SLopes Hustle","29","shirt4")
     )
 
     val hoodies = arrayListOf (
-        ProductDetails("Black Hoodie" , "$28",  "hoodie" ),
-        ProductDetails("SLopes Red" , "$20","hoodie2"),
-        ProductDetails("SLopes Gray" , "$22", "hoodie3"),
-        ProductDetails("SLopes Black","$34","hoodie4")
+        ProductDetails("Black Hoodie" , "28",  "hoodie" ),
+        ProductDetails("SLopes Red" , "20","hoodie2"),
+        ProductDetails("SLopes Gray" , "22", "hoodie3"),
+        ProductDetails("SLopes Black","34","hoodie4")
     )
 
     val hats = arrayListOf(
-        ProductDetails("Classic Hat" , "$18",  "hats" ),
-        ProductDetails("Black Slopes" , "$20","hat2"),
-        ProductDetails("White Slopes" , "$22", "hat3"),
-        ProductDetails("SLopes Snapback","$24","hat4")
+        ProductDetails("Classic Hat" , "18",  "hats" ),
+        ProductDetails("Black Slopes" , "20","hat2"),
+        ProductDetails("White Slopes" , "22", "hat3"),
+        ProductDetails("SLopes Snapback","24","hat4")
     )
 
     val bottles = arrayListOf(
-        ProductDetails("Green Bottle" , "$18",  "bottle" ),
-        ProductDetails("Black Slopes" , "$20","hat2"),
-        ProductDetails("White Slopes" , "$22", "hat3"),
-        ProductDetails("SLopes Snapback","$24","hat4")
+        ProductDetails("Green Bottle" , "18",  "bottle" ),
+        ProductDetails("Black Slopes" , "20","hat2"),
+        ProductDetails("White Slopes" , "22", "hat3"),
+        ProductDetails("SLopes Snapback","24","hat4")
     )
 
     fun getProducts(category : String) : ArrayList<ProductDetails> {

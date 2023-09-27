@@ -73,14 +73,19 @@ class FireStoreClass: AppCompatActivity() {
             }
     }
 
-    fun updateProfileData(activity: ProfileActivity,
+    fun updateProfileData(activity: Activity,
                           userHashMap: HashMap<String, Any>){
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUUID())
             .update(userHashMap)
             .addOnSuccessListener {
                 Log.e(activity.javaClass.simpleName, "nobro")
-                activity.profileUpdateSuccess()
+                if(activity is ProfileActivity) {
+                    activity.profileUpdateSuccess()
+                }
+                if(activity is CheckOut) {
+                    activity.updateProfileData()
+                }
             }.addOnFailureListener{
                     e ->
                 //activity.hideProgressDialog()

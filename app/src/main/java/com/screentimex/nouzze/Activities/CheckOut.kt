@@ -1,5 +1,6 @@
 package com.screentimex.nouzze.Activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -52,6 +53,9 @@ class CheckOut : AppCompatActivity() {
             GlobalScope.launch(Dispatchers.IO) {
                 sendEmail()
             }
+            val userHashMap = HashMap<String, Any>()
+            userHashMap[Constants.POINTS] = mUserDetails.points - productDetails.productPrice.toLong()
+            FireStoreClass().updateProfileData(this@CheckOut, userHashMap)
         }
 
     }
@@ -71,9 +75,14 @@ class CheckOut : AppCompatActivity() {
             onBackPressed()
         }
     }
-    fun getUserData(UserData : ProfileDetails ){
+
+    fun updateProfileData(){
+        startActivity(Intent(this@CheckOut, FinalActivity::class.java))
+    }
+    fun getUserData(UserData : ProfileDetails){
         mUserDetails = UserData
         binding.userNameWelcome.text = mUserDetails.name
+        binding.balance.text = "Balance: " + mUserDetails.points.toString()
     }
 
     // This for GMAIL SMTP
