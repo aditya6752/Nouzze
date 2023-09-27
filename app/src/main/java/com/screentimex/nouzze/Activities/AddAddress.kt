@@ -51,6 +51,7 @@ class AddAddress : AppCompatActivity() {
             binding.mobileNumber.text.toString(),
             binding.flatNumber.text.toString(),
             binding.area.text.toString(),
+
             binding.landmark.text.toString(),
             binding.pincode.text.toString(),
             binding.city.text.toString(),

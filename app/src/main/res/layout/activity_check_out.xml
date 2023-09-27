@@ -60,30 +60,21 @@
             </TextView>
 
             <TextView
-                android:id="@+id/product_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textSize="16sp"
-                android:text="Product Price">
-            </TextView>
-
-            <TextView
-                android:id="@+id/total_price"
-                android:layout_width="wrap_content"
-                android:textSize="16sp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="Total Price">
-            </TextView>
-
-            <TextView
                 android:id="@+id/balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"
                 android:text="Balance">
+            </TextView>
+
+            <TextView
+                android:id="@+id/product_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="16sp"
+                android:text="Product Price">
             </TextView>
 
             <androidx.cardview.widget.CardView

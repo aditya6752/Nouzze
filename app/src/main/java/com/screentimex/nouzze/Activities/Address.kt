@@ -27,8 +27,6 @@ class Address : AppCompatActivity() {
         setUpActionBar()
 
 
-        FireStoreClass().getAddress(this@Address)
-
         binding.addOrUpdateAddressButton.setOnClickListener {
             startActivity(Intent(this@Address, AddAddress::class.java))
         }
@@ -38,6 +36,10 @@ class Address : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        FireStoreClass().getAddress(this@Address)
+    }
     // default address present in firebase -> update recycler view and Billing Button - Update Address
     fun getAddressFromDatabase(addressDetails: AddressDetails) {
         binding.apply {

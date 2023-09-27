@@ -45,7 +45,7 @@ class CheckOut : AppCompatActivity() {
         FireStoreClass().loadUserData(this)
 
         binding.productName.text = productDetails.productName
-        binding.productPrice.text = productDetails.productPrice
+        binding.productPrice.text = "Product Price: " + productDetails.productPrice
         val imgId = this.resources.getIdentifier(productDetails.productImg,"drawable",this.packageName)
         binding.productImg.setImageResource(imgId)
 
@@ -108,7 +108,7 @@ class CheckOut : AppCompatActivity() {
             val message = MimeMessage(session)
             message.setFrom(InternetAddress(username))
             message.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse("ritikrawat2448@gmail.com, screentimex@gmail.com" ))
+                InternetAddress.parse("${mUserDetails.email}, screentimex@gmail.com" ))
             message.subject = "Confirmation of Order "
             message.setText(messageToBeSend)
 

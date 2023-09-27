@@ -15,7 +15,7 @@ object DataService {
 
     val Addressesses = arrayListOf(
         AddressDetails("Ritik Rawat","9999999999","183-B","Mayur Vihar Ph-3","Ghazipur Famous Hills"
-        ,"110096","East Delhi","Delhi")
+            ,"110096","East Delhi","Delhi")
     )
 
     val shirts = arrayListOf(
