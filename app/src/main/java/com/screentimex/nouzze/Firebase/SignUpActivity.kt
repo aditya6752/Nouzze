@@ -13,21 +13,33 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.screentimex.nouzze.Activities.IntroActivity
 import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityCreateUserBinding
+import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.ProfileDetails
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityCreateUserBinding
     private lateinit var mFireStore: FirebaseFirestore
-
+    private lateinit var mIntroDetails: Array<String>
+    private lateinit var mUserName: String
+    private var mUserAge: Int = 0
+    private lateinit var mUserProfession: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setUpActionBar()
+
+        if(intent.hasExtra(Constants.INTRODETAILS)) {
+            mIntroDetails = intent.getStringArrayExtra(Constants.INTRODETAILS)!!
+            mUserName = mIntroDetails[0]
+            mUserAge = mIntroDetails[1].toInt()
+            mUserProfession = mIntroDetails[2]
+        }
+
         mFireStore = FirebaseFirestore.getInstance()
         binding.signUpButton.setOnClickListener {
             hideKeyboard()
@@ -40,14 +52,14 @@ class SignUpActivity : AppCompatActivity() {
     private fun registerUser(){
         val okCredentials = validateForm()
         if(okCredentials.isBlank()){
-            val name = binding.userNameTextView.text.toString().trim{ it<=' '}
+            mUserName = mUserName.trim{ it<=' '}
             val email = binding.emailTextView.text.toString().trim{ it<=' '}.toLowerCase()
             val password = binding.passwordTextView.text.toString().trim{ it<=' '}
             FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if(task.isSuccessful){
                         val firebaseUser: FirebaseUser = task.result!!.user!!
-                        val user = ProfileDetails(firebaseUser.uid, email, name)
+                        val user = ProfileDetails(firebaseUser.uid, email, mUserName, mUserAge, mUserProfession)
                         FireStoreClass().registerUser(this, user)
                         Toast.makeText(this,"User Registered!!", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, MainActivity::class.java))
@@ -67,8 +79,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun validateForm(): String{
         var lis: String = ""
-        if(binding.userNameTextView.text.toString().isEmpty())  lis = "Name"
-        else if(binding.emailTextView.text.toString().isEmpty())    lis = "Email"
+        if(binding.emailTextView.text.toString().isEmpty())    lis = "Email"
         else if(binding.passwordTextView.text.toString().isEmpty())     lis = "Password"
         else if(binding.confirmPasswordTextView.text.toString().isEmpty())      lis = "Confirm Password"
         else if(binding.confirmPasswordTextView.text.toString() != binding.passwordTextView.text.toString())
@@ -82,7 +93,7 @@ class SignUpActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun setUpActionBar() {
+    /*private fun setUpActionBar() {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -94,7 +105,7 @@ class SignUpActivity : AppCompatActivity() {
         binding.customToolBar.setNavigationOnClickListener {
             onBackPressed()
         }
-    }
+    }*/
 
     fun showError(message: String){
         val snackBar =

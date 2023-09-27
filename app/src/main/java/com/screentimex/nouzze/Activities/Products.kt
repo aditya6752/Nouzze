@@ -1,13 +1,17 @@
 package com.screentimex.nouzze.Activities
 
+import android.app.Activity
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test.Services.DataService
 import com.screentimex.nouzze.Adapters.ProductAdapter
 import com.screentimex.nouzze.R
+import com.screentimex.nouzze.Services.PreferenceManager
 import com.screentimex.nouzze.databinding.ActivityProductsBinding
 import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.ProductDetails
@@ -16,6 +20,7 @@ class Products : AppCompatActivity() {
 
     lateinit var myRecyclerView: RecyclerView
     lateinit var productDetailsList : ArrayList<ProductDetails>
+    lateinit var preferenceManagerProducts : PreferenceManager
 
     private lateinit var binding: ActivityProductsBinding
     private lateinit var productName: String
@@ -27,6 +32,8 @@ class Products : AppCompatActivity() {
         // calling intent here because product name needed for setting up action bar
         productName = intent.getStringExtra(Constants.PRODUCT_NAME).toString()
         setUpActionBar()
+
+        preferenceManagerProducts = PreferenceManager(this)
 
         myRecyclerView = findViewById(R.id.RecylerViewProducts)
 
@@ -59,6 +66,13 @@ class Products : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
         binding.customToolBar.setNavigationOnClickListener {
             onBackPressed()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK && requestCode == 101) {
+            preferenceManagerProducts.clearPreference()
         }
     }
 }

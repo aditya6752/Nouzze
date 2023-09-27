@@ -11,8 +11,8 @@
         android:id="@+id/customToolBar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        app:titleTextColor="@color/black"
-
+        app:titleTextColor="@color/white"
+        android:background="?attr/colorPrimary"
         />
 
     <androidx.cardview.widget.CardView

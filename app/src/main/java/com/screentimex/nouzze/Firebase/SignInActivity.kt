@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.screentimex.nouzze.Activities.IntroActivity
 import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityLoginBinding
@@ -23,7 +24,7 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setUpActionBar()
+
 
         binding.loginButton.setOnClickListener {
             hideKeyboard()
@@ -32,7 +33,7 @@ class SignInActivity : AppCompatActivity() {
         }
         binding.signUpButton.setOnClickListener {
             hideKeyboard()
-            val intent = Intent(this@SignInActivity, SignUpActivity::class.java)
+            val intent = Intent(this@SignInActivity, IntroActivity::class.java)
             startActivity(intent)
         }
     }
@@ -70,11 +71,11 @@ class SignInActivity : AppCompatActivity() {
     fun signInSuccess(){
         //hideProgressDialog()
         binding.progressBarButton.visibility = View.GONE
-        Toast.makeText(this@SignInActivity, ":Login Success!!",Toast.LENGTH_SHORT).show()
+        // Toast.makeText(this@SignInActivity, ":Login Success!!",Toast.LENGTH_SHORT).show()
         startActivity(Intent(this@SignInActivity, MainActivity::class.java))
         finish()
     }
-    private fun setUpActionBar() {
+    /*private fun setUpActionBar() {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -86,7 +87,7 @@ class SignInActivity : AppCompatActivity() {
         binding.customToolBar.setNavigationOnClickListener {
             onBackPressed()
         }
-    }
+    }*/
 
     fun showError(message: String){
         val snackBar =

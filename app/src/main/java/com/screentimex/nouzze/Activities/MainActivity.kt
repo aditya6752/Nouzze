@@ -64,6 +64,13 @@ class MainActivity : AppCompatActivity() {
                 showToast("Help Button Working")
             }
         }
+
+        // goto market place
+
+        binding.includeAppBarLayout.MainScreenUsageActivity.marketPlaceButton.setOnClickListener {
+            val intent = Intent(this,StoreActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setUpActionBar(){
@@ -105,7 +112,17 @@ class MainActivity : AppCompatActivity() {
         binding.navDraawerHeaderInclude.userNameNavHeader.text = user.name
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    private fun showToast(message: String) {
+        Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
+    }
+
+    fun signOut(){
+        FirebaseAuth.getInstance().signOut()
+        startActivity(Intent(this, SignInActivity::class.java))
+        finish()
+    }
+
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_shop_screen_toolbar, menu)
         return true
     }
@@ -120,16 +137,6 @@ class MainActivity : AppCompatActivity() {
             }
             else -> return super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
-    }
-
-    fun signOut(){
-        FirebaseAuth.getInstance().signOut()
-        startActivity(Intent(this, SignInActivity::class.java))
-        finish()
-    }
+    }*/
 
 }

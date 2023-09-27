@@ -1,5 +1,6 @@
 package com.screentimex.nouzze.Activities
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,7 +19,6 @@ class Address : AppCompatActivity() {
 
     lateinit var binding : ActivityAddressBinding
     lateinit var AddressRecyclerView : RecyclerView
-    lateinit var productDetails : ProductDetails
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +26,6 @@ class Address : AppCompatActivity() {
         setContentView(binding.root)
         setUpActionBar()
 
-        if ( intent.hasExtra(Constants.PRODUCTDETAILS)) {
-            productDetails = intent.getParcelableExtra<ProductDetails>(Constants.PRODUCTDETAILS)!!
-        }
 
         FireStoreClass().getAddress(this@Address)
 
@@ -37,7 +34,6 @@ class Address : AppCompatActivity() {
         }
         binding.proceedToBuy.setOnClickListener {
             val intent = Intent(this,CheckOut::class.java)
-            intent.putExtra(Constants.PRODUCTDETAILS,productDetails)
             startActivity(intent)
         }
     }
@@ -73,6 +69,7 @@ class Address : AppCompatActivity() {
         supportActionBar?.title = "Saved Address"
         supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
         binding.customToolBar.setNavigationOnClickListener {
+            setResult(Activity.RESULT_OK)
             onBackPressed()
         }
     }

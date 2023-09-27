@@ -11,11 +11,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.screentimex.nouzze.Activities.Address
 import com.screentimex.nouzze.R
+import com.screentimex.nouzze.Services.PreferenceManager
 import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.ProductDetails
 
 class ProductAdapter (val productDetailsList : ArrayList<ProductDetails>, var context : Activity  ) : RecyclerView.Adapter<ProductAdapter.ProductViewModel>() {
-
+    // shared preference
+    private val preferenceManagerProductAdapter = PreferenceManager(context)
     inner class ProductViewModel(itemView : View) : RecyclerView.ViewHolder(itemView){
         val productName = itemView.findViewById<TextView>(R.id.productName)
         val productImg = itemView.findViewById<ImageView>(R.id.productImg)
@@ -40,8 +42,8 @@ class ProductAdapter (val productDetailsList : ArrayList<ProductDetails>, var co
         holder.productPrice.text = currentItem.productPrice
         holder.productButton.setOnClickListener {
             var intent = Intent(context, Address::class.java)
-            intent.putExtra(Constants.PRODUCTDETAILS,currentItem)
-            context.startActivity(intent)
+            preferenceManagerProductAdapter.saveDataObject(Constants.PRODUCTDETAILS, currentItem)
+            context.startActivityForResult(intent, 101)
         }
     }
 }

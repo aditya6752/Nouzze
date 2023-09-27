@@ -17,6 +17,8 @@ object Constants {
     const val PRODUCT_NAME: String = "productName"
     const val ADDRESS: String = "addressDetails"
     const val PRODUCTDETAILS : String = "productDetails"
+    const val INTRODETAILS: String = "introDetails"
+    const val SHAREDPREFERENCE: String = "mySharedPreference"
 
     fun getFileExtension(activity: Activity, uri: Uri?): String?{
         return MimeTypeMap.getSingleton().

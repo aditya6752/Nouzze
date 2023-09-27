@@ -7,12 +7,16 @@ data class ProfileDetails(
     var id: String = "",
     var email : String = "",
     var name : String = "",
+    var age: Int = 0,
+    var profession: String = "",
     var image: String = "",
     var phoneNumber: Long = 0
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readInt(),
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readLong()
@@ -22,6 +26,8 @@ data class ProfileDetails(
         parcel.writeString(id)
         parcel.writeString(email)
         parcel.writeString(name)
+        parcel.writeInt(age)
+        parcel.writeString(profession)
         parcel.writeString(image)
         parcel.writeLong(phoneNumber)
     }

@@ -2,12 +2,9 @@ package com.screentimex.nouzze.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.auth.User
-import com.screentimex.nouzze.Adapters.AddressAdapter
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
+import com.screentimex.nouzze.Services.PreferenceManager
 import com.screentimex.nouzze.databinding.ActivityCheckOutBinding
 import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Constants
@@ -20,16 +17,15 @@ class CheckOut : AppCompatActivity() {
     lateinit var binding : ActivityCheckOutBinding
     lateinit var mAddressDetails : AddressDetails
     lateinit var mUserDetails: ProfileDetails
+    lateinit var preferenceManagerCheckOut : PreferenceManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCheckOutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setUpActionBar()
 
-
-
-        if ( intent.hasExtra(Constants.PRODUCTDETAILS)) {
-            productDetails = intent.getParcelableExtra<ProductDetails>(Constants.PRODUCTDETAILS)!!
-        }
+        preferenceManagerCheckOut = PreferenceManager(this)
+        productDetails = preferenceManagerCheckOut.getDataObject(Constants.PRODUCTDETAILS)!!
 
         FireStoreClass().getAddress(this)
         FireStoreClass().loadUserData(this)
@@ -39,9 +35,6 @@ class CheckOut : AppCompatActivity() {
         val imgId = this.resources.getIdentifier(productDetails.productImg,"drawable",this.packageName)
         binding.productImg.setImageResource(imgId)
 
-        binding.BuyNowButton.setOnClickListener {
-            
-        }
 
     }
 
