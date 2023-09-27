@@ -63,8 +63,7 @@ class AddAddress : AppCompatActivity() {
     // add or update successfully
     fun addressAddedUpdateSuccessfully() {
         binding.addOrUpdateAddressButton.text = "Update Address"
-        val intent = Intent(this@AddAddress, Address::class.java)
-        startActivity(intent)
+        finish()
     }
 
     // address already in firebase

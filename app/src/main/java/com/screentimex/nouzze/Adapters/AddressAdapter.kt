@@ -31,6 +31,6 @@ class AddressAdapter(var addressDetailsList : ArrayList<AddressDetails>, val con
         holder.Name.text = current_Item.Name
         holder.Area.text = "${current_Item.Flat_Number} / ${current_Item.Area} /${current_Item.Landmark}"
         holder.City.text = "${current_Item.City} / ${current_Item.State} / ${current_Item.Pincode}"
-        holder.Mobile_Number.text = "Mobile Number : ${current_Item.Mobile_Number}"
+        holder.Mobile_Number.text = current_Item.Mobile_Number
     }
 }
