@@ -54,7 +54,7 @@ class SignUpActivity : AppCompatActivity() {
         if(okCredentials.isBlank()){
             mUserName = mUserName.trim{ it<=' '}
             val email = binding.emailTextView.text.toString().trim{ it<=' '}.toLowerCase()
-            val password = binding.passwordTextView.text.toString().trim{ it<=' '}
+            val password = binding.loginPasswordTextView.text.toString().trim{ it<=' '}
             FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if(task.isSuccessful){
@@ -80,9 +80,9 @@ class SignUpActivity : AppCompatActivity() {
     private fun validateForm(): String{
         var lis: String = ""
         if(binding.emailTextView.text.toString().isEmpty())    lis = "Email"
-        else if(binding.passwordTextView.text.toString().isEmpty())     lis = "Password"
+        else if(binding.loginPasswordTextView.text.toString().isEmpty())     lis = "Password"
         else if(binding.confirmPasswordTextView.text.toString().isEmpty())      lis = "Confirm Password"
-        else if(binding.confirmPasswordTextView.text.toString() != binding.passwordTextView.text.toString())
+        else if(binding.confirmPasswordTextView.text.toString() != binding.loginPasswordTextView.text.toString())
             lis = "The Password Confirmation does not match."
         return lis
     }

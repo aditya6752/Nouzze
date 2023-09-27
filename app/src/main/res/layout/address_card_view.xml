@@ -85,10 +85,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mobile Number :"
-            android:textSize="13dp"
-            android:layout_marginTop="25dp"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addressView">
+            app:layout_constraintTop_toBottomOf="@id/User_City_State_Pin">
 
         </TextView>
 
@@ -98,10 +98,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="Mobile"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="normal"
             app:layout_constraintStart_toEndOf="@id/mobileView"
-            app:layout_constraintTop_toBottomOf="@id/User_City_State_Pin">
+            app:layout_constraintTop_toTopOf="@id/mobileView">
         </TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

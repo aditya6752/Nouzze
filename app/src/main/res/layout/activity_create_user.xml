@@ -9,47 +9,72 @@
     tools:context=".Firebase.SignUpActivity">
 
 
-    <EditText
-        android:id="@+id/emailTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="@string/email"
-        android:layout_marginBottom="10dp"
-        android:inputType="textEmailAddress"
-        android:textColor="@android:color/darker_gray"
-         />
 
-    <EditText
-        android:id="@+id/passwordTextView"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:layout_marginBottom="10dp"
-        android:textColor="@android:color/darker_gray"
-        />
+        android:layout_height="wrap_content" >
 
-    <EditText
-        android:id="@+id/confirmPasswordTextView"
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/emailTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:ems="10"
+            android:hint="@string/email"
+            android:layout_marginBottom="15dp"
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/darker_gray"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="15dp"
-        android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        android:textColor="@android:color/darker_gray"
-        />
+        app:passwordToggleEnabled="true"
+        app:passwordToggleDrawable="@drawable/password_icon_selector">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/loginPasswordTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="15dp"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="@android:color/darker_gray"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleDrawable="@drawable/password_icon_selector">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/confirmPasswordTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:textColor="@android:color/darker_gray"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/signUpButton"
