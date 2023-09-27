@@ -169,7 +169,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/User_details_CardView"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:text="Buy Now">
+                android:textAllCaps="false"
+                android:text="Confirm Order">
             </Button>
 
 

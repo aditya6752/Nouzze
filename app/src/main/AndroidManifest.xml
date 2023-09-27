@@ -15,9 +15,12 @@
         android:theme="@style/Theme.Nouzze"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.FinalActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.CheckOut"
             android:exported="false"
-            android:theme="@style/Theme.Nouzze.NoActionBar"/>
+            android:theme="@style/Theme.Nouzze.NoActionBar" />
         <activity
             android:name=".Activities.SplashScreen"
             android:exported="true"
@@ -39,24 +42,23 @@
         <activity
             android:name=".Firebase.SignInActivity"
             android:exported="true"
-            android:theme="@style/Theme.Nouzze.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Nouzze.NoActionBar"></activity>
         <activity
             android:name=".Activities.Address"
             android:exported="false"
-            android:theme="@style/Theme.Nouzze.NoActionBar"></activity>
+            android:theme="@style/Theme.Nouzze.NoActionBar" />
         <activity
             android:name=".Activities.Products"
             android:exported="false"
-            android:theme="@style/Theme.Nouzze.NoActionBar"></activity>
+            android:theme="@style/Theme.Nouzze.NoActionBar" />
         <activity
             android:name=".Activities.AddAddress"
             android:exported="false"
-            android:theme="@style/Theme.Nouzze.NoActionBar"></activity>
+            android:theme="@style/Theme.Nouzze.NoActionBar" />
         <activity
             android:name=".Activities.StoreActivity"
             android:exported="false"
-            android:theme="@style/Theme.Nouzze.NoActionBar"></activity>
+            android:theme="@style/Theme.Nouzze.NoActionBar" />
         <activity
             android:name=".Activities.MainActivity"
             android:exported="false"

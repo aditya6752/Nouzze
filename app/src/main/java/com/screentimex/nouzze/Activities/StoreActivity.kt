@@ -46,7 +46,7 @@ class StoreActivity : AppCompatActivity() {
     private fun setUpActionBar() {
         setSupportActionBar(binding.customToolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Store"
+        supportActionBar?.title = "Market Place"
         supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
         binding.customToolBar.setNavigationOnClickListener {
             onBackPressed()
