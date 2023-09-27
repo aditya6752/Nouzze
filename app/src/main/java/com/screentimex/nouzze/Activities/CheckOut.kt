@@ -74,6 +74,7 @@ class CheckOut : AppCompatActivity() {
     fun getUserData(UserData : ProfileDetails ){
         mUserDetails = UserData
         binding.userNameWelcome.text = mUserDetails.name
+        
     }
 
     // This for GMAIL SMTP
