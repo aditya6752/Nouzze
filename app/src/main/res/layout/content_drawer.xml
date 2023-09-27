@@ -7,6 +7,22 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
 
+    <Button
+        android:id="@+id/verifyEmailButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/verify_your_email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:textSize="16sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:textStyle="bold"/>
+
     <LinearLayout
         android:id="@+id/marketPlaceAndPointsLayout"
         android:layout_width="match_parent"
@@ -14,29 +30,27 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal"
-        android:gravity="start|center_vertical"
-        android:padding="10dp"
+        android:orientation="vertical"
+        android:gravity="center"
         >
         <TextView
-            android:id="@+id/marketPlaceButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Store"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-        <TextView
             android:id="@+id/userPoints"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Points: 1000"
             android:textSize="16sp"
             android:gravity="end"/>
+        <Button
+            android:id="@+id/marketPlaceButton"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:text="Market Place"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="#006d77"
+            android:textColor="@color/white"
+            />
     </LinearLayout>
 
     <View

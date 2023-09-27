@@ -10,7 +10,8 @@ data class ProfileDetails(
     var age: Int = 0,
     var profession: String = "",
     var image: String = "",
-    var phoneNumber: Long = 0
+    var phoneNumber: Long = 0,
+    var points: Long = 0
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -19,6 +20,7 @@ data class ProfileDetails(
         parcel.readInt(),
         parcel.readString()!!,
         parcel.readString()!!,
+        parcel.readLong(),
         parcel.readLong()
     )
 
@@ -30,6 +32,7 @@ data class ProfileDetails(
         parcel.writeString(profession)
         parcel.writeString(image)
         parcel.writeLong(phoneNumber)
+        parcel.writeLong(points)
     }
 
     override fun describeContents(): Int {

@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.screentimex.nouzze.Activities.AddAddress
@@ -28,6 +29,21 @@ class FireStoreClass: AppCompatActivity() {
             }.addOnFailureListener {
                     _ ->
                 Log.e("FireStoreClassSignUp","Error")
+            }
+    }
+
+    fun sendEmailVerificationLink(activity: Activity, user: FirebaseUser) {
+        user.sendEmailVerification()
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful) {
+                    if(activity is MainActivity) {
+                        activity.emailVerificationLinkSendSuccessfully()
+                    }
+                } else {
+                    if(activity is MainActivity) {
+                        activity.emailVerificationLinkSendFailed()
+                    }
+                }
             }
     }
 
