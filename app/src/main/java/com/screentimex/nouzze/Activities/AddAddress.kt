@@ -65,6 +65,7 @@ class AddAddress : AppCompatActivity() {
     fun addressAddedUpdateSuccessfully() {
         binding.addOrUpdateAddressButton.text = "Update Address"
         finish()
+
     }
 
     // address already in firebase

@@ -61,8 +61,8 @@ class CheckOut : AppCompatActivity() {
     }
     fun populateAdress(addressDetails : AddressDetails ){
         mAddressDetails = addressDetails
-        binding.UserName.setText("Hi , ${addressDetails.Name}")
-        binding.UserMobileNumber.setText(addressDetails.Mobile_Number)
+        binding.UserName.text = addressDetails.Name
+        binding.UserMobileNumber.setText("Mobile Number : ${addressDetails.Mobile_Number}")
         binding.UserAreaFlatNumber.setText("${addressDetails.Flat_Number} / ${addressDetails.Area} / ${addressDetails.Landmark} ")
         binding.UserCityStatePin.setText("${addressDetails.City} / ${addressDetails.State} / ${addressDetails.Pincode}")
     }
@@ -81,7 +81,7 @@ class CheckOut : AppCompatActivity() {
     }
     fun getUserData(UserData : ProfileDetails){
         mUserDetails = UserData
-        binding.userNameWelcome.text = mUserDetails.name
+        binding.userNameWelcome.setText("Hi , ${mUserDetails.name}")
         binding.balance.text = "Balance: " + mUserDetails.points.toString()
     }
 

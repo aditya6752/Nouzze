@@ -7,33 +7,28 @@ import com.screentimex.nouzze.models.ProductDetails
 object DataService {
 
     val categories = listOf(
-        Category("SHIRTS" ,"Shirts"),
-        Category("HOODIES" , "Hoodie"),
-        Category("HATS", "Hats"),
-        Category("BOTTLES", "Bottle")
-    )
-
-    val Addressesses = arrayListOf(
-        AddressDetails("Ritik Rawat","9999999999","183-B","Mayur Vihar Ph-3","Ghazipur Famous Hills"
-            ,"110096","East Delhi","Delhi")
+        Category("SHIRTS" ,"shirts"),
+        Category("HOODIES" , "hoodie"),
+        Category("HATS", "hats"),
+        Category("BOTTLES", "bottle")
     )
 
     val shirts = arrayListOf(
-        ProductDetails("White Shirt" , "30",  "shirts" ),
+        ProductDetails("White Shirt" , "30",  "shirt1" ),
         ProductDetails("SLopes Light Grey" , "20","shirt2"),
         ProductDetails("SLopes Red" , "32", "shirt3"),
         ProductDetails("SLopes Hustle","29","shirt4")
     )
 
     val hoodies = arrayListOf (
-        ProductDetails("Black Hoodie" , "28",  "hoodie" ),
+        ProductDetails("Black Hoodie" , "28",  "hoodie1" ),
         ProductDetails("SLopes Red" , "20","hoodie2"),
         ProductDetails("SLopes Gray" , "22", "hoodie3"),
         ProductDetails("SLopes Black","34","hoodie4")
     )
 
     val hats = arrayListOf(
-        ProductDetails("Classic Hat" , "18",  "hats" ),
+        ProductDetails("Classic Hat" , "18",  "hat1" ),
         ProductDetails("Black Slopes" , "20","hat2"),
         ProductDetails("White Slopes" , "22", "hat3"),
         ProductDetails("SLopes Snapback","24","hat4")
@@ -41,9 +36,9 @@ object DataService {
 
     val bottles = arrayListOf(
         ProductDetails("Green Bottle" , "18",  "bottle" ),
-        ProductDetails("Black Slopes" , "20","hat2"),
-        ProductDetails("White Slopes" , "22", "hat3"),
-        ProductDetails("SLopes Snapback","24","hat4")
+        ProductDetails("Black Slopes" , "20","bottle1"),
+        ProductDetails("White Slopes" , "22", "bottle2"),
+        ProductDetails("SLopes Snapback","24","bottle3")
     )
 
     fun getProducts(category : String) : ArrayList<ProductDetails> {
