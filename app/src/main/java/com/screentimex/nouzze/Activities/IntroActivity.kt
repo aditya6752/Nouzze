@@ -52,11 +52,11 @@ class IntroActivity : AppCompatActivity() {
     private fun validateForm(): String{
         var lis = ""
         if(binding.userName.text.toString().isEmpty())
-            lis = "Name"
+            lis = "Please enter your name"
         else if(binding.userAge.text.toString().isEmpty())
-            lis = "Age"
+            lis = "Please provide your age"
         else if(binding.professionOptions.selectedItem.toString() == "Choose your profession")
-            lis = "Profession"
+            lis = "Please specify your profession"
         return lis
     }
 

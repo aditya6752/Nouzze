@@ -163,13 +163,12 @@ class MainActivity : AppCompatActivity() {
 
 
     fun emailVerificationLinkSendSuccessfully() {
-        Toast.makeText(this@MainActivity, "Verification Link Successfully!!", Toast.LENGTH_LONG).show()
+        Toast.makeText(this@MainActivity, "Verification link sent. Please check your email", Toast.LENGTH_LONG).show()
         checkEmailVerifiedOrNot()
     }
 
     fun emailVerificationLinkSendFailed() {
         Toast.makeText(this@MainActivity, "Network Issue!!", Toast.LENGTH_LONG).show()
-        checkEmailVerifiedOrNot()
     }
 
     override fun onResume() {

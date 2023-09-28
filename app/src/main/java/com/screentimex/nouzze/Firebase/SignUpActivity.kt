@@ -61,13 +61,12 @@ class SignUpActivity : AppCompatActivity() {
                         val firebaseUser: FirebaseUser = task.result!!.user!!
                         val user = ProfileDetails(firebaseUser.uid, email, mUserName, mUserAge, mUserProfession)
                         FireStoreClass().registerUser(this, user)
-                        Toast.makeText(this,"User Registered!!", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, MainActivity::class.java))
                     }
                     else{
                         //hideProgressDialog()
                         binding.progressBarButton.visibility = View.GONE
-                        showError(task.exception!!.message!!)
+                        val errorMessage = task.exception!!.message!!.substringAfter("[").substringBefore("]")
+                        showError(errorMessage)
                     }
                 }
         }
@@ -79,16 +78,17 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun validateForm(): String{
         var lis: String = ""
-        if(binding.emailTextView.text.toString().isEmpty())    lis = "Email"
-        else if(binding.loginPasswordTextView.text.toString().isEmpty())     lis = "Password"
-        else if(binding.confirmPasswordTextView.text.toString().isEmpty())      lis = "Confirm Password"
+        if(binding.emailTextView.text.toString().isEmpty())    lis = "Email address is required"
+        else if(binding.loginPasswordTextView.text.toString().isEmpty())     lis = "Password is mandatory"
+        else if(binding.confirmPasswordTextView.text.toString().isEmpty())      lis = "Please confirm your password"
         else if(binding.confirmPasswordTextView.text.toString() != binding.loginPasswordTextView.text.toString())
-            lis = "The Password Confirmation does not match."
+            lis = "Passwords do not match"
         return lis
     }
 
     fun userRegisteredSuccess(){
         //hideProgressDialog()
+        Toast.makeText(this,"User Registered!!", Toast.LENGTH_SHORT).show()
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }

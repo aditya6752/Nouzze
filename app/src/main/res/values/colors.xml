@@ -12,4 +12,5 @@
     <color name="snackbarcolor">#cc2b5e</color>
     <color name="splashScreenColor">#CFB1EE</color>
     <color name="statusbarcolor">#006d77</color>
+    <color name="finalScreenbgColor">#FAF9F6</color>
 </resources>

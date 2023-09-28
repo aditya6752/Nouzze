@@ -51,7 +51,8 @@ class SignInActivity : AppCompatActivity() {
                 else{
                     //hideProgressDialog()
                     binding.progressBarButton.visibility = View.GONE
-                    showError(task.exception!!.message!!)
+                    val errorMessage = task.exception!!.message!!.substringAfter("[").substringBefore("]")
+                    showError(errorMessage)
                 }
             }
         }
@@ -62,9 +63,9 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun validateForm(): String{
-        var lis: String = ""
-        if(binding.loginEmailTextView.text.toString().isEmpty())    lis = "Email"
-        else if(binding.loginPasswordTextView.text.toString().isEmpty())     lis = "Password"
+        var lis = ""
+        if(binding.loginEmailTextView.text.toString().isEmpty())    lis = "Email address is required"
+        else if(binding.loginPasswordTextView.text.toString().isEmpty())     lis = "Password is mandatory"
         return lis
     }
 

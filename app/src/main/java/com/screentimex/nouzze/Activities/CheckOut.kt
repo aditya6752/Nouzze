@@ -123,7 +123,7 @@ class CheckOut : AppCompatActivity() {
 
     fun makeString() : String {
         val response : String = "Hi ${mUserDetails.name} , Your order is placed . You ordered a ${productDetails.productName} which has a" +
-                " value of ${productDetails.productPrice} points . After this order , you've left with 10 points . " +
+                " value of ${productDetails.productPrice} points . After this order , you've left with ${mUserDetails.points - productDetails.productPrice.toLong()} points . " +
                 " The Order will be shipped to ${mAddressDetails.Flat_Number} / ${mAddressDetails.Area} , ${mAddressDetails.Landmark} , " +
                 "${mAddressDetails.City} , ${mAddressDetails.State} , ${mAddressDetails.Pincode} and your Mobile Number is " +
                 "${mAddressDetails.Mobile_Number} ."
