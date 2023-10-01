@@ -3,16 +3,14 @@ package com.screentimex.nouzze.Activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
-import com.screentimex.nouzze.Services.PreferenceManager
+import com.screentimex.nouzze.Services.ProductDetailSharedPref
 import com.screentimex.nouzze.databinding.ActivityCheckOutBinding
 import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.ProductDetails
-import com.screentimex.nouzze.models.ProfileDetails
+import com.screentimex.nouzze.models.UserDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -30,16 +28,16 @@ class CheckOut : AppCompatActivity() {
     lateinit var productDetails : ProductDetails
     lateinit var binding : ActivityCheckOutBinding
     lateinit var mAddressDetails : AddressDetails
-    lateinit var mUserDetails: ProfileDetails
-    lateinit var preferenceManagerCheckOut : PreferenceManager
+    lateinit var mUserDetails: UserDetails
+    lateinit var productDetailSharedPrefCheckOut : ProductDetailSharedPref
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCheckOutBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpActionBar()
 
-        preferenceManagerCheckOut = PreferenceManager(this)
-        productDetails = preferenceManagerCheckOut.getDataObject(Constants.PRODUCTDETAILS)!!
+        productDetailSharedPrefCheckOut = ProductDetailSharedPref(this)
+        productDetails = productDetailSharedPrefCheckOut.getDataObject(Constants.PRODUCTDETAILS)!!
 
         FireStoreClass().getAddress(this)
         FireStoreClass().loadUserData(this)
@@ -79,7 +77,7 @@ class CheckOut : AppCompatActivity() {
     fun updateProfileData(){
         startActivity(Intent(this@CheckOut, FinalActivity::class.java))
     }
-    fun getUserData(UserData : ProfileDetails){
+    fun getUserData(UserData : UserDetails){
         mUserDetails = UserData
         binding.userNameWelcome.setText("Hi , ${mUserDetails.name}")
         binding.balance.text = "Balance: " + mUserDetails.points.toString()

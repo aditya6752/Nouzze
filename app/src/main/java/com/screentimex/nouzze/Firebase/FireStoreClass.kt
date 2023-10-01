@@ -1,8 +1,10 @@
 package com.screentimex.nouzze.Firebase
 
 import android.app.Activity
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -15,12 +17,13 @@ import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.Activities.ProfileActivity
 import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Constants
-import com.screentimex.nouzze.models.ProfileDetails
+import com.screentimex.nouzze.models.TimeUsageData
+import com.screentimex.nouzze.models.UserDetails
 
 class FireStoreClass: AppCompatActivity() {
     private val mFireStore = FirebaseFirestore.getInstance()
 
-    fun registerUser(activity: SignUpActivity, userInfo: ProfileDetails){
+    fun registerUser(activity: SignUpActivity, userInfo: UserDetails){
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUUID())
             .set(userInfo, SetOptions.merge()).addOnSuccessListener {
@@ -52,7 +55,7 @@ class FireStoreClass: AppCompatActivity() {
             .document(getCurrentUUID())
             .get()
             .addOnSuccessListener { document ->
-                val loggedInUser = document.toObject(ProfileDetails::class.java)
+                val loggedInUser = document.toObject(UserDetails::class.java)
                 if(loggedInUser!=null){
                     when(activity){
                         is MainActivity -> {
@@ -132,6 +135,38 @@ class FireStoreClass: AppCompatActivity() {
                 }
             }.addOnFailureListener { exception ->
                 Toast.makeText(activity, exception.toString(), Toast.LENGTH_LONG).show()
+            }
+    }
+
+    fun addUserTimeDataToFireBase(activity: Activity, timeData: TimeUsageData) {
+        mFireStore.collection(Constants.TIME)
+            .document(getCurrentUUID())
+            .set(timeData)
+            .addOnSuccessListener {
+                //activity.appDataStoredSuccessfully()
+            }.addOnFailureListener {
+                //activity.failedToStoreAppData(it.message!!)
+            }
+    }
+
+    fun getUserTimeDataFromFireBase(activity: Activity) {
+        mFireStore.collection(Constants.TIME)
+            .document(getCurrentUUID())
+            .get()
+            .addOnSuccessListener { doc ->
+                val timeDataUsage = doc.toObject(TimeUsageData::class.java)
+                if(timeDataUsage != null) {
+                    if(activity is MainActivity) {
+                        activity.getUserAppData(timeDataUsage)
+                    }
+                }
+                else {
+                    if(activity is MainActivity) {
+                        activity.failedToGetPrevData("No Data Available")
+                    }
+                }
+            }.addOnFailureListener {
+                //activity.failedToGetPrevData(it.message!!)
             }
     }
 

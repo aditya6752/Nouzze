@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.screentimex.nouzze"
-        minSdk 21
+        minSdk 26
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -77,4 +77,7 @@ dependencies {
 
     implementation 'com.sun.mail:android-mail:1.6.7'
     implementation 'com.sun.mail:android-activation:1.6.7'
+
+    // work manager
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
 }

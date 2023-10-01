@@ -3,7 +3,7 @@ package com.screentimex.nouzze.models
 import android.os.Parcel
 import android.os.Parcelable
 
-data class ProfileDetails(
+data class UserDetails(
     var id: String = "",
     var email : String = "",
     var name : String = "",
@@ -39,12 +39,12 @@ data class ProfileDetails(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<ProfileDetails> {
-        override fun createFromParcel(parcel: Parcel): ProfileDetails {
-            return ProfileDetails(parcel)
+    companion object CREATOR : Parcelable.Creator<UserDetails> {
+        override fun createFromParcel(parcel: Parcel): UserDetails {
+            return UserDetails(parcel)
         }
 
-        override fun newArray(size: Int): Array<ProfileDetails?> {
+        override fun newArray(size: Int): Array<UserDetails?> {
             return arrayOfNulls(size)
         }
     }

@@ -1,30 +1,47 @@
 package com.screentimex.nouzze.Activities
 
 import android.app.Activity
+import android.app.AppOpsManager
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.gson.Gson
 import com.screentimex.nouzze.Adapters.UsageScreenRecyclerViewAdapter
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.Firebase.SignInActivity
 import com.screentimex.nouzze.R
+import com.screentimex.nouzze.Services.MidNightWordManager
+import com.screentimex.nouzze.UsageStats.UsageScreenTime
 import com.screentimex.nouzze.databinding.ActivityDrawerBinding
-import com.screentimex.nouzze.models.ProductDetails
-import com.screentimex.nouzze.models.ProfileDetails
+import com.screentimex.nouzze.models.Constants
+import com.screentimex.nouzze.models.UserDetails
 import com.screentimex.nouzze.models.ScreenUsageData
+import com.screentimex.nouzze.models.TimeUsageData
+import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDrawerBinding
     private lateinit var mUser: FirebaseUser
-    private lateinit var mProfileDetails: ProfileDetails
+    private lateinit var mUserDetails: UserDetails
+    private lateinit var mSharedPreferences: SharedPreferences
+
+    private lateinit var mTimeUsageList: ArrayList<ScreenUsageData>
+
     companion object {
         const val MY_PROFILE_REQ_CODE = 101
     }
@@ -37,8 +54,8 @@ class MainActivity : AppCompatActivity() {
 
         // email verification
         mUser = FirebaseAuth.getInstance().currentUser!!
-        checkEmailVerifiedOrNot()
-
+        mSharedPreferences = getSharedPreferences(Constants.USAGE_PERMISSION_SHARED_PREFS, Context.MODE_PRIVATE)
+        FireStoreClass().loadUserData(this@MainActivity)
 
         binding.apply {
             shareButton.setOnClickListener {
@@ -64,18 +81,83 @@ class MainActivity : AppCompatActivity() {
             includeAppBarLayout.MainScreenUsageActivity.verifyEmailButton.setOnClickListener {
                 FireStoreClass().sendEmailVerificationLink(this@MainActivity, mUser)
             }
+            includeAppBarLayout.MainScreenUsageActivity.givePermissionButton.setOnClickListener {
+                askForUsageAccessPermission()
+            }
         }
+
 
     }
 
-    private fun setUpRecyclerView() {
-        val testingAdapter = arrayListOf<ScreenUsageData>(
-            ScreenUsageData(R.drawable.appicon.toString(), "Whatsapp", "1 Hour 30 Min"),
-            ScreenUsageData(R.drawable.appicon.toString(), "Instagram", "30 Min")
+
+    private fun midNightWorkScheduler(timeUsageData: TimeUsageData) {
+        val currentTime = Calendar.getInstance()
+        val midnight = Calendar.getInstance()
+        midnight.add(Calendar.DAY_OF_YEAR, 1)
+        midnight.set(Calendar.HOUR_OF_DAY, 0)
+        midnight.set(Calendar.MINUTE, 0)
+        midnight.set(Calendar.SECOND, 0)
+        val timeDifferenceMillis = midnight.timeInMillis - currentTime.timeInMillis
+
+        val gson = Gson()
+        val userDataJson = gson.toJson(timeUsageData)
+
+        val workRequest = OneTimeWorkRequest.Builder(MidNightWordManager::class.java)
+            .setInputData(Data.Builder().putString(Constants.WORK_MANAGER_INPUT_DATA, userDataJson).build())
+            .setInitialDelay(timeDifferenceMillis, TimeUnit.MILLISECONDS) // Delay until midnight
+            .build()
+
+        // Schedule the task
+        WorkManager.getInstance(this).enqueue(workRequest)
+    }
+
+    private fun permissionGranted() {
+         if(isUsageStatsPermissionGranted()) {
+            binding.apply {
+                includeAppBarLayout.MainScreenUsageActivity.permissionTextView.visibility = View.INVISIBLE
+                includeAppBarLayout.MainScreenUsageActivity.givePermissionButton.visibility = View.INVISIBLE
+                includeAppBarLayout.MainScreenUsageActivity.marketPlaceButton.isEnabled = true
+
+                val mPermissionGrantedFirstTime = mSharedPreferences.getBoolean("FireBase", false)
+                if(!mPermissionGrantedFirstTime) {
+                    val editor = mSharedPreferences.edit()
+                    editor.putBoolean("FireBase", true)
+                    editor.apply()
+                    // Call firebaseFunction() if it hasn't been called yet
+                    binding.includeAppBarLayout.MainScreenUsageActivity.permissionTextView.visibility = View.VISIBLE
+                    binding.includeAppBarLayout.MainScreenUsageActivity.permissionTextView.text = "Restart Your App To Get Time Usage Data"
+                    UsageScreenTime().usageStatsCallFireBase(this@MainActivity)
+                }
+                else {
+                    binding.includeAppBarLayout.MainScreenUsageActivity.permissionTextView.visibility = View.INVISIBLE
+                    FireStoreClass().getUserTimeDataFromFireBase(this@MainActivity)
+                }
+            }
+         } else {
+             binding.apply {
+                 includeAppBarLayout.MainScreenUsageActivity.permissionTextView.visibility = View.VISIBLE
+                 includeAppBarLayout.MainScreenUsageActivity.givePermissionButton.visibility = View.VISIBLE
+             }
+         }
+    }
+
+    private fun isUsageStatsPermissionGranted(): Boolean {
+        val appOps = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        val mode = appOps.checkOpNoThrow(
+            AppOpsManager.OPSTR_GET_USAGE_STATS,
+            android.os.Process.myUid(),
+            packageName
         )
+        return mode == AppOpsManager.MODE_ALLOWED
+    }
+    private fun askForUsageAccessPermission() {
+        val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+        startActivity(intent)
+    }
+    private fun setUpRecyclerView(list: ArrayList<ScreenUsageData>) {
         binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.layoutManager =
             LinearLayoutManager(this@MainActivity)
-        val mAdapter = UsageScreenRecyclerViewAdapter(this, testingAdapter)
+        val mAdapter = UsageScreenRecyclerViewAdapter(this, list)
         binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.adapter = mAdapter
     }
 
@@ -107,8 +189,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun updateNavigationUserDetails(user: ProfileDetails){
-        mProfileDetails = user
+    fun updateNavigationUserDetails(user: UserDetails){
+        mUserDetails = user
         Glide
             .with(this)
             .load(user.image)
@@ -139,10 +221,9 @@ class MainActivity : AppCompatActivity() {
                 if (mUser.isEmailVerified) {
                     // User's email is verified
                     binding.apply {
-                        includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.visibility = View.VISIBLE
-                        includeAppBarLayout.MainScreenUsageActivity.verifyEmailButton.visibility = View.INVISIBLE
-                        includeAppBarLayout.MainScreenUsageActivity.marketPlaceButton.isEnabled = true
-                        setUpRecyclerView()
+                        includeAppBarLayout.MainScreenUsageActivity.verifyEmailButton.visibility = View.GONE
+                        includeAppBarLayout.MainScreenUsageActivity.permissionTextView.visibility = View.VISIBLE
+                        includeAppBarLayout.MainScreenUsageActivity.givePermissionButton.visibility = View.VISIBLE
                     }
                 } else {
                     // User's email is not verified
@@ -172,25 +253,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        checkEmailVerifiedOrNot()
-        FireStoreClass().loadUserData(this@MainActivity)
         super.onResume()
-    }
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_shop_screen_toolbar, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_icon -> {
-//                Toast.makeText(this@Drawer, "Shop Working!!", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this,StoreActivity::class.java)
-                startActivity(intent)
-                return true
+        mUser.reload().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                mUser = FirebaseAuth.getInstance().currentUser!!
+                if (!mUser.isEmailVerified) {
+                    binding.apply {
+                        includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.visibility = View.INVISIBLE
+                        includeAppBarLayout.MainScreenUsageActivity.verifyEmailButton.visibility = View.VISIBLE
+                        includeAppBarLayout.MainScreenUsageActivity.marketPlaceButton.isEnabled = false
+                    }
+                } else {
+                    binding.includeAppBarLayout.MainScreenUsageActivity.verifyEmailButton.visibility = View.INVISIBLE
+                    permissionGranted()
+                }
             }
-            else -> return super.onOptionsItemSelected(item)
         }
-    }*/
-
+    }
+    fun getUserAppData(timeData: TimeUsageData) {
+        mTimeUsageList = UsageScreenTime().updateUsageStatsOnCreate(this@MainActivity, timeData.time)
+        binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.visibility = View.VISIBLE
+        setUpRecyclerView(mTimeUsageList)
+        midNightWorkScheduler(UsageScreenTime().usageDataMidNight(this@MainActivity))
+    }
+    fun failedToGetPrevData(error: String) {
+        Toast.makeText(this@MainActivity, error, Toast.LENGTH_SHORT).show()
+    }
 }

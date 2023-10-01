@@ -17,10 +17,39 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone"
-        tools:visibility="visible"
         android:textSize="16sp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/permissionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        android:text="To view your application's screen time, you need to grant permission from your device's settings."
+        />
+
+    <Button
+        android:id="@+id/givePermissionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Permission"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/permissionTextView"
+        android:visibility="gone"
+        android:textSize="16sp"
+        tools:visibility="visible"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:textStyle="bold"/>
 
     <LinearLayout
@@ -75,5 +104,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewHorizontalLine" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

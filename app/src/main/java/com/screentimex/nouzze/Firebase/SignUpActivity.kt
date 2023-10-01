@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,12 +12,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.screentimex.nouzze.Activities.IntroActivity
 import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityCreateUserBinding
 import com.screentimex.nouzze.models.Constants
-import com.screentimex.nouzze.models.ProfileDetails
+import com.screentimex.nouzze.models.UserDetails
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -59,7 +57,7 @@ class SignUpActivity : AppCompatActivity() {
                 .createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if(task.isSuccessful){
                         val firebaseUser: FirebaseUser = task.result!!.user!!
-                        val user = ProfileDetails(firebaseUser.uid, email, mUserName, mUserAge, mUserProfession)
+                        val user = UserDetails(firebaseUser.uid, email, mUserName, mUserAge, mUserProfession)
                         FireStoreClass().registerUser(this, user)
                     }
                     else{

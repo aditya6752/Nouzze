@@ -16,13 +16,13 @@ import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityProfileBinding
 import com.screentimex.nouzze.models.Constants
-import com.screentimex.nouzze.models.ProfileDetails
+import com.screentimex.nouzze.models.UserDetails
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private var selectedImageUri: Uri? = null
     private var profileImageUri: String = ""
-    private lateinit var userDetails: ProfileDetails
+    private lateinit var userDetails: UserDetails
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
@@ -137,7 +137,7 @@ class ProfileActivity : AppCompatActivity() {
             .into(binding.profileImage)
     }
 
-    fun getUserDataForProfile(user: ProfileDetails){
+    fun getUserDataForProfile(user: UserDetails){
         userDetails = user
         Glide
             .with(this)
