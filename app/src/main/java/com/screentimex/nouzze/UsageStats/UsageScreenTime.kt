@@ -12,6 +12,7 @@ import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.ScreenUsageData
 import com.screentimex.nouzze.models.TimeUsageData
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -28,7 +29,9 @@ class UsageScreenTime: AppCompatActivity(){
     private fun getAppUsageStats(context: Activity): Map<String, AggregatedUsageStats> {
         val usageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         val endTime = System.currentTimeMillis()
-        val startTime = endTime - (24 * 60 * 60 * 1000)
+        val calendar = Calendar.getInstance()
+        calendar.set(2023, Calendar.OCTOBER, 1)
+        val startTime = calendar.timeInMillis
 
         val usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_MONTHLY, startTime, endTime)
 
