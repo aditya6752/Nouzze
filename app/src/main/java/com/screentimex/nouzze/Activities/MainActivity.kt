@@ -271,7 +271,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     fun getUserAppData(timeData: TimeUsageData) {
-        mTimeUsageList = UsageScreenTime().updateUsageStatsOnCreate(this@MainActivity, timeData.time)
+        mTimeUsageList = UsageScreenTime().updateUsageStatsOnCreate(this@MainActivity, timeData.timeList)
         binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.visibility = View.VISIBLE
         setUpRecyclerView(mTimeUsageList)
         midNightWorkScheduler(UsageScreenTime().usageDataMidNight(this@MainActivity))

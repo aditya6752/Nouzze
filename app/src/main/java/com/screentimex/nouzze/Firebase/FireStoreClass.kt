@@ -1,10 +1,8 @@
 package com.screentimex.nouzze.Firebase
 
 import android.app.Activity
-import android.os.Build
 import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -19,6 +17,9 @@ import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.TimeUsageData
 import com.screentimex.nouzze.models.UserDetails
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class FireStoreClass: AppCompatActivity() {
     private val mFireStore = FirebaseFirestore.getInstance()
@@ -139,6 +140,8 @@ class FireStoreClass: AppCompatActivity() {
     }
 
     fun addUserTimeDataToFireBase(activity: Activity, timeData: TimeUsageData) {
+        val currentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date())
+        timeData.time = currentTime
         mFireStore.collection(Constants.TIME)
             .document(getCurrentUUID())
             .set(timeData)

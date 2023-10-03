@@ -4,14 +4,17 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class TimeUsageData(
-    var time: ArrayList<ApplicationData> = ArrayList()
+    var time: String = "",
+    var timeList: ArrayList<ApplicationData> = ArrayList()
 ) : Parcelable {
     constructor(parcel: Parcel) : this (
+        parcel.readString()!!,
         parcel.createTypedArrayList(ApplicationData.CREATOR)!!
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeTypedList(time)
+        parcel.writeString(time)
+        parcel.writeTypedList(timeList)
     }
 
     override fun describeContents(): Int {

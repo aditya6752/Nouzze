@@ -11,6 +11,9 @@ import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.TimeUsageData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MidNightWordManager(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     private val mFireStore = FirebaseFirestore.getInstance()
@@ -25,6 +28,8 @@ class MidNightWordManager(context: Context, params: WorkerParameters) : Coroutin
     }
 
     private fun addUserTimeDataToFireBase(timeUsageData: TimeUsageData) {
+        val currentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date())
+        timeUsageData.time = currentTime
         mFireStore.collection(Constants.TIME)
             .document(getCurrentUUID())
             .set(timeUsageData)
