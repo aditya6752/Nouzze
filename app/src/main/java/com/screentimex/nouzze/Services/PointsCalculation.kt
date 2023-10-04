@@ -9,8 +9,8 @@ class PointsCalculation(private val userDetails: UserDetails, private val timeDe
     private val timeList = timeDetails.timeList
     private val age = userDetails.age
     private val profession = userDetails.profession
-    private var mapProfessionLimit = Constants.MAP_AGE_PROFESSION_TIME
-    private var mapsOfPointsData = Constants.MAP_EVERYTHING
+    private val ApplicationTypes = ConstPoints.MAP_APP_TYPE
+
     fun ageBracket(): String {
         if(age in 10..14) return "10-14"
         if(age in 15..22) return "15-22"
@@ -20,6 +20,16 @@ class PointsCalculation(private val userDetails: UserDetails, private val timeDe
     }
 
     private fun pointsCalculation() {
-        
+        val specificAgeBracket = ageBracket(age)
+        val mapProfessionLimit = ConstPoints.MAP_AGE_PROFESSION_TIME.get(specificAgeBracket)
+        val mapsOfPointsData = ConstPoints.MAP_EVERYTHING.get(specificAgeBracket)
+
+        for ( applicationssData in timeList ){
+            val applicationName = applicationsData.appName
+            val applicationTime = applicationsData.appStartTime
+
+            if ( applicationTime  )
+        }
+
     }
 }
