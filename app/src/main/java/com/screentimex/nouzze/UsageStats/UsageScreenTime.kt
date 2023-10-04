@@ -29,10 +29,10 @@ class UsageScreenTime: AppCompatActivity(){
     private fun getAppUsageStats(context: Activity): Map<String, AggregatedUsageStats> {
         val usageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         val endTime = System.currentTimeMillis()
-        val calendar = Calendar.getInstance()
-        calendar.set(2023, Calendar.OCTOBER, 1)
-        val startTime = calendar.timeInMillis
-        val usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime)
+        /*val calendar = Calendar.getInstance()
+        calendar.set(2023, Calendar.OCTOBER, 1)*/
+        val startTime = endTime - (24 * 60 * 60 * 1000)
+        val usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_MONTHLY, startTime, endTime)
 
         // Aggregate usage stats by package name
         val aggregatedStats = mutableMapOf<String, AggregatedUsageStats>()

@@ -31,6 +31,7 @@ import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.UserDetails
 import com.screentimex.nouzze.models.ScreenUsageData
 import com.screentimex.nouzze.models.TimeUsageData
+import com.screentimex.nouzze.models.TotalData
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         val timeDifferenceMillis = midnight.timeInMillis - currentTime.timeInMillis
 
         val gson = Gson()
-        val userDataJson = gson.toJson(Pair(mUserDetails, timeUsageData))
+        val userDataJson = gson.toJson(TotalData(mUserDetails, timeUsageData))
 
         val workRequest = OneTimeWorkRequest.Builder(MidNightWordManager::class.java)
             .setInputData(Data.Builder().putString(Constants.WORK_MANAGER_INPUT_DATA, userDataJson).build())

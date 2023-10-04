@@ -13,6 +13,7 @@ import com.screentimex.nouzze.Activities.CheckOut
 import com.screentimex.nouzze.Activities.ProfileActivity
 import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.TimeUsageData
+import com.screentimex.nouzze.models.TotalData
 import com.screentimex.nouzze.models.UserDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -26,14 +27,13 @@ class MidNightWordManager(context: Context, params: WorkerParameters) : Coroutin
         return withContext(Dispatchers.IO) {
             val dataListJson = inputData.getString(Constants.WORK_MANAGER_INPUT_DATA)
             val gson = Gson()
-            val pairType = object : TypeToken<Pair<UserDetails, TimeUsageData>>() {}.type
-            val pair: Pair<UserDetails, TimeUsageData> = gson.fromJson(dataListJson, pairType)
-            val mUserDetails = pair.first
-            val timeUsageData = pair.second
-            /*val updatedPoints = PointsCalculation(mUserDetails, timeUsageData).calculate()
+            val data = gson.fromJson(dataListJson, TotalData::class.java)
+            val mUserDetails = data.userData
+            val timeUsageData = data.timeData
+            val updatedPoints = PointsCalculation(mUserDetails, timeUsageData).calculate()
             val userHashMap = HashMap<String, Any>()
             userHashMap[Constants.POINTS] = updatedPoints
-            updateProfileData(userHashMap)*/
+            updateProfileData(userHashMap)
             addUserTimeDataToFireBase(timeUsageData)
             return@withContext Result.success()
         }
