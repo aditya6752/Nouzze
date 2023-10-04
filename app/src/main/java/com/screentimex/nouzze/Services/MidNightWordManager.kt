@@ -8,10 +8,12 @@ import androidx.work.WorkerParameters
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.screentimex.nouzze.Activities.CheckOut
 import com.screentimex.nouzze.Activities.ProfileActivity
 import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.TimeUsageData
+import com.screentimex.nouzze.models.UserDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -24,21 +26,27 @@ class MidNightWordManager(context: Context, params: WorkerParameters) : Coroutin
         return withContext(Dispatchers.IO) {
             val dataListJson = inputData.getString(Constants.WORK_MANAGER_INPUT_DATA)
             val gson = Gson()
-            val data = gson.fromJson(dataListJson, TimeUsageData::class.java)
-            val updatedPoints = PointsCalculation().calculate()
-            addUserTimeDataToFireBase(data)
+            val pairType = object : TypeToken<Pair<UserDetails, TimeUsageData>>() {}.type
+            val pair: Pair<UserDetails, TimeUsageData> = gson.fromJson(dataListJson, pairType)
+            val mUserDetails = pair.first
+            val timeUsageData = pair.second
+            /*val updatedPoints = PointsCalculation(mUserDetails, timeUsageData).calculate()
+            val userHashMap = HashMap<String, Any>()
+            userHashMap[Constants.POINTS] = updatedPoints
+            updateProfileData(userHashMap)*/
+            addUserTimeDataToFireBase(timeUsageData)
             return@withContext Result.success()
         }
     }
 
-    fun updateProfileData(userHashMap: HashMap<String, Any>){
+    private fun updateProfileData(userHashMap: HashMap<String, Any>){
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUUID())
             .update(userHashMap)
             .addOnSuccessListener {
-
+                Log.i("MyTag", "points Stored Successfully!!")
             }.addOnFailureListener{ e ->
-
+                Log.i("MyTag", "Failed to Store Points")
             }
     }
 
@@ -49,14 +57,14 @@ class MidNightWordManager(context: Context, params: WorkerParameters) : Coroutin
             .document(getCurrentUUID())
             .set(timeUsageData)
             .addOnSuccessListener {
-                Log.i("MyTag", "Data Stored Successfully!!")
+                Log.i("MyTag", "Time Data Stored Successfully!!")
             }
             .addOnFailureListener {
-                Log.i("MyTag", "Failed to Store Data")
+                Log.i("MyTag", "Failed to Store Time Data")
             }
     }
 
-    fun getCurrentUUID(): String{
+    private fun getCurrentUUID(): String{
         val currentUser = FirebaseAuth.getInstance().currentUser
         var currentUserId = ""
         if(currentUser != null) {

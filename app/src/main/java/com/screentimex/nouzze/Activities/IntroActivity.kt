@@ -39,8 +39,9 @@ class IntroActivity : AppCompatActivity() {
 
     private fun updateSpinner() {
         val options = listOf("Choose your profession",
-            "Student", "Engineer", "Bank", "Doctor", "Teacher", "Business", "Media",
-            "Sales", "Social Work", "Sports", "Driver", "House Maker", "Other"
+            "Engineering", "Banking", "Finance", "Doctors", "Teaching and Education", "Business",
+            "Media and Entertainment", "Sales and Marketing", "Social Work", "Sports and Athletics",
+            "Driver", "Student", "House Maker", "Others"
         )
         val spinner = binding.professionOptions
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
@@ -53,6 +54,8 @@ class IntroActivity : AppCompatActivity() {
         var lis = ""
         if(binding.userName.text.toString().isEmpty())
             lis = "Please enter your name"
+        else if(binding.userAge.text.toString().toInt() < 10)
+            lis = "You are too young to use this service."
         else if(binding.userAge.text.toString().isEmpty())
             lis = "Please provide your age"
         else if(binding.professionOptions.selectedItem.toString() == "Choose your profession")

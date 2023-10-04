@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         val timeDifferenceMillis = midnight.timeInMillis - currentTime.timeInMillis
 
         val gson = Gson()
-        val userDataJson = gson.toJson(timeUsageData)
+        val userDataJson = gson.toJson(Pair(mUserDetails, timeUsageData))
 
         val workRequest = OneTimeWorkRequest.Builder(MidNightWordManager::class.java)
             .setInputData(Data.Builder().putString(Constants.WORK_MANAGER_INPUT_DATA, userDataJson).build())

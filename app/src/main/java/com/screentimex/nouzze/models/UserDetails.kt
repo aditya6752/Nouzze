@@ -11,7 +11,7 @@ data class UserDetails(
     var profession: String = "",
     var image: String = "",
     var phoneNumber: Long = 0,
-    var points: Long = 1000
+    var points: Long = 0
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,

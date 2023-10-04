@@ -32,19 +32,7 @@ class UsageScreenTime: AppCompatActivity(){
         val calendar = Calendar.getInstance()
         calendar.set(2023, Calendar.OCTOBER, 1)
         val startTime = calendar.timeInMillis
-
-        val usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_MONTHLY, startTime, endTime)
-
-        val currentTime = Date()
-        val timeFormat2 = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-        val formattedTime = timeFormat2.format(currentTime) // this is converting the time in timeFormat2 pattern
-
-        val hour = formattedTime.substring(0, 2).toInt()
-        val minute = formattedTime.substring(3,5).toInt()
-        val seconds = formattedTime.substring(6).toInt()
-        val millisecondsSinceEpoch = ( ( ( hour ) * 60 + minute ) * 60 + seconds ) * 1000
-
-        val leftToMidNight = 86400000 - millisecondsSinceEpoch
+        val usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime)
 
         // Aggregate usage stats by package name
         val aggregatedStats = mutableMapOf<String, AggregatedUsageStats>()
