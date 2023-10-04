@@ -70,7 +70,7 @@ class UsageScreenTime: AppCompatActivity(){
                 mMidNightUsageData[index].appStartTime = totalUsageTime
             }
         }
-        return TimeUsageData(mMidNightUsageData)
+        return TimeUsageData("", mMidNightUsageData)
     }
 
     fun updateUsageStatsOnCreate(context: Activity, myDataList: ArrayList<ApplicationData>): ArrayList<ScreenUsageData> {
@@ -128,6 +128,6 @@ class UsageScreenTime: AppCompatActivity(){
                 timeDataList[index] = mApplicationData
             }
         }
-        FireStoreClass().addUserTimeDataToFireBase(context, TimeUsageData(timeDataList))
+        FireStoreClass().addUserTimeDataToFireBase(context, TimeUsageData("", timeDataList))
     }
 }
