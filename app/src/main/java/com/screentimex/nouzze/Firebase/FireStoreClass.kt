@@ -83,7 +83,6 @@ class FireStoreClass: AppCompatActivity() {
             .document(getCurrentUUID())
             .update(userHashMap)
             .addOnSuccessListener {
-                Log.e(activity.javaClass.simpleName, "nobro")
                 if(activity is ProfileActivity) {
                     activity.profileUpdateSuccess()
                 }
@@ -93,7 +92,7 @@ class FireStoreClass: AppCompatActivity() {
             }.addOnFailureListener{
                     e ->
                 //activity.hideProgressDialog()
-                Log.e(activity.javaClass.simpleName,"dataanayltic", e)
+                Log.e(activity.javaClass.simpleName, "$e")
             }
     }
 
