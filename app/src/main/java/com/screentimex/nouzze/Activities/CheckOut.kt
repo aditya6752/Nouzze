@@ -3,6 +3,8 @@ package com.screentimex.nouzze.Activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.Services.ProductDetailSharedPref
@@ -48,12 +50,17 @@ class CheckOut : AppCompatActivity() {
         binding.productImg.setImageResource(imgId)
 
         binding.BuyNowButton.setOnClickListener {
-            GlobalScope.launch(Dispatchers.IO) {
-                sendEmail()
+            val balance = mUserDetails.points - productDetails.productPrice.toLong()
+            if(balance > 0) {
+                GlobalScope.launch(Dispatchers.IO) {
+                    sendEmail()
+                }
+                val userHashMap = HashMap<String, Any>()
+                userHashMap[Constants.POINTS] = balance
+                FireStoreClass().updateProfileData(this@CheckOut, userHashMap)
+            } else {
+                showError("Insufficient Balance!!")
             }
-            val userHashMap = HashMap<String, Any>()
-            userHashMap[Constants.POINTS] = mUserDetails.points - productDetails.productPrice.toLong()
-            FireStoreClass().updateProfileData(this@CheckOut, userHashMap)
         }
 
     }
@@ -89,7 +96,7 @@ class CheckOut : AppCompatActivity() {
         val username = "screentimex@gmail.com"
         val password = "gmlm tdwq ayrd xjqd"
 
-        val messageToBeSend = makeString()
+        val messageToBeSend = mEmailMessage()
 
         val props = Properties()
         props["mail.smtp.auth"] = "true"
@@ -119,13 +126,25 @@ class CheckOut : AppCompatActivity() {
         }
     }
 
-    fun makeString() : String {
-        val response : String = "Hi ${mUserDetails.name} ,\n Your order is placed.\n You ordered a ${productDetails.productName} which has a " +
-                " value of ${productDetails.productPrice} points. After this order , you've left with ${mUserDetails.points - productDetails.productPrice.toLong()} points . \n" +
-                " Your Order will be shipped to ${mAddressDetails.Flat_Number} / ${mAddressDetails.Area} , ${mAddressDetails.Landmark} , " +
-                "${mAddressDetails.City} , ${mAddressDetails.State} , ${mAddressDetails.Pincode} and your Mobile Number is " +
-                "${mAddressDetails.Mobile_Number} .\n Thank You \n Team Nouzze"
+    private fun mEmailMessage() : String {
+        val response : String = "Hi ${mUserDetails.name} ,\nYour order is placed.\nYou ordered a ${productDetails.productName} which has a" +
+                "value of ${productDetails.productPrice} points. After this order , you've left with ${mUserDetails.points - productDetails.productPrice.toLong()} points . \n" +
+                "Your Order will be shipped to ${mAddressDetails.Flat_Number} / ${mAddressDetails.Area} , ${mAddressDetails.Landmark} , " +
+                "${mAddressDetails.City} , ${mAddressDetails.State} , ${mAddressDetails.Pincode} and your Mobile Number is" +
+                "${mAddressDetails.Mobile_Number} .\nThank You \nTeam Nouzze"
         return response
     }
 
+    fun showError(message: String){
+        val snackBar =
+            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        snackBarView.setBackgroundColor(
+            ContextCompat.getColor(
+                this@CheckOut,
+                R.color.snackbarcolor
+            )
+        )
+        snackBar.show()
+    }
 }

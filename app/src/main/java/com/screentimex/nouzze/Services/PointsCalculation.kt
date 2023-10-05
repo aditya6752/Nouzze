@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.callbackFlow
 
 class PointsCalculation(private val userDetails: UserDetails, private val timeDetails: TimeUsageData) {
 
-   var previousPoints = userDetails.points
+    private var previousPoints = userDetails.points
     private val timeList = timeDetails.timeList
     private val profession = userDetails.profession
 
