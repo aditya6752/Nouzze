@@ -79,7 +79,7 @@ class CheckOut : AppCompatActivity() {
     }
     fun getUserData(UserData : UserDetails){
         mUserDetails = UserData
-        binding.userNameWelcome.setText("Hi , ${mUserDetails.name}")
+        binding.userNameWelcome.setText("Hi ${mUserDetails.name} , Your Order  ")
         binding.balance.text = "Balance: " + mUserDetails.points.toString()
     }
 
@@ -120,11 +120,11 @@ class CheckOut : AppCompatActivity() {
     }
 
     fun makeString() : String {
-        val response : String = "Hi ${mUserDetails.name} , Your order is placed . You ordered a ${productDetails.productName} which has a" +
-                " value of ${productDetails.productPrice} points . After this order , you've left with ${mUserDetails.points - productDetails.productPrice.toLong()} points . " +
-                " The Order will be shipped to ${mAddressDetails.Flat_Number} / ${mAddressDetails.Area} , ${mAddressDetails.Landmark} , " +
+        val response : String = "Hi ${mUserDetails.name} ,\n Your order is placed.\n You ordered a ${productDetails.productName} which has a " +
+                " value of ${productDetails.productPrice} points. After this order , you've left with ${mUserDetails.points - productDetails.productPrice.toLong()} points . \n" +
+                " Your Order will be shipped to ${mAddressDetails.Flat_Number} / ${mAddressDetails.Area} , ${mAddressDetails.Landmark} , " +
                 "${mAddressDetails.City} , ${mAddressDetails.State} , ${mAddressDetails.Pincode} and your Mobile Number is " +
-                "${mAddressDetails.Mobile_Number} ."
+                "${mAddressDetails.Mobile_Number} .\n Thank You \n Team Nouzze"
         return response
     }
 

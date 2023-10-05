@@ -5,6 +5,7 @@ import android.app.AppOpsManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 showToast("Settings Button Working")
             }
             helpButton.setOnClickListener {
-                showToast("Help Button Working")
+                openGmail()
             }
             navDraawerHeaderInclude.logOutButton.setOnClickListener {
                 signOut()
@@ -92,7 +93,6 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun midNightWorkScheduler(timeUsageData: TimeUsageData) {
-        Log.i("MyTag","workManager 2")
         val currentTime = Calendar.getInstance()
         val midnight = Calendar.getInstance()
         midnight.add(Calendar.DAY_OF_YEAR, 1)
@@ -109,12 +109,10 @@ class MainActivity : AppCompatActivity() {
             .setInitialDelay(timeDifferenceMillis, TimeUnit.MILLISECONDS) // Delay until midnight
             .build()
 
-        Log.i("MyTag","workManager 3")
         // Schedule the task
         WorkManager.getInstance(this).enqueue(workRequest)
 
     }
-
     private fun permissionGranted() {
          if(isUsageStatsPermissionGranted()) {
             binding.apply {
@@ -274,11 +272,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun openGmail() {
+        val email = "nouzzehelp@gmail.com"
+        val intent = Intent(Intent.ACTION_VIEW,Uri.parse("mailto:$email"))
+        startActivity(intent)
+    }
     fun getUserAppData(timeData: TimeUsageData) {
         mTimeUsageList = UsageScreenTime().updateUsageStatsOnCreate(this@MainActivity, timeData.timeList)
         binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.visibility = View.VISIBLE
         setUpRecyclerView(mTimeUsageList)
-        Log.i("MyTag", "Work Manager 1 ")
         midNightWorkScheduler(UsageScreenTime().usageDataMidNight(this@MainActivity))
     }
     fun failedToGetPrevData(error: String) {

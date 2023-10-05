@@ -23,30 +23,27 @@ class PointsCalculation(private val userDetails: UserDetails, private val timeDe
 
     fun calculate(): Long {
         val mapProfessionLimit = ConstPoints.MAP_AGE_PROFESSION_TIME
-        val mapsOfPointsData = ConstPoints.MAP_EVERYTHING[profession]
+        val mapsOfPointsData = ConstPoints.MAP_EVERYTHING[profession]!!
 
-        Log.i("MyTag","${timeList.size}")
+
         for ( applicationsData in timeList ){
             val applicationName = applicationsData.appName
             val applicationTime = applicationsData.appStartTime
             val type = ConstPoints.MAP_APP_TYPE[applicationName]
-            val limit = mapProfessionLimit[type]!!
+            val limit = mapProfessionLimit[type]
 
             if (type != null && limit != null) {
                 Log.i("MyTag", "$limit $applicationName $applicationTime")
                 previousPoints += if (applicationTime <= limit) {
-                    10
+                    mapsOfPointsData.get(type)!!.first
                 } else {
-                    5
+                    mapsOfPointsData.get(type)!!.second
                 }
             } else {
                 Log.i("MyTag", "Type or limit not found for $applicationName")
             }
-
-            Log.i("MyTag" , "Hello Bye ")
         }
-        Log.i("MyTag" , "Hello ")
-        Log.i("MyTag" , "Final $previousPoints")
+
         return previousPoints
     }
 }

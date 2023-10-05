@@ -52,35 +52,69 @@
         android:layout_marginEnd="8dp"
         android:textStyle="bold"/>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/marketPlaceAndPointsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="vertical"
-        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/mainScreenRecyclerView"
         >
         <TextView
             android:id="@+id/userPoints"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textStyle="bold"
+            android:text="Points: 0"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:id="@+id/marketPlaceButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Points: 1000"
-            android:textSize="16sp"
-            android:gravity="end"/>
-        <Button
-            android:id="@+id/marketPlaceButton"
-            android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:text="Market Place"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="2dp"
+            android:layout_marginRight="8dp"
             android:background="#006d77"
-            android:textColor="@color/white"
-            />
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Market Place"
+                android:textSize="16sp"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:background="#006d77"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                />
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:srcCompat="@drawable/shop_icon_100" />
+
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            app:layout_constraintStart_toEndOf="@+id/userPoints"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/coin_96" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/viewHorizontalLine"

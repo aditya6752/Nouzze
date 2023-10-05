@@ -15,12 +15,7 @@
         android:background="?attr/colorPrimary"
         />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="5dp"
-        android:layout_margin="5dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,51 +34,100 @@
 
             </TextView>
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/productImg"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:layout_marginBottom="5dp"
-                android:src="@drawable/ic_menu_gallery"
-                app:shapeAppearanceOverlay="@style/softCorner">
-
-            </com.google.android.material.imageview.ShapeableImageView>
-
-            <TextView
-                android:id="@+id/product_name"
-                android:layout_width="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textSize="16sp"
-                android:textStyle="italic"
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Product Name">
-            </TextView>
+                android:layout_marginBottom="15dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="8dp"
+                app:cardElevation="5dp">
 
-            <TextView
-                android:id="@+id/balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_marginBottom="5dp"
-                android:text="Balance">
-            </TextView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/product_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textSize="16sp"
-                android:text="Product Price">
-            </TextView>
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/productImg"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/ic_menu_gallery"
+                        app:shapeAppearanceOverlay="@style/softCorner">
+
+                    </com.google.android.material.imageview.ShapeableImageView>
+
+                    <TextView
+                        android:id="@+id/product_name"
+                        android:layout_width="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16sp"
+                        android:textStyle="italic"
+                        android:layout_height="wrap_content"
+                        android:text="Product Name">
+                    </TextView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_marginBottom="5dp"
+                            android:text="Balance">
+                        </TextView>
+                        <ImageView
+                            android:layout_width="23dp"
+                            android:layout_height="23dp"
+                            android:layout_gravity="center"
+                            app:layout_constraintStart_toEndOf="@+id/userPoints"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:srcCompat="@drawable/coin_96" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/product_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="16sp"
+                            android:text="Product Price">
+                        </TextView>
+                        <ImageView
+                            android:layout_width="23dp"
+                            android:layout_height="23dp"
+                            android:layout_gravity="center"
+                            app:layout_constraintStart_toEndOf="@+id/userPoints"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:srcCompat="@drawable/coin_96" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/User_details_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                app:cardCornerRadius="20dp"
+                android:layout_marginBottom="15dp"
+                app:cardCornerRadius="15dp"
                 app:cardElevation="5dp"
                 >
 
@@ -98,7 +142,7 @@
                         android:id="@+id/addressInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Address Details : "
+                        android:text="Shipping Address : "
                         android:textSize="16dp"
                         android:textStyle="bold">
 
@@ -155,6 +199,7 @@
                 android:id="@+id/Buy_Now_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 app:layout_constraintTop_toTopOf="@id/User_details_CardView"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textAllCaps="false"
@@ -164,6 +209,5 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
