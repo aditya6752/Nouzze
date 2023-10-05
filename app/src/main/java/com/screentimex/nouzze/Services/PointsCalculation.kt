@@ -17,31 +17,36 @@ import kotlinx.coroutines.flow.callbackFlow
 
 class PointsCalculation(private val userDetails: UserDetails, private val timeDetails: TimeUsageData) {
 
-    private var previousPoints = userDetails.points
+   var previousPoints = userDetails.points
     private val timeList = timeDetails.timeList
-    private val age = userDetails.age
     private val profession = userDetails.profession
 
-    private fun ageBracket(): String {
-        if(age in 10..22) return "10-22"
-        return "23-60"
-    }
-
     fun calculate(): Long {
-        val specificAgeBracket = ageBracket()
-        val mapProfessionLimit = ConstPoints.MAP_AGE_PROFESSION_TIME[specificAgeBracket]
-        val mapsOfPointsData = ConstPoints.MAP_EVERYTHING[specificAgeBracket]?.get(profession)
+        val mapProfessionLimit = ConstPoints.MAP_AGE_PROFESSION_TIME
+        val mapsOfPointsData = ConstPoints.MAP_EVERYTHING[profession]
 
+        Log.i("MyTag","${timeList.size}")
         for ( applicationsData in timeList ){
             val applicationName = applicationsData.appName
             val applicationTime = applicationsData.appStartTime
             val type = ConstPoints.MAP_APP_TYPE[applicationName]
-            previousPoints += if(applicationTime <= mapProfessionLimit?.get(type)!!) {
-                mapsOfPointsData?.get(type)?.first!!
+            val limit = mapProfessionLimit[type]!!
+
+            if (type != null && limit != null) {
+                Log.i("MyTag", "$limit $applicationName $applicationTime")
+                previousPoints += if (applicationTime <= limit) {
+                    10
+                } else {
+                    5
+                }
             } else {
-                mapsOfPointsData?.get(type)?.second!!
+                Log.i("MyTag", "Type or limit not found for $applicationName")
             }
+
+            Log.i("MyTag" , "Hello Bye ")
         }
+        Log.i("MyTag" , "Hello ")
+        Log.i("MyTag" , "Final $previousPoints")
         return previousPoints
     }
 }

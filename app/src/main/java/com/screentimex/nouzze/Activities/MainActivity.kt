@@ -87,10 +87,12 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
     }
 
 
     private fun midNightWorkScheduler(timeUsageData: TimeUsageData) {
+        Log.i("MyTag","workManager 2")
         val currentTime = Calendar.getInstance()
         val midnight = Calendar.getInstance()
         midnight.add(Calendar.DAY_OF_YEAR, 1)
@@ -107,8 +109,10 @@ class MainActivity : AppCompatActivity() {
             .setInitialDelay(timeDifferenceMillis, TimeUnit.MILLISECONDS) // Delay until midnight
             .build()
 
+        Log.i("MyTag","workManager 3")
         // Schedule the task
         WorkManager.getInstance(this).enqueue(workRequest)
+
     }
 
     private fun permissionGranted() {
@@ -274,6 +278,7 @@ class MainActivity : AppCompatActivity() {
         mTimeUsageList = UsageScreenTime().updateUsageStatsOnCreate(this@MainActivity, timeData.timeList)
         binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.visibility = View.VISIBLE
         setUpRecyclerView(mTimeUsageList)
+        Log.i("MyTag", "Work Manager 1 ")
         midNightWorkScheduler(UsageScreenTime().usageDataMidNight(this@MainActivity))
     }
     fun failedToGetPrevData(error: String) {

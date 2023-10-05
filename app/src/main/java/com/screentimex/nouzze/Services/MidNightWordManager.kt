@@ -30,23 +30,26 @@ class MidNightWordManager(context: Context, params: WorkerParameters) : Coroutin
             val pair: Pair<UserDetails, TimeUsageData> = gson.fromJson(dataListJson, pairType)
             val mUserDetails = pair.first
             val timeUsageData = pair.second
-            /*val updatedPoints = PointsCalculation(mUserDetails, timeUsageData).calculate()
+            Log.i("MyTag", "Working")
+            val updatedPoints = PointsCalculation(mUserDetails, timeUsageData).calculate()
+            Log.i("MyTag", "$updatedPoints")
             val userHashMap = HashMap<String, Any>()
             userHashMap[Constants.POINTS] = updatedPoints
-            updateProfileData(userHashMap)*/
+            updateProfileData(userHashMap)
             addUserTimeDataToFireBase(timeUsageData)
             return@withContext Result.success()
         }
     }
 
     private fun updateProfileData(userHashMap: HashMap<String, Any>){
+        Log.i("MyTag", "Ponits")
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUUID())
             .update(userHashMap)
             .addOnSuccessListener {
                 Log.i("MyTag", "points Stored Successfully!!")
             }.addOnFailureListener{ e ->
-                Log.i("MyTag", "Failed to Store Points")
+                Log.e("MyTag", "Failed to Store Points")
             }
     }
 

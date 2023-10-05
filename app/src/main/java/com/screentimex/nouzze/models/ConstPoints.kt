@@ -31,102 +31,34 @@ object ConstPoints {
         "Rapido" to "Travel"
     )
 
-    val MAP_AGE_PROFESSION_TIME = hashMapOf<String, HashMap<String, Int>>(
-        "10-22" to hashMapOf("Influencers" to 65,
-            "Messaging" to 55, "Productivity social media app" to 123,
-            "Free Entertainment" to 120, "Paid Entertainment" to 28,
-            "Shopping" to 63, "Grocery and Food" to 66, "Travel" to 121),
-        "23-60" to hashMapOf("Influencers" to 48,
-            "Messaging" to 86, "Productivity social media app" to 55,
-            "Free Entertainment" to 99, "Paid Entertainment" to 65,
-            "Shopping" to 115, "Grocery and Food" to 126, "Travel" to 111)
-    )
+    val MAP_AGE_PROFESSION_TIME = hashMapOf(
+        "Influencers" to 48L,
+            "Messaging" to 86L, "Productivity social media app" to 55L,
+            "Free Entertainment" to 99L, "Paid Entertainment" to 65L,
+            "Shopping" to 115L, "Grocery and Food" to 126L, "Travel" to 111L)
 
-    val MAP_EVERYTHING = hashMapOf<String, HashMap<String, HashMap<String, Pair<Int, Int>>>>(
-        "10-22" to hashMapOf("Engineering" to hashMapOf("Influencers" to Pair(60, -30),
-            "Messaging" to Pair(70, -30), "Productivity social media app" to Pair(80, 0),
-            "Free Entertainment" to Pair(80, -10), "Paid Entertainment" to Pair(80, -20),
-            "Shopping" to Pair(70, -20), "Grocery and Food" to Pair(80, -20), "Travel" to Pair(90, -10)),
-            "Banking" to hashMapOf("Influencers" to Pair(60, -30),
-                "Messaging" to Pair(70, -30), "Productivity social media app" to Pair(80, 0),
-                "Free Entertainment" to Pair(80, -10), "Paid Entertainment" to Pair(80, -20),
-                "Shopping" to Pair(70, -20), "Grocery and Food" to Pair(80, -20), "Travel" to Pair(90, -10)),
-            "Finance" to hashMapOf("Influencers" to Pair(60, -30),
-                "Messaging" to Pair(70, -30), "Productivity social media app" to Pair(80, 0),
-                "Free Entertainment" to Pair(80, -10), "Paid Entertainment" to Pair(80, -20),
-                "Shopping" to Pair(70, -20), "Grocery and Food" to Pair(80, -20), "Travel" to Pair(90, -10)),
-            "Doctors" to hashMapOf("Influencers" to Pair(60, -30),
-                "Messaging" to Pair(70, -30), "Productivity social media app" to Pair(80, 0),
-                "Free Entertainment" to Pair(80, -10), "Paid Entertainment" to Pair(80, -20),
-                "Shopping" to Pair(70, -20), "Grocery and Food" to Pair(80, -20), "Travel" to Pair(90, -10)),
 
-            "Teaching and Education" to hashMapOf("Influencers" to Pair(60, -30),
-                "Messaging" to Pair(70, -30), "Productivity social media app" to Pair(90, -10),
-                "Free Entertainment" to Pair(80, -10), "Paid Entertainment" to Pair(80, -20),
-                "Shopping" to Pair(70, -20), "Grocery and Food" to Pair(80, -20), "Travel" to Pair(90, -20)),
-
-            "Business" to hashMapOf("Influencers" to Pair(70, 10),
-                "Messaging" to Pair(80, 10), "Productivity social media app" to Pair(100, 10),
-                "Free Entertainment" to Pair(90, 10), "Paid Entertainment" to Pair(80, 10),
-                "Shopping" to Pair(80, 10), "Grocery and Food" to Pair(90, 10), "Travel" to Pair(90, 10)),
-
-            "Media and Entertainment" to hashMapOf("Influencers" to Pair(90, 20),
-                "Messaging" to Pair(100, 30), "Productivity social media app" to Pair(100, 30),
-                "Free Entertainment" to Pair(80, 0), "Paid Entertainment" to Pair(70, 0),
-                "Shopping" to Pair(80, 0), "Grocery and Food" to Pair(90, 0), "Travel" to Pair(70, -10)),
-
-            "Sales and Marketing" to hashMapOf("Influencers" to Pair(100, -10),
-                "Messaging" to Pair(100, 0), "Productivity social media app" to Pair(90, -10),
-                "Free Entertainment" to Pair(70, -10), "Paid Entertainment" to Pair(70, -20),
-                "Shopping" to Pair(80, -10), "Grocery and Food" to Pair(90, -20), "Travel" to Pair(90, -10)),
-
-            "Social Work" to hashMapOf("Influencers" to Pair(100, 40),
-                "Messaging" to Pair(100, 40), "Productivity social media app" to Pair(100, 50),
-                "Free Entertainment" to Pair(70, 0), "Paid Entertainment" to Pair(70, -10),
-                "Shopping" to Pair(80, -10), "Grocery and Food" to Pair(80, -40), "Travel" to Pair(90, -10)),
-
-            "Sports and Athletics" to hashMapOf("Influencers" to Pair(90, -10),
-                "Messaging" to Pair(90, -20), "Productivity social media app" to Pair(100, -30),
-                "Free Entertainment" to Pair(80, -10), "Paid Entertainment" to Pair(80, -20),
-                "Shopping" to Pair(90, 0), "Grocery and Food" to Pair(90, 0), "Travel" to Pair(100, 20)),
-
-            "Driver" to hashMapOf("Influencers" to Pair(80, -30),
-                "Messaging" to Pair(90, -20), "Productivity social media app" to Pair(100, 0),
-                "Free Entertainment" to Pair(70, -20), "Paid Entertainment" to Pair(60, -30),
-                "Shopping" to Pair(80, -10), "Grocery and Food" to Pair(80, -10), "Travel" to Pair(70, 0)),
-
-            "Student" to hashMapOf("Influencers" to Pair(90, -15),
-                "Messaging" to Pair(100, -20), "Productivity social media app" to Pair(100, 40),
-                "Free Entertainment" to Pair(70, -15), "Paid Entertainment" to Pair(80, -20),
-                "Shopping" to Pair(90, -10), "Grocery and Food" to Pair(90, 10), "Travel" to Pair(90, 10)),
-
-            "House Maker" to hashMapOf("Influencers" to Pair(90, 10),
-                "Messaging" to Pair(100, 10), "Productivity social media app" to Pair(100, 0),
-                "Free Entertainment" to Pair(90, -10), "Paid Entertainment" to Pair(90, -20),
-                "Shopping" to Pair(90, -10), "Grocery and Food" to Pair(90, -10), "Travel" to Pair(80, -20)),
-
-            "Others" to hashMapOf("Influencers" to Pair(80, -30),
-                "Messaging" to Pair(90, -20), "Productivity social media app" to Pair(100, 0),
-                "Free Entertainment" to Pair(70, -20), "Paid Entertainment" to Pair(60, -30),
-                "Shopping" to Pair(80, -10), "Grocery and Food" to Pair(80, -10), "Travel" to Pair(70, 0))
-        )
-        ,
-        "23-60" to hashMapOf("Engineering" to hashMapOf("Influencers" to Pair(70, -20),
+    val MAP_EVERYTHING = hashMapOf(
+        "Engineering" to hashMapOf("Influencers" to Pair(70, -20),
             "Messaging" to Pair(70, -10), "Productivity social media app" to Pair(100, 40),
             "Free Entertainment" to Pair(70, -10), "Paid Entertainment" to Pair(70, -20),
             "Shopping" to Pair(70, -30), "Grocery and Food" to Pair(70, -30), "Travel" to Pair(80, 20)),
+
             "Banking" to hashMapOf("Influencers" to Pair(70, -20),
                 "Messaging" to Pair(70, -10), "Productivity social media app" to Pair(100, 40),
                 "Free Entertainment" to Pair(70, -10), "Paid Entertainment" to Pair(70, -20),
                 "Shopping" to Pair(70, -30), "Grocery and Food" to Pair(70, -30), "Travel" to Pair(80, 20)),
+
             "Finance" to hashMapOf("Influencers" to Pair(70, -20),
                 "Messaging" to Pair(70, -10), "Productivity social media app" to Pair(100, 40),
                 "Free Entertainment" to Pair(70, -10), "Paid Entertainment" to Pair(70, -20),
                 "Shopping" to Pair(70, -30), "Grocery and Food" to Pair(70, -30), "Travel" to Pair(80, 20)),
+
             "Doctors" to hashMapOf("Influencers" to Pair(70, -20),
                 "Messaging" to Pair(70, -10), "Productivity social media app" to Pair(100, 40),
                 "Free Entertainment" to Pair(70, -10), "Paid Entertainment" to Pair(70, -20),
                 "Shopping" to Pair(70, -30), "Grocery and Food" to Pair(70, -30), "Travel" to Pair(80, 20)),
+
 
             "Teaching and Education" to hashMapOf("Influencers" to Pair(80, -10),
                 "Messaging" to Pair(70, -10), "Productivity social media app" to Pair(100, 40),
@@ -177,7 +109,6 @@ object ConstPoints {
                 "Messaging" to Pair(70, -15), "Productivity social media app" to Pair(90, 30),
                 "Free Entertainment" to Pair(90, -10), "Paid Entertainment" to Pair(100, -20),
                 "Shopping" to Pair(90, -20), "Grocery and Food" to Pair(90, -20), "Travel" to Pair(80, 0))
-        )
-    )
+            )
 
 }

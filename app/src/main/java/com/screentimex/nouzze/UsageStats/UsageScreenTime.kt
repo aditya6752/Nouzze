@@ -52,7 +52,6 @@ class UsageScreenTime: AppCompatActivity(){
         val mMidNightUsageData = Constants.ARRAY_LIST_ALL_APPS
         for ((packageName, aggregatedStats) in usageStatsMap) {
             val totalUsageTime = aggregatedStats.totalTimeInForeground / 1000 // in seconds
-            //if (totalUsageTime == 0L) continue
             if(mDefaultMapOfAllApps.containsKey(packageName)) {
                 val index = mMidNightUsageData.indexOfFirst { it.appName == mDefaultMapOfAllApps[packageName] }
                 mMidNightUsageData[index].appStartTime = totalUsageTime
