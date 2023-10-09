@@ -1,6 +1,8 @@
 package com.screentimex.nouzze.Activities
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -51,7 +53,7 @@ class CheckOut : AppCompatActivity() {
 
         binding.BuyNowButton.setOnClickListener {
             val balance = mUserDetails.points - productDetails.productPrice.toLong()
-            if(balance > 0) {
+            if(balance > 0 && !isInternetConnected()) {
                 GlobalScope.launch(Dispatchers.IO) {
                     sendEmail()
                 }
@@ -59,7 +61,10 @@ class CheckOut : AppCompatActivity() {
                 userHashMap[Constants.POINTS] = balance
                 FireStoreClass().updateProfileData(this@CheckOut, userHashMap)
             } else {
-                showError("Insufficient Balance!!")
+                if(balance < 0)
+                    showSnackBar("Insufficient Balance!!")
+                else
+                    showSnackBar("No Internet!!")
             }
         }
 
@@ -135,7 +140,7 @@ class CheckOut : AppCompatActivity() {
         return response
     }
 
-    fun showError(message: String){
+    fun showSnackBar(message: String){
         val snackBar =
             Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
         val snackBarView = snackBar.view
@@ -146,5 +151,10 @@ class CheckOut : AppCompatActivity() {
             )
         )
         snackBar.show()
+    }
+    private fun isInternetConnected(): Boolean {
+        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 }

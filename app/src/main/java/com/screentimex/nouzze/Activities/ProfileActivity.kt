@@ -9,7 +9,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.screentimex.nouzze.Firebase.FireStoreClass
@@ -123,6 +125,18 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    fun showSnackBar(message: String){
+        val snackBar =
+            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        snackBarView.setBackgroundColor(
+            ContextCompat.getColor(
+                this@ProfileActivity,
+                R.color.snackbarcolor
+            )
+        )
+        snackBar.show()
+    }
     fun profileUpdateSuccess(){
         //hideProgressDialog()
         setResult(Activity.RESULT_OK)

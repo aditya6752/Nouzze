@@ -12,12 +12,17 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.bumptech.glide.Glide
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetSequence
+import com.getkeepsafe.taptargetview.TapTargetView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
@@ -42,6 +47,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mSharedPreferences: SharedPreferences
 
     private lateinit var mTimeUsageList: ArrayList<ScreenUsageData>
+
+    private lateinit var tapTargetSequence: TapTargetSequence
 
     companion object {
         const val MY_PROFILE_REQ_CODE = 101
@@ -68,6 +75,9 @@ class MainActivity : AppCompatActivity() {
             helpButton.setOnClickListener {
                 openGmail()
             }
+            tutorialButton.setOnClickListener {
+                showTutorial()
+            }
             navDraawerHeaderInclude.logOutButton.setOnClickListener {
                 signOut()
             }
@@ -88,10 +98,53 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
     }
 
+    private fun showTutorial() {
+        val targetList = listOf(
+            getTapTarget(
+                binding.navDraawerHeaderInclude.userImageNavHeader,
+                "Go To Your Profile"),
+            getTapTarget(
+                binding.includeAppBarLayout.MainScreenUsageActivity.marketPlaceButton,
+                "Go To Market Place"),
+            getTapTarget(
+                binding.includeAppBarLayout.MainScreenUsageActivity.userPoints,
+                "Your Points"),
+            getTapTarget(
+                binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView,
+                "Your Activities")
+        )
+        tapTargetSequence = createTapTargetSequence(targetList)
+        tapTargetSequence.start()
+    }
+    private fun getTapTarget(view: View, title: String): TapTarget {
+        return TapTarget.forView(view, title)
+            .transparentTarget(true)
+            .cancelable(false)
+            .targetRadius(80)
+    }
 
+    private fun createTapTargetSequence(targets: List<TapTarget>): TapTargetSequence {
+        return TapTargetSequence(this)
+            .targets(targets)
+            .listener(object : TapTargetSequence.Listener {
+                override fun onSequenceFinish() {
+                    showToast("Tutorial Finished!!")
+                }
+
+                override fun onSequenceStep(target: TapTarget, targetClicked: Boolean) {
+                    Log.e("TargetSequence", "Finished")
+                    if(targetClicked) {
+                        binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    }
+                }
+
+                override fun onSequenceCanceled(lastTarget: TapTarget?) {
+                    Log.e("TargetSequence", "Cancelled")
+                }
+            })
+    }
     private fun midNightWorkScheduler(timeUsageData: TimeUsageData) {
         val currentTime = Calendar.getInstance()
         val midnight = Calendar.getInstance()
@@ -205,10 +258,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun showToast(message: String) {
-        Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
-    }
-
     private fun signOut(){
         FirebaseAuth.getInstance().signOut()
         startActivity(Intent(this, SignInActivity::class.java))
@@ -284,7 +333,20 @@ class MainActivity : AppCompatActivity() {
         setUpRecyclerView(mTimeUsageList)
         midNightWorkScheduler(UsageScreenTime().usageDataMidNight(this@MainActivity))
     }
-    fun failedToGetPrevData(error: String) {
+    fun showToast(error: String) {
         Toast.makeText(this@MainActivity, error, Toast.LENGTH_SHORT).show()
+    }
+
+    fun showSnackBar(message: String){
+        val snackBar =
+            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        snackBarView.setBackgroundColor(
+            ContextCompat.getColor(
+                this@MainActivity,
+                R.color.snackbarcolor
+            )
+        )
+        snackBar.show()
     }
 }

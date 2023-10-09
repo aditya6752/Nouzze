@@ -1,12 +1,11 @@
 package com.screentimex.nouzze.Activities
 
 import android.content.Context
-import android.content.Intent
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.ActionBar
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -14,7 +13,6 @@ import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityAddAddressBinding
 import com.screentimex.nouzze.models.AddressDetails
-import com.screentimex.nouzze.models.Constants
 
 class AddAddress : AppCompatActivity() {
     private lateinit var binding : ActivityAddAddressBinding
@@ -40,7 +38,7 @@ class AddAddress : AppCompatActivity() {
             storeAddress()
         }else{
             enableSpinner(false)
-            showError(okCredentials)
+            showSnackBar(okCredentials)
         }
     }
 
@@ -97,7 +95,7 @@ class AddAddress : AppCompatActivity() {
         else if(binding.state.text.toString().isEmpty()) lis = "State"
         return lis
     }
-    fun showError(message: String){
+    fun showSnackBar(message: String){
         val snackBar =
             Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
         val snackBarView = snackBar.view

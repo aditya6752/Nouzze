@@ -1,12 +1,16 @@
 package com.screentimex.nouzze.Activities
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.screentimex.nouzze.Adapters.AddressAdapter
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
@@ -25,8 +29,6 @@ class Address : AppCompatActivity() {
         binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpActionBar()
-
-
         binding.addOrUpdateAddressButton.setOnClickListener {
             startActivity(Intent(this@Address, AddAddress::class.java))
         }
@@ -74,5 +76,18 @@ class Address : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
             onBackPressed()
         }
+    }
+
+    fun showSnackBar(message: String){
+        val snackBar =
+            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        snackBarView.setBackgroundColor(
+            ContextCompat.getColor(
+                this@Address,
+                R.color.snackbarcolor
+            )
+        )
+        snackBar.show()
     }
 }

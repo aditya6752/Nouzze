@@ -90,7 +90,7 @@ class SignInActivity : AppCompatActivity() {
         }
     }*/
 
-    fun showError(message: String){
+    private fun showError(message: String){
         val snackBar =
             Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
         val snackBarView = snackBar.view

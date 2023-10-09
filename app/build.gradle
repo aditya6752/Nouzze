@@ -80,4 +80,7 @@ dependencies {
 
     // work manager
     implementation("androidx.work:work-runtime-ktx:2.8.1")
+
+    // tap target view
+    implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.3")
 }

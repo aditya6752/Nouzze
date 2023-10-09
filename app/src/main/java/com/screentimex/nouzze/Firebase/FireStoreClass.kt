@@ -31,8 +31,8 @@ class FireStoreClass: AppCompatActivity() {
                 Log.e("MyTag", "Register")
                 activity.userRegisteredSuccess()
             }.addOnFailureListener {
-                    _ ->
-                Log.e("FireStoreClassSignUp","Error")
+                Log.e("FireStoreClassSignUp", it.message!!)
+                activity.showError(it.message!!)
             }
     }
 
@@ -48,6 +48,11 @@ class FireStoreClass: AppCompatActivity() {
                         activity.emailVerificationLinkSendFailed()
                     }
                 }
+            }.addOnFailureListener {
+                if(activity is MainActivity) {
+                    activity.showSnackBar(it.message!!)
+                }
+                Log.e("FireStoreClassSignUp", it.message!!)
             }
     }
 
@@ -72,8 +77,19 @@ class FireStoreClass: AppCompatActivity() {
                     }
                 }
             }.addOnFailureListener {
-                    _ ->
-                Log.e("FireStoreClassSignUp","Error")
+                when(activity){
+                    is MainActivity -> {
+                        Log.i("YourTag", "Check")
+                        activity.showSnackBar(it.message!!)
+                    }
+                    is ProfileActivity -> {
+                        activity.showSnackBar(it.message!!)
+                    }
+                    is CheckOut -> {
+                        activity.showSnackBar(it.message!!)
+                    }
+                }
+                Log.e("FireStoreClassSignUp", it.message!!)
             }
     }
 
@@ -90,9 +106,13 @@ class FireStoreClass: AppCompatActivity() {
                     activity.updateProfileData()
                 }
             }.addOnFailureListener{
-                    e ->
-                //activity.hideProgressDialog()
-                Log.e(activity.javaClass.simpleName, "$e")
+                if(activity is ProfileActivity) {
+                    activity.showSnackBar(it.message!!)
+                }
+                if(activity is CheckOut) {
+                    activity.showSnackBar(it.message!!)
+                }
+                Log.e("FireStoreClassSignUp", it.message!!)
             }
     }
 
@@ -103,9 +123,8 @@ class FireStoreClass: AppCompatActivity() {
             .addOnSuccessListener {
                 activity.addressAddedUpdateSuccessfully()
             }.addOnFailureListener {
-                exception ->
-                Toast.makeText(activity, exception.toString(), Toast.LENGTH_LONG).show()
-                activity.finish()
+                Toast.makeText(activity, it.toString(), Toast.LENGTH_LONG).show()
+                activity.showSnackBar(it.message!!)
             }
     }
 
@@ -133,8 +152,16 @@ class FireStoreClass: AppCompatActivity() {
                         activity.noAddressInDatabase()
                     }
                 }
-            }.addOnFailureListener { exception ->
-                Toast.makeText(activity, exception.toString(), Toast.LENGTH_LONG).show()
+            }.addOnFailureListener {
+                if(activity is Address) {
+                    activity.showSnackBar(it.message!!)
+                }
+                else if(activity is AddAddress) {
+                    activity.showSnackBar(it.message!!)
+                }else if ( activity is CheckOut ){
+                    activity.showSnackBar(it.message!!)
+                }
+                Toast.makeText(activity, it.toString(), Toast.LENGTH_LONG).show()
             }
     }
 
@@ -164,7 +191,7 @@ class FireStoreClass: AppCompatActivity() {
                 }
                 else {
                     if(activity is MainActivity) {
-                        activity.failedToGetPrevData("No Data Available")
+                        activity.showToast("No Data Available")
                     }
                 }
             }.addOnFailureListener {
