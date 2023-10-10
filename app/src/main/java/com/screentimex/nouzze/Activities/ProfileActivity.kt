@@ -132,7 +132,7 @@ class ProfileActivity : AppCompatActivity() {
         snackBarView.setBackgroundColor(
             ContextCompat.getColor(
                 this@ProfileActivity,
-                R.color.snackbarcolor
+                R.color.snackBarColor
             )
         )
         snackBar.show()

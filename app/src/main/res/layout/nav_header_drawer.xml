@@ -25,7 +25,7 @@
         android:textSize="18sp"
         android:layout_marginStart="@dimen/nav_content_margin_StartEnd"
         android:layout_marginEnd="@dimen/nav_content_margin_StartEnd"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:text="UserName"
         android:textColor="@color/textColor"
         />
@@ -39,7 +39,7 @@
         android:layout_marginEnd="@dimen/nav_content_margin_StartEnd"
         android:textColor="@color/textColor"
         tools:text="abc@gmail.com"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="1dp"/>
 
     <TextView
         android:id="@+id/logOutButton"
@@ -48,10 +48,10 @@
         android:layout_marginStart="@dimen/nav_content_margin_StartEnd"
         android:layout_marginEnd="@dimen/nav_content_margin_StartEnd"
         android:textColor="@color/textColor"
-        android:text="LogOut"
+        android:text="LOGOUT"
         android:textStyle="bold"
         android:background="@color/buttonBackground"
-        android:textSize="13sp"
+        android:textSize="14sp"
         android:layout_marginBottom="2dp"
         />
 

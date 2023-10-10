@@ -3,9 +3,6 @@ package com.screentimex.nouzze.Activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Adapter
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
@@ -70,7 +67,7 @@ class IntroActivity : AppCompatActivity() {
         snackBarView.setBackgroundColor(
             ContextCompat.getColor(
                 this@IntroActivity,
-                R.color.snackbarcolor
+                R.color.snackBarColor
             )
         )
         snackBar.show()

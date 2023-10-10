@@ -147,7 +147,7 @@ class CheckOut : AppCompatActivity() {
         snackBarView.setBackgroundColor(
             ContextCompat.getColor(
                 this@CheckOut,
-                R.color.snackbarcolor
+                R.color.snackBarColor
             )
         )
         snackBar.show()

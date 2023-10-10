@@ -112,7 +112,7 @@ class SignUpActivity : AppCompatActivity() {
         snackBarView.setBackgroundColor(
             ContextCompat.getColor(
                 this@SignUpActivity,
-                R.color.snackbarcolor
+                R.color.snackBarColor
             )
         )
         snackBar.show()

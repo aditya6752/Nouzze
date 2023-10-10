@@ -119,6 +119,7 @@ class MainActivity : AppCompatActivity() {
             .transparentTarget(true)
             .cancelable(false)
             .targetRadius(80)
+            .outerCircleColor(R.color.actionBarColor)
     }
 
     private fun createTapTargetSequence(targets: List<TapTarget>): TapTargetSequence {
@@ -347,7 +348,7 @@ class MainActivity : AppCompatActivity() {
         snackBarView.setBackgroundColor(
             ContextCompat.getColor(
                 this@MainActivity,
-                R.color.snackbarcolor
+                R.color.snackBarColor
             )
         )
         snackBar.show()

@@ -19,7 +19,7 @@
     <color name="drawerColor">#F5F5F5</color> <!-- Light gray drawer color -->
     <color name="iconColors">#333333</color> <!-- Dark gray icon color -->
     <color name="cardViewBackground">#FFFFFF</color> <!-- White card view background -->
-    <color name="statusBarColor">#E2F2FF</color> <!-- Light blue status bar color -->
+    <color name="statusBarColor">#000000</color> <!-- Light blue status bar color -->
     <color name="splashScreenColor">#48cae4</color> <!-- Light blue splash screen color -->
     <color name="snackBarColor">#F06292</color> <!-- Light pink snackbar color -->
     <color name="finalScreenBackground">#FAF9F6</color> <!-- Very light cream background -->

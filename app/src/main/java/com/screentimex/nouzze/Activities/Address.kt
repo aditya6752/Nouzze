@@ -1,9 +1,7 @@
 package com.screentimex.nouzze.Activities
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -16,8 +14,6 @@ import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivityAddressBinding
 import com.screentimex.nouzze.models.AddressDetails
-import com.screentimex.nouzze.models.Constants
-import com.screentimex.nouzze.models.ProductDetails
 
 class Address : AppCompatActivity() {
 
@@ -85,7 +81,7 @@ class Address : AppCompatActivity() {
         snackBarView.setBackgroundColor(
             ContextCompat.getColor(
                 this@Address,
-                R.color.snackbarcolor
+                R.color.snackBarColor
             )
         )
         snackBar.show()
