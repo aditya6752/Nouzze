@@ -50,7 +50,6 @@
         android:textColor="@color/textColor"
         android:text="LOGOUT"
         android:textStyle="bold"
-        android:background="@color/buttonBackground"
         android:textSize="14sp"
         android:layout_marginBottom="2dp"
         />

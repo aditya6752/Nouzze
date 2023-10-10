@@ -21,7 +21,7 @@
         android:textSize="16sp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:background="@color/buttonBackground"
+        android:background="@drawable/rounded_button"
         android:textColor="@color/textColor"
         android:textStyle="bold"/>
 
@@ -49,12 +49,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/permissionTextView"
         android:visibility="gone"
-        android:textSize="16sp"
+        android:textSize="18sp"
         tools:visibility="visible"
+        android:textAllCaps="false"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="8dp"
-        android:textColor="@color/textColor"
-        android:background="@color/buttonBackground"
         android:layout_marginEnd="8dp"
+        android:textColor="@color/textColor"
+        android:background="@drawable/custom_button_background_profile_page"
         android:textStyle="bold"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,7 +89,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:padding="2dp"
             android:layout_marginRight="8dp"
-            android:background="@color/buttonBackground"
+            android:background="@drawable/rounded_button"
             app:layout_constraintBottom_toBottomOf="parent"
             android:orientation="horizontal">
 

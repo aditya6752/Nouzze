@@ -57,7 +57,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="30dp"
-        android:background="@color/buttonBackground"
+        android:background="@drawable/rounded_button"
         android:text="@string/log_in"
         android:textColor="@color/textColor"
         android:textSize="15sp"
@@ -71,7 +71,7 @@
         android:layout_marginEnd="32dp"
         android:text="@string/sign_up"
         android:textColor="@color/textColor"
-        android:background="@color/buttonBackground"
+        android:background="@drawable/rounded_button"
         android:textSize="15sp"
         />
 

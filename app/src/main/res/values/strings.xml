@@ -22,7 +22,7 @@
     <string name="password">Password</string>
     <string name="whatsapp">Whatsapp</string>
     <string name="appUsageTime">1hr 20min</string>
-    <string name="recommendFriend">Recommend to friends (Not Functional)</string>
+    <string name="recommendFriend">Recommend to friends</string>
     <string name="settings">Settings (Not Functional)</string>
     <string name="add_a_new_address">No Address Saved</string>
     <string name="verify_your_email">Verify Your Email</string>

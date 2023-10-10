@@ -30,7 +30,7 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/textColor"
-                android:text="Ritik">
+                android:text="Name">
 
             </TextView>
 
@@ -205,16 +205,19 @@
             </androidx.cardview.widget.CardView>
             <Button
                 android:id="@+id/Buy_Now_Button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textSize="18sp"
                 app:layout_constraintTop_toTopOf="@id/User_details_CardView"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:textAllCaps="false"
-                android:layout_marginTop="6dp"
+                android:layout_margin="8dp"
+                android:padding="5dp"
                 android:text="Confirm Order"
                 android:textColor="@color/textColor"
-                android:background="@color/buttonBackground">
+                android:background="@drawable/custom_button_background_profile_page">
             </Button>
 
 
