@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Address">
+    tools:context=".Activities.Address"
+    android:background="@color/background">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/customToolBar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         app:titleTextColor="@color/white"
-        android:background="?attr/colorPrimary"
+        android:background="@color/actionBarColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,6 +30,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
+        android:textColor="@color/textColor"
         />
 
     <Button
@@ -39,6 +41,8 @@
         app:layout_constraintBottom_toTopOf="@+id/proceed_to_buy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        android:textColor="@color/textColor"
+        android:background="@color/buttonBackground"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -56,6 +60,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Proceed To Buy"
+        android:background="@color/buttonBackground"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

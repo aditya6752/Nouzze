@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Products">
+    tools:context=".Activities.Products"
+    android:background="@color/background">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/customToolBar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         app:titleTextColor="@color/white"
-        android:background="?attr/colorPrimary"
+        android:background="@color/actionBarColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

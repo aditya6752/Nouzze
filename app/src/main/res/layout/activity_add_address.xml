@@ -5,13 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.AddAddress">
+    tools:context=".Activities.AddAddress"
+    android:background="@color/background">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/customToolBar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         app:titleTextColor="@color/white"
-        android:background="?attr/colorPrimary"
+        android:background="@color/actionBarColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -48,6 +50,7 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/textColor"
                     android:hint="Name" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,6 +67,7 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/textColor"
                     android:hint="Mobile Number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,6 +83,7 @@
                     android:id="@+id/flat_Number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/textColor"
                     android:hint="Flat,House no.,Building,Company,Apartment" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,6 +99,7 @@
                     android:id="@+id/area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/textColor"
                     android:hint="Area,Street,Sector,Village" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,6 +115,7 @@
                     android:id="@+id/landmark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/textColor"
                     android:hint="Landmark" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,6 +132,7 @@
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/textColor"
                     android:hint="Pincode" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,6 +148,7 @@
                     android:id="@+id/city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/textColor"
                     android:hint="Town/City" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,6 +167,7 @@
                     android:id="@+id/state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/textColor"
                     android:hint="State" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -167,6 +177,8 @@
                 android:layout_height="wrap_content"
                 android:text="Add Address"
                 android:layout_margin="5dp"
+                android:textColor="@color/textColor"
+                android:background="@color/buttonBackground"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">

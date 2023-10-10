@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/background"
     tools:context=".Firebase.SignInActivity">
 
 
@@ -22,6 +23,7 @@
             android:layout_marginBottom="20dp"
             android:ems="10"
             android:hint="Email"
+            android:textColor="@color/textColor"
             android:inputType="textPersonName"
             />
 
@@ -42,6 +44,7 @@
             android:layout_marginBottom="20dp"
             android:ems="10"
             android:hint="@string/password"
+            android:textColor="@color/textColor"
             android:inputType="textPassword"
             />
 
@@ -54,9 +57,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:background="@color/buttonBackground"
         android:text="@string/log_in"
-        android:textColor="@color/white"
+        android:textColor="@color/textColor"
         android:textSize="15sp"
         />
 
@@ -66,9 +69,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/colorPrimary"
         android:text="@string/sign_up"
-        android:textColor="@color/white"
+        android:textColor="@color/textColor"
+        android:background="@color/buttonBackground"
         android:textSize="15sp"
         />
 

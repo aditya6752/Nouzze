@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".Activities.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -15,10 +16,12 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/actionBarColor"
             app:popupTheme="@style/Theme.Nouzze.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
+
 
     <include
         android:id="@+id/MainScreenUsageActivity"

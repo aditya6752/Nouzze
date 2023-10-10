@@ -53,7 +53,7 @@ class CheckOut : AppCompatActivity() {
 
         binding.BuyNowButton.setOnClickListener {
             val balance = mUserDetails.points - productDetails.productPrice.toLong()
-            if(balance > 0 && !isInternetConnected()) {
+            if(balance > 0 && isInternetConnected()) {
                 GlobalScope.launch(Dispatchers.IO) {
                     sendEmail()
                 }

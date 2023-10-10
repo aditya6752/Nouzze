@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
 
@@ -20,6 +21,8 @@
         android:textSize="16sp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
+        android:background="@color/buttonBackground"
+        android:textColor="@color/textColor"
         android:textStyle="bold"/>
 
     <TextView
@@ -32,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="10dp"
         android:textSize="18sp"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor"
         android:visibility="gone"
         android:text="To view your application's screen time, you need to grant permission from your device's settings."
         />
@@ -49,6 +52,8 @@
         android:textSize="16sp"
         tools:visibility="visible"
         android:layout_marginStart="8dp"
+        android:textColor="@color/textColor"
+        android:background="@color/buttonBackground"
         android:layout_marginEnd="8dp"
         android:textStyle="bold"/>
 
@@ -69,6 +74,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/textColor"
             android:textStyle="bold"
             android:text="Points: 0"
             android:textSize="16sp"/>
@@ -81,7 +87,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:padding="2dp"
             android:layout_marginRight="8dp"
-            android:background="#006d77"
+            android:background="@color/buttonBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             android:orientation="horizontal">
 
@@ -92,17 +98,14 @@
                 android:textSize="16sp"
                 android:layout_marginLeft="5dp"
                 android:gravity="center"
-                android:background="#006d77"
                 android:textStyle="bold"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/textColor"
                 />
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 app:srcCompat="@drawable/shop_icon_100" />
-
-
 
         </LinearLayout>
 

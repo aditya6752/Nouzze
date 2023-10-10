@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
     app:cardElevation="5dp"
+    android:background="@color/cardViewBackground"
     android:layout_margin="7dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="5dp"
             android:text="Name :"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textStyle="bold"
             android:textSize="15sp"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,6 +35,7 @@
             android:text="Name"
             android:layout_marginLeft="20dp"
             android:textSize="18sp"
+            android:textColor="@color/textColor"
             app:layout_constraintStart_toEndOf="@+id/nameView"
             app:layout_constraintTop_toTopOf="@id/nameView">
 
@@ -46,7 +48,7 @@
             android:text="Address :"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nameView">
@@ -63,6 +65,7 @@
             android:text="Area"
             android:textSize="16sp"
             android:textStyle="normal"
+            android:textColor="@color/textColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/addressView"
             app:layout_constraintTop_toTopOf="@id/addressView">
@@ -78,6 +81,7 @@
             android:inputType="textMultiLine"
             android:text="State"
             android:textSize="15sp"
+            android:textColor="@color/textColor"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/addressView"
@@ -89,7 +93,7 @@
             android:id="@+id/mobileView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:text="Mobile:"
             android:textStyle="bold"
             android:textSize="15sp"
@@ -105,6 +109,7 @@
             android:layout_height="wrap_content"
             android:text="Mobile"
             android:textSize="15sp"
+            android:textColor="@color/textColor"
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="@id/User_City_State_Pin"
             app:layout_constraintTop_toTopOf="@id/mobileView">

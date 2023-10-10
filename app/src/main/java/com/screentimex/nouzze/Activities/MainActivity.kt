@@ -21,7 +21,6 @@ import androidx.work.WorkManager
 import com.bumptech.glide.Glide
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
-import com.getkeepsafe.taptargetview.TapTargetView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -67,13 +66,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.apply {
             shareButton.setOnClickListener {
-                showToast("Share Button Working")
+                shareAppLinkRecommendFriend()
             }
             settingsButton.setOnClickListener {
                 showToast("Settings Button Working")
             }
             helpButton.setOnClickListener {
-                openGmail()
+                openGmailHelpButton()
             }
             tutorialButton.setOnClickListener {
                 showTutorial()
@@ -110,10 +109,7 @@ class MainActivity : AppCompatActivity() {
                 "Go To Market Place"),
             getTapTarget(
                 binding.includeAppBarLayout.MainScreenUsageActivity.userPoints,
-                "Your Points"),
-            getTapTarget(
-                binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView,
-                "Your Activities")
+                "Your Points")
         )
         tapTargetSequence = createTapTargetSequence(targetList)
         tapTargetSequence.start()
@@ -130,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             .targets(targets)
             .listener(object : TapTargetSequence.Listener {
                 override fun onSequenceFinish() {
-                    showToast("Tutorial Finished!!")
+                    showToast("Tutorial Finished")
                 }
 
                 override fun onSequenceStep(target: TapTarget, targetClicked: Boolean) {
@@ -173,10 +169,10 @@ class MainActivity : AppCompatActivity() {
                 includeAppBarLayout.MainScreenUsageActivity.givePermissionButton.visibility = View.INVISIBLE
                 includeAppBarLayout.MainScreenUsageActivity.marketPlaceButton.isEnabled = true
 
-                val mPermissionGrantedFirstTime = mSharedPreferences.getBoolean("FireBase", false)
+                val mPermissionGrantedFirstTime = mSharedPreferences.getBoolean("FireBaseData", false)
                 if(!mPermissionGrantedFirstTime) {
                     val editor = mSharedPreferences.edit()
-                    editor.putBoolean("FireBase", true)
+                    editor.putBoolean("FireBaseData", true)
                     editor.apply()
                     // Call firebaseFunction() if it hasn't been called yet
                     binding.includeAppBarLayout.MainScreenUsageActivity.permissionTextView.visibility = View.VISIBLE
@@ -186,6 +182,7 @@ class MainActivity : AppCompatActivity() {
                 else {
                     binding.includeAppBarLayout.MainScreenUsageActivity.permissionTextView.visibility = View.INVISIBLE
                     FireStoreClass().getUserTimeDataFromFireBase(this@MainActivity)
+                    Log.e("GettingData", "Ok")
                 }
             }
          } else {
@@ -322,7 +319,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun openGmail() {
+    private fun shareAppLinkRecommendFriend() {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain" // Set the type to plain text for sharing a link
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.example.com") // Replace with the URL you want to share
+        startActivity(Intent.createChooser(shareIntent, "Share Link"))
+    }
+    private fun openGmailHelpButton() {
         val email = "nouzzehelp@gmail.com"
         val intent = Intent(Intent.ACTION_VIEW,Uri.parse("mailto:$email"))
         startActivity(intent)

@@ -32,7 +32,7 @@ class UsageScreenTime: AppCompatActivity(){
         val calendar = Calendar.getInstance()
         calendar.set(2023, Calendar.OCTOBER, 1)
         val startTime = calendar.timeInMillis
-        val usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime)
+        val usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_MONTHLY, startTime, endTime)
 
         // Aggregate usage stats by package name
         val aggregatedStats = mutableMapOf<String, AggregatedUsageStats>()

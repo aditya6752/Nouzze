@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="5dp"
-    android:id="@+id/listItemLayout">
+    android:id="@+id/listItemLayout"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/whatsapp"
                 android:textSize="15sp"
-                android:textColor="#48cae4"
+                android:textColor="@color/textColor"
                 />
 
             <TextView
@@ -46,7 +47,7 @@
                 android:text="@string/appUsageTime"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:textColor="#023e8a"
+                android:textColor="@color/textColor"
                 />
         </LinearLayout>
 

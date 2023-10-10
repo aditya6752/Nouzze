@@ -5,17 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activities.CheckOut">
+    tools:context=".Activities.CheckOut"
+    android:background="@color/background">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/customToolBar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         app:titleTextColor="@color/white"
-        android:background="?attr/colorPrimary"
+        android:background="@color/actionBarColor"
         />
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,6 +29,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="5dp"
+                android:textColor="@color/textColor"
                 android:text="Ritik">
 
             </TextView>
@@ -40,6 +40,7 @@
                 android:layout_marginBottom="15dp"
                 app:cardCornerRadius="10dp"
                 android:layout_margin="8dp"
+                android:background="@color/cardViewBackground"
                 app:cardElevation="5dp">
 
                 <LinearLayout
@@ -55,9 +56,7 @@
                         android:scaleType="centerCrop"
                         android:layout_marginBottom="5dp"
                         android:src="@drawable/ic_menu_gallery"
-                        app:shapeAppearanceOverlay="@style/softCorner">
-
-                    </com.google.android.material.imageview.ShapeableImageView>
+                        app:shapeAppearanceOverlay="@style/softCorner"/>
 
                     <TextView
                         android:id="@+id/product_name"
@@ -66,6 +65,7 @@
                         android:textSize="16sp"
                         android:textStyle="italic"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/textColor"
                         android:text="Product Name">
                     </TextView>
 
@@ -80,8 +80,9 @@
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
                             android:layout_marginBottom="5dp"
-                            android:text="Balance">
-                        </TextView>
+                            android:textColor="@color/textColor"
+                            android:text="Balance"/>
+
                         <ImageView
                             android:layout_width="23dp"
                             android:layout_height="23dp"
@@ -105,6 +106,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
                             android:textSize="16sp"
+                            android:textColor="@color/textColor"
                             android:text="Product Price">
                         </TextView>
                         <ImageView
@@ -126,9 +128,10 @@
                 android:id="@+id/User_details_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                app:cardCornerRadius="15dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="8dp"
                 app:cardElevation="5dp"
+                android:background="@color/cardViewBackground"
                 >
 
                 <LinearLayout
@@ -143,6 +146,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Shipping Address : "
+                        android:textColor="@color/textColor"
                         android:textSize="16dp"
                         android:textStyle="bold">
 
@@ -154,6 +158,7 @@
                         android:layout_height="wrap_content"
                         android:text="Name"
                         android:textSize="18dp"
+                        android:textColor="@color/textColor"
                         android:textStyle="bold">
 
                     </TextView>
@@ -163,6 +168,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:textColor="@color/textColor"
                         android:gravity="start|top"
                         android:inputType="textMultiLine"
                         android:text="Area"
@@ -177,6 +183,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:gravity="start|top"
+                        android:textColor="@color/textColor"
                         android:inputType="textMultiLine"
                         android:text="State"
                         android:textSize="15dp"
@@ -190,7 +197,8 @@
                         android:layout_height="wrap_content"
                         android:text="Mobile"
                         android:textSize="15dp"
-                        android:textStyle="normal"></TextView>
+                        android:textColor="@color/textColor"
+                        android:textStyle="normal"/>
 
                 </LinearLayout>
 
@@ -203,7 +211,10 @@
                 app:layout_constraintTop_toTopOf="@id/User_details_CardView"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textAllCaps="false"
-                android:text="Confirm Order">
+                android:layout_marginTop="6dp"
+                android:text="Confirm Order"
+                android:textColor="@color/textColor"
+                android:background="@color/buttonBackground">
             </Button>
 
 

@@ -9,8 +9,20 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="purple_200">#023047</color>
-    <color name="snackbarcolor">#cc2b5e</color>
-    <color name="splashScreenColor">#CFB1EE</color>
-    <color name="statusbarcolor">#006d77</color>
-    <color name="finalScreenbgColor">#FAF9F6</color>
+    <color name="blue_grey">#1F2933</color>
+
+
+    <color name="background">#FFFFFF</color> <!-- White background -->
+    <color name="textColor">#000000</color> <!-- Black text color -->
+    <color name="buttonBackground">#007AFF</color> <!-- Light blue button background -->
+    <color name="actionBarColor">#007AFF</color> <!-- Light blue action bar color -->
+    <color name="drawerColor">#F5F5F5</color> <!-- Light gray drawer color -->
+    <color name="iconColors">#333333</color> <!-- Dark gray icon color -->
+    <color name="cardViewBackground">#FFFFFF</color> <!-- White card view background -->
+    <color name="statusBarColor">#E2F2FF</color> <!-- Light blue status bar color -->
+    <color name="splashScreenColor">#48cae4</color> <!-- Light blue splash screen color -->
+    <color name="snackBarColor">#F06292</color> <!-- Light pink snackbar color -->
+    <color name="finalScreenBackground">#FAF9F6</color> <!-- Very light cream background -->
+
+
 </resources>

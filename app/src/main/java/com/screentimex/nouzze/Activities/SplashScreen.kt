@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.Firebase.SignInActivity
 import com.screentimex.nouzze.databinding.ActivitySplashScreenBinding
@@ -20,10 +22,10 @@ class SplashScreen : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+        val isUserLoggedIn = FirebaseAuth.getInstance().currentUser
 
         Handler().postDelayed({
-            val currentUserId = FireStoreClass().getCurrentUUID()
-            if(currentUserId.isNotEmpty()){
+            if(isUserLoggedIn != null){
                 val intent = Intent(this@SplashScreen, MainActivity::class.java)
                 startActivity(intent)
             }
@@ -32,6 +34,6 @@ class SplashScreen : AppCompatActivity() {
                 startActivity(intent)
             }
             finish()
-        }, 1000)
+        }, 1300)
     }
 }

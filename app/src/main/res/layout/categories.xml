@@ -7,7 +7,8 @@
     app:cardCornerRadius="20dp"
     android:layout_margin="5dp"
     android:layout_height="120dp"
-    android:id="@+id/CardItem">
+    android:id="@+id/CardItem"
+    android:background="@color/cardViewBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -46,7 +47,8 @@
             android:text="Hoodies"
             android:layout_marginLeft="5dp"
             android:textSize="20dp"
-            android:textStyle="bold">
+            android:textStyle="bold"
+            android:textColor="@color/textColor">
 
         </TextView>
 
