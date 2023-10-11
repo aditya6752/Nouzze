@@ -133,7 +133,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
+
+    <ListView
         android:id="@+id/mainScreenRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -143,7 +144,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewHorizontalLine" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

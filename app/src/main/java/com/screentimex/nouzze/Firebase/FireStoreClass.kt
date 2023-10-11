@@ -15,7 +15,6 @@ import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.Activities.ProfileActivity
 import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Constants
-import com.screentimex.nouzze.models.TimeUsageData
 import com.screentimex.nouzze.models.UserDetails
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -165,39 +164,6 @@ class FireStoreClass: AppCompatActivity() {
             }
     }
 
-    fun addUserTimeDataToFireBase(activity: Activity, timeData: TimeUsageData) {
-        val currentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date())
-        timeData.time = currentTime
-        mFireStore.collection(Constants.TIME)
-            .document(getCurrentUUID())
-            .set(timeData)
-            .addOnSuccessListener {
-                //activity.appDataStoredSuccessfully()
-            }.addOnFailureListener {
-                //activity.failedToStoreAppData(it.message!!)
-            }
-    }
-
-    fun getUserTimeDataFromFireBase(activity: Activity) {
-        mFireStore.collection(Constants.TIME)
-            .document(getCurrentUUID())
-            .get()
-            .addOnSuccessListener { doc ->
-                val timeDataUsage = doc.toObject(TimeUsageData::class.java)
-                if(timeDataUsage != null) {
-                    if(activity is MainActivity) {
-                        activity.getUserAppData(timeDataUsage)
-                    }
-                }
-                else {
-                    if(activity is MainActivity) {
-                        activity.showToast("No Data Available")
-                    }
-                }
-            }.addOnFailureListener {
-                //activity.failedToGetPrevData(it.message!!)
-            }
-    }
 
     fun getCurrentUUID(): String{
         val currentUser = FirebaseAuth.getInstance().currentUser

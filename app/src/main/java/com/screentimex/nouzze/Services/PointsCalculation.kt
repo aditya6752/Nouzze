@@ -1,24 +1,14 @@
 package com.screentimex.nouzze.Services
 
-import android.app.Activity
 import android.util.Log
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.screentimex.nouzze.Activities.CheckOut
-import com.screentimex.nouzze.Activities.MainActivity
-import com.screentimex.nouzze.Activities.ProfileActivity
+import com.screentimex.nouzze.models.AppInfo
 import com.screentimex.nouzze.models.ConstPoints
-import com.screentimex.nouzze.models.Constants
-import com.screentimex.nouzze.models.TimeUsageData
 import com.screentimex.nouzze.models.UserDetails
-import kotlinx.coroutines.flow.callbackFlow
 
-class PointsCalculation(private val userDetails: UserDetails, private val timeDetails: TimeUsageData) {
+class PointsCalculation(userDetails: UserDetails, timeUsageData: List<AppInfo>) {
 
     private var previousPoints = userDetails.points
-    private val timeList = timeDetails.timeList
+    private val timeList = timeUsageData
     private val profession = userDetails.profession
 
     fun calculate(): Long {
@@ -28,7 +18,8 @@ class PointsCalculation(private val userDetails: UserDetails, private val timeDe
 
         for ( applicationsData in timeList ){
             val applicationName = applicationsData.appName
-            val applicationTime = applicationsData.appStartTime
+            val applicationTime = applicationsData.timeUseApp
+            Log.d("PointsCal", "$applicationName: $applicationTime")
             val type = ConstPoints.MAP_APP_TYPE[applicationName]
             val limit = mapProfessionLimit[type]
 
@@ -46,4 +37,5 @@ class PointsCalculation(private val userDetails: UserDetails, private val timeDe
 
         return previousPoints
     }
+
 }

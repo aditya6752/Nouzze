@@ -33,34 +33,6 @@ object Constants {
         getExtensionFromMimeType(activity.contentResolver.getType(uri!!))
     }
 
-    val ARRAY_LIST_ALL_APPS = arrayListOf(
-        ApplicationData("Amazon", 0),
-        ApplicationData("Blinkit", 0),
-        ApplicationData("Facebook", 0),
-        ApplicationData("Flipkart", 0),
-        ApplicationData("Hotstar", 0),
-        ApplicationData("Inshorts", 0),
-        ApplicationData("Instagram", 0),
-        ApplicationData("LinkedIn", 0),
-        ApplicationData("Messenger", 0),
-        ApplicationData("Myntra", 0),
-        ApplicationData("Netflix", 0),
-        ApplicationData("Pinterest", 0),
-        ApplicationData("Prime Video", 0),
-        ApplicationData("Reddit", 0),
-        ApplicationData("Snapchat", 0),
-        ApplicationData("Sony Liv", 0),
-        ApplicationData("Spotify", 0),
-        ApplicationData("Swiggy", 0),
-        ApplicationData("Telegram", 0),
-        ApplicationData("Threads", 0),
-        ApplicationData("WhatsApp", 0),
-        ApplicationData("X", 0),
-        ApplicationData("YouTube", 0),
-        ApplicationData("Zepto", 0),
-        ApplicationData("Zomato", 0),
-        ApplicationData("My App", 0)
-    )
 
     val MAP_PACKAGE_APP_NAME = mapOf(
         "com.instagram.android" to "Instagram",
