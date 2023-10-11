@@ -15,9 +15,10 @@ class SettingActivity : AppCompatActivity() {
         setContentView(binding.root)
         setUpActionBar()
 
+        // Set the initial state of the switch based on the current app theme
         binding.themeSwitch.isChecked = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
 
-        // Listen for changes to the switch
+// Listen for changes to the switch
         binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // Switch to night mode
@@ -27,6 +28,7 @@ class SettingActivity : AppCompatActivity() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
+
     }
 
     private fun setUpActionBar() {

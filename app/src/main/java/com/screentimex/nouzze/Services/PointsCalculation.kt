@@ -3,6 +3,7 @@ package com.screentimex.nouzze.Services
 import android.util.Log
 import com.screentimex.nouzze.models.AppInfo
 import com.screentimex.nouzze.models.ConstPoints
+import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.UserDetails
 
 class PointsCalculation(userDetails: UserDetails, timeUsageData: List<AppInfo>) {
@@ -15,10 +16,12 @@ class PointsCalculation(userDetails: UserDetails, timeUsageData: List<AppInfo>) 
         val mapProfessionLimit = ConstPoints.MAP_AGE_PROFESSION_TIME
         val mapsOfPointsData = ConstPoints.MAP_EVERYTHING[profession]!!
 
-
         for ( applicationsData in timeList ){
             val applicationName = applicationsData.appName
             val applicationTime = applicationsData.timeUseApp
+            val packageName = applicationsData.packageName
+
+
             Log.d("PointsCal", "$applicationName: $applicationTime")
             val type = ConstPoints.MAP_APP_TYPE[applicationName]
             val limit = mapProfessionLimit[type]
