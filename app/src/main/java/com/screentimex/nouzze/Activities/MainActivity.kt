@@ -36,6 +36,7 @@ import com.screentimex.nouzze.UsageStats.Utils
 import com.screentimex.nouzze.databinding.ActivityDrawerBinding
 import com.screentimex.nouzze.models.AppInfo
 import com.screentimex.nouzze.models.Constants
+import com.screentimex.nouzze.models.TotalData
 import com.screentimex.nouzze.models.UserDetails
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         // email verification
         mUser = FirebaseAuth.getInstance().currentUser!!
         mSharedPreferences = getSharedPreferences(Constants.USAGE_PERMISSION_SHARED_PREFS, Context.MODE_PRIVATE)
-        FireStoreClass().loadUserData(this@MainActivity)
+
         binding.apply {
             shareButton.setOnClickListener {
                 shareAppLinkRecommendFriend()
@@ -148,8 +149,9 @@ class MainActivity : AppCompatActivity() {
         val timeDifferenceMillis = (midnight.timeInMillis - threeMinutes) - currentTime.timeInMillis
 
         val gson = Gson()
-        val userDataJson = gson.toJson(Pair(mUserDetails, timeUsageData))
+        val userDataJson = gson.toJson(TotalData(mUserDetails, timeUsageData))
 
+        Log.i("WorkManager", "Main")
         val workRequest = OneTimeWorkRequest.Builder(MidNightWordManager::class.java)
             .setInputData(Data.Builder().putString(Constants.WORK_MANAGER_INPUT_DATA, userDataJson).build())
             .setInitialDelay(timeDifferenceMillis, TimeUnit.MILLISECONDS) // Delay until midnight
@@ -273,6 +275,7 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
+        FireStoreClass().loadUserData(this@MainActivity)
         mUser.reload().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 mUser = FirebaseAuth.getInstance().currentUser!!
