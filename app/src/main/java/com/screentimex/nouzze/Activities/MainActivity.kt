@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 shareAppLinkRecommendFriend()
             }
             settingsButton.setOnClickListener {
-                showToast("Settings Button Working")
+                startActivity(Intent(this@MainActivity, SettingActivity::class.java))
             }
             helpButton.setOnClickListener {
                 openGmailHelpButton()

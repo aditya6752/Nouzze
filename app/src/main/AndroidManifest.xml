@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
 
     <application
@@ -18,9 +18,13 @@
         android:theme="@style/Theme.Nouzze"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.FinalActivity"
+            android:name=".Activities.SettingActivity"
             android:exported="false"
             android:theme="@style/Theme.Nouzze.NoActionBar"/>
+        <activity
+            android:name=".Activities.FinalActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Nouzze.NoActionBar" />
         <activity
             android:name=".Activities.CheckOut"
             android:exported="false"
@@ -31,6 +35,7 @@
             android:theme="@style/Theme.Nouzze.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,7 +50,7 @@
         <activity
             android:name=".Firebase.SignInActivity"
             android:exported="false"
-            android:theme="@style/Theme.Nouzze.NoActionBar"/>
+            android:theme="@style/Theme.Nouzze.NoActionBar" />
         <activity
             android:name=".Activities.Address"
             android:exported="false"

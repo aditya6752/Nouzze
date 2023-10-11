@@ -25,7 +25,7 @@
         app:cardElevation="@dimen/card_view_elevation"
         android:layout_marginTop="15dp"
         android:layout_marginStart="30dp"
-        android:background="@color/cardViewBackground"
+        android:backgroundTint="@color/cardViewBackground"
         android:layout_marginEnd="30dp">
 
         <LinearLayout

@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/cardViewBackground"
         android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -44,7 +45,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/image_contentDescription"
-                android:src="@drawable/recommend"/>
+                android:src="@drawable/share"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,7 +99,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Help"
+                android:text="Contact Us"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:textSize="17sp"

@@ -40,7 +40,7 @@
                 android:layout_marginBottom="15dp"
                 app:cardCornerRadius="10dp"
                 android:layout_margin="8dp"
-                android:background="@color/cardViewBackground"
+                android:backgroundTint="@color/cardViewBackground"
                 app:cardElevation="5dp">
 
                 <LinearLayout
@@ -131,7 +131,7 @@
                 app:cardCornerRadius="10dp"
                 android:layout_margin="8dp"
                 app:cardElevation="5dp"
-                android:background="@color/cardViewBackground"
+                android:backgroundTint="@color/cardViewBackground"
                 >
 
                 <LinearLayout
