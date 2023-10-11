@@ -333,7 +333,7 @@ class MainActivity : AppCompatActivity() {
                 val packageName: String = packageInfo.packageName
 
                 val useTime: Int = getTimeUsage(packageName)
-                appInfoList.add(AppInfo(appName, appIcon, packageName, false, false, useTime))
+                appInfoList.add(AppInfo(appName, packageName, false, false, useTime))
             }
         }
         appInfoList.sort()

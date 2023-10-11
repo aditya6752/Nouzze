@@ -45,7 +45,7 @@ class AppInfoListAdapter(private val context: Context, private val appInfoList: 
         }
 
         listViewHolder.appName.text = appInfo.appName
-        listViewHolder.appIcon.setImageDrawable(appInfo.icon)
+//        listViewHolder.appIcon.setImageDrawable(appInfo.icon)
         listViewHolder.isTracked.visibility = View.VISIBLE
         val time = showTimeSpent(appInfo.timeUseApp)
         listViewHolder.isTracked.text = time

@@ -21,8 +21,7 @@ class MidNightWordManager(context: Context, params: WorkerParameters) : Coroutin
             val totalData = gson.fromJson(dataListJson, TotalData::class.java)
             val mUserDetails = totalData.userData
             val timeUsageData = totalData.appInfoList
-            //val updatedPoints = PointsCalculation(mUserDetails, timeUsageData).calculate()
-            val updatedPoints = 10
+            val updatedPoints = PointsCalculation(mUserDetails, timeUsageData).calculate()
             Log.i("WorkManager", "${timeUsageData.size}")
             val userHashMap = HashMap<String, Any>()
             userHashMap[Constants.POINTS] = updatedPoints
