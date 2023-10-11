@@ -9,7 +9,7 @@ data class AppInfo(
     val packageName: String,
     val isTracked: Boolean,
     val isUsageExceeded: Boolean,
-    var timeUseApp: Int
+    var timeUseApp: Long
 ) : Comparable<AppInfo> {
     override fun compareTo(appInfo: AppInfo): Int {
         return appName.compareTo(appInfo.appName)
