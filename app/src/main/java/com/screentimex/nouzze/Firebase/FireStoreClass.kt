@@ -92,6 +92,31 @@ class FireStoreClass: AppCompatActivity() {
             }
     }
 
+    fun getUserDataMidNight(activity: Activity){
+        mFireStore.collection(Constants.USERS)
+            .document(getCurrentUUID())
+            .get()
+            .addOnSuccessListener { document ->
+                val loggedInUser = document.toObject(UserDetails::class.java)
+                if(loggedInUser!=null){
+                    when(activity){
+                        is MainActivity -> {
+                            Log.i("YourTag", "Check")
+                            activity.updateNavigationUserDetails(loggedInUser)
+                        }
+                    }
+                }
+            }.addOnFailureListener {
+                when(activity){
+                    is MainActivity -> {
+                        Log.i("YourTag", "Check")
+                        activity.showSnackBar(it.message!!)
+                    }
+                }
+                Log.e("FireStoreClassSignUp", it.message!!)
+            }
+    }
+
     fun updateProfileData(activity: Activity,
                           userHashMap: HashMap<String, Any>){
         mFireStore.collection(Constants.USERS)

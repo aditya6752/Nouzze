@@ -18,7 +18,7 @@ class MidNightUsageStateSharedPref(context: Context) {
         editor.apply()
     }
 
-    fun getDataObject(key: String): UserDetails? {
+    fun getDataObject(key: String): UserDetails {
         val json = sharedPreferences.getString(key, null)
         return gson.fromJson(json, UserDetails::class.java)
     }

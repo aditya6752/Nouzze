@@ -26,17 +26,17 @@ import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.gson.Gson
 import com.screentimex.nouzze.Adapters.AppInfoListAdapter
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.Firebase.SignInActivity
 import com.screentimex.nouzze.R
+import com.screentimex.nouzze.Services.MidNightUsageStateSharedPref
 import com.screentimex.nouzze.Services.MidNightWordManager
+import com.screentimex.nouzze.Services.PointsCalculation
 import com.screentimex.nouzze.UsageStats.Utils
 import com.screentimex.nouzze.databinding.ActivityDrawerBinding
 import com.screentimex.nouzze.models.AppInfo
 import com.screentimex.nouzze.models.Constants
-import com.screentimex.nouzze.models.TotalData
 import com.screentimex.nouzze.models.UserDetails
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mSharedPreferences: SharedPreferences
 
     private lateinit var tapTargetSequence: TapTargetSequence
+    private lateinit var mSharedPrefMidNightUserDetails: MidNightUsageStateSharedPref
 
     companion object {
         const val MY_PROFILE_REQ_CODE = 101
@@ -62,7 +63,8 @@ class MainActivity : AppCompatActivity() {
         // email verification
         mUser = FirebaseAuth.getInstance().currentUser!!
         mSharedPreferences = getSharedPreferences(Constants.USAGE_PERMISSION_SHARED_PREFS, Context.MODE_PRIVATE)
-
+        FireStoreClass().loadUserData(this@MainActivity)
+        mSharedPrefMidNightUserDetails = MidNightUsageStateSharedPref(this@MainActivity)
         binding.apply {
             shareButton.setOnClickListener {
                 shareAppLinkRecommendFriend()
@@ -148,18 +150,17 @@ class MainActivity : AppCompatActivity() {
         midnight.set(Calendar.SECOND, 0)
         val timeDifferenceMillis = (midnight.timeInMillis - threeMinutes) - currentTime.timeInMillis
 
-        val gson = Gson()
-        val userDataJson = gson.toJson(TotalData(mUserDetails, timeUsageData))
+        val userDetails = mSharedPrefMidNightUserDetails.getDataObject(Constants.MID_NIGHT_USER_DATA)
+        val updatedPoints = PointsCalculation(userDetails, timeUsageData).calculate()
 
         Log.i("WorkManager", "Main")
         val workRequest = OneTimeWorkRequest.Builder(MidNightWordManager::class.java)
-            .setInputData(Data.Builder().putString(Constants.WORK_MANAGER_INPUT_DATA, userDataJson).build())
+            .setInputData(Data.Builder().putLong(Constants.WORK_MANAGER_INPUT_DATA, updatedPoints).build())
             .setInitialDelay(timeDifferenceMillis, TimeUnit.MILLISECONDS) // Delay until midnight
             .build()
 
         // Schedule the task
         WorkManager.getInstance(this).enqueue(workRequest)
-
     }
     private fun permissionGranted() {
          if(isUsageStatsPermissionGranted()) {
@@ -275,7 +276,6 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        FireStoreClass().loadUserData(this@MainActivity)
         mUser.reload().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 mUser = FirebaseAuth.getInstance().currentUser!!
@@ -332,7 +332,7 @@ class MainActivity : AppCompatActivity() {
                 val appIcon: Drawable = packageInfo.applicationInfo.loadIcon(packageManager)
                 val packageName: String = packageInfo.packageName
 
-                val useTime: Int = getTimeUsage(packageName)
+                val useTime = getTimeUsage(packageName).toLong()
                 appInfoList.add(AppInfo(appName, packageName, false, false, useTime))
             }
         }

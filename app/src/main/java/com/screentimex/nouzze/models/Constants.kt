@@ -25,6 +25,7 @@ object Constants {
 
     const val USAGE_PERMISSION_SHARED_PREFS = "usageStatsPermission"
     const val MID_NIGHT_USAGE_DATA_SHARED_PREFS = "midNightSharedPrefs"
+    const val MID_NIGHT_USER_DATA = "midNightUserData"
 
     const val WORK_MANAGER_INPUT_DATA = "workManagerInputData"
 

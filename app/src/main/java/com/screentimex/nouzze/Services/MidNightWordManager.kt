@@ -6,9 +6,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.gson.Gson
 import com.screentimex.nouzze.models.Constants
-import com.screentimex.nouzze.models.TotalData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -16,13 +14,7 @@ class MidNightWordManager(context: Context, params: WorkerParameters) : Coroutin
     private val mFireStore = FirebaseFirestore.getInstance()
     override suspend fun doWork(): Result {
         return withContext(Dispatchers.IO) {
-            val dataListJson = inputData.getString(Constants.WORK_MANAGER_INPUT_DATA)
-            val gson = Gson()
-            val totalData = gson.fromJson(dataListJson, TotalData::class.java)
-            val mUserDetails = totalData.userData
-            val timeUsageData = totalData.appInfoList
-            val updatedPoints = PointsCalculation(mUserDetails, timeUsageData).calculate()
-            Log.i("WorkManager", "${timeUsageData.size}")
+            val updatedPoints = inputData.getLong(Constants.WORK_MANAGER_INPUT_DATA, 0L)
             val userHashMap = HashMap<String, Any>()
             userHashMap[Constants.POINTS] = updatedPoints
             updateProfileData(userHashMap)

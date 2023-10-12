@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.R
+import com.screentimex.nouzze.Services.MidNightUsageStateSharedPref
 import com.screentimex.nouzze.databinding.ActivityCreateUserBinding
 import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.UserDetails
@@ -26,11 +27,13 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var mUserName: String
     private var mUserAge: Int = 0
     private lateinit var mUserProfession: String
+    private lateinit var mSharedPref: MidNightUsageStateSharedPref
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        mSharedPref = MidNightUsageStateSharedPref(this@SignUpActivity)
         if(intent.hasExtra(Constants.INTRODETAILS)) {
             mIntroDetails = intent.getStringArrayExtra(Constants.INTRODETAILS)!!
             mUserName = mIntroDetails[0]
@@ -58,6 +61,7 @@ class SignUpActivity : AppCompatActivity() {
                     if(task.isSuccessful){
                         val firebaseUser: FirebaseUser = task.result!!.user!!
                         val user = UserDetails(firebaseUser.uid, email, mUserName, mUserAge, mUserProfession)
+                        mSharedPref.saveDataObject(Constants.MID_NIGHT_USER_DATA, user)
                         FireStoreClass().registerUser(this, user)
                     }
                     else{
