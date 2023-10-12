@@ -13,7 +13,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/textColor"
+        >
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/emailTextView"
@@ -36,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
+        android:textColorHint="@color/textColor"
         app:passwordToggleDrawable="@drawable/password_icon_selector">
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -58,7 +61,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
-        app:passwordToggleDrawable="@drawable/password_icon_selector">
+        app:passwordToggleDrawable="@drawable/password_icon_selector"
+        android:textColorHint="@color/textColor"
+        >
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/confirmPasswordTextView"

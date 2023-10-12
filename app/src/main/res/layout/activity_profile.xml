@@ -52,7 +52,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp">
+                android:layout_marginEnd="10dp"
+                android:textColorHint="@color/textColor"
+                >
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/profile_name_text_view"
@@ -73,7 +75,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp">
+                android:layout_marginEnd="10dp"
+                android:textColorHint="@color/textColor"
+                >
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/profile_email_text_view"
@@ -96,7 +100,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="30dp">
+                android:layout_marginBottom="30dp"
+                android:textColorHint="@color/textColor"
+                >
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/profilePhoneNumberTextView"

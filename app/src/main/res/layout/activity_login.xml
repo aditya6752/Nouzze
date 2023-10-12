@@ -11,6 +11,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        android:textColorHint="@color/textColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -33,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
+        android:textColorHint="@color/textColor"
         app:passwordToggleDrawable="@drawable/password_icon_selector">
 
         <androidx.appcompat.widget.AppCompatEditText
