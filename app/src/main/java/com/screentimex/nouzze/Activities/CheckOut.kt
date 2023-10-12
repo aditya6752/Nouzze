@@ -65,12 +65,13 @@ class CheckOut : AppCompatActivity() {
                 GlobalScope.launch(Dispatchers.IO) {
                     sendEmail()
                 }
+                mUserDetails.points = balance
+                mSharedPrefMidNightUserDetails.saveDataObject(Constants.MID_NIGHT_USER_DATA, mUserDetails)
                 val userHashMap = HashMap<String, Any>()
                 userHashMap[Constants.POINTS] = balance
                 FireStoreClass().updateProfileData(this@CheckOut, userHashMap)
             } else {
                 showSnackBar("Insufficient Balance!!")
-
             }
         }
 
