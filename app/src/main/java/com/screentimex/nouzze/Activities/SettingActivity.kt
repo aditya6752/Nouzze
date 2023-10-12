@@ -31,6 +31,8 @@ class SettingActivity : AppCompatActivity() {
         if ( nightMode ){
             modeSwitch.isChecked = true
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
         modeSwitch.setOnClickListener{

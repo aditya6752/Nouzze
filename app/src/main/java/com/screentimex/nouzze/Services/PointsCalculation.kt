@@ -20,7 +20,9 @@ class PointsCalculation(userDetails: UserDetails, timeUsageData: List<AppInfo>) 
             val applicationName = applicationsData.appName
             val applicationTime = applicationsData.timeUseApp / 60
             val packageName = applicationsData.packageName
-
+            if(!Constants.MAP_PACKAGE_APP_NAME.containsKey(packageName)) {
+                continue
+            }
 
             Log.d("PointsCal", "$applicationName: $applicationTime")
             val type = ConstPoints.MAP_APP_TYPE[applicationName]

@@ -8,6 +8,8 @@ import android.content.SharedPreferences
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -17,6 +19,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
@@ -49,6 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var tapTargetSequence: TapTargetSequence
     private lateinit var mSharedPrefMidNightUserDetails: MidNightUsageStateSharedPref
+    private lateinit var mSharedPrefPointsStoreMidNight: SharedPreferences
 
     companion object {
         const val MY_PROFILE_REQ_CODE = 101
@@ -62,9 +67,27 @@ class MainActivity : AppCompatActivity() {
 
         // email verification
         mUser = FirebaseAuth.getInstance().currentUser!!
+
         mSharedPreferences = getSharedPreferences(Constants.USAGE_PERMISSION_SHARED_PREFS, Context.MODE_PRIVATE)
         FireStoreClass().loadUserData(this@MainActivity)
         mSharedPrefMidNightUserDetails = MidNightUsageStateSharedPref(this@MainActivity)
+
+        mSharedPrefPointsStoreMidNight = getSharedPreferences("STORE_POINTS", Context.MODE_PRIVATE)
+
+        if(mSharedPrefPointsStoreMidNight.contains(Constants.NO_INTERNET_POINT_STORE)
+            && isInternetConnected(this@MainActivity)) {
+            Log.e("Share", "Working")
+            val updatedPoints = mSharedPrefPointsStoreMidNight.getLong(Constants.NO_INTERNET_POINT_STORE, 0L)
+            val userHashMap = HashMap<String, Any>()
+            userHashMap[Constants.POINTS] = updatedPoints
+            val editor = mSharedPrefPointsStoreMidNight.edit()
+            editor.remove(Constants.NO_INTERNET_POINT_STORE)
+            editor.clear()
+            editor.apply()
+            editor.commit()
+            FireStoreClass().updateProfileData(this, userHashMap)
+        }
+
         binding.apply {
             shareButton.setOnClickListener {
                 shareAppLinkRecommendFriend()
@@ -143,12 +166,11 @@ class MainActivity : AppCompatActivity() {
     private fun midNightWorkScheduler(timeUsageData: List<AppInfo>) {
         val currentTime = Calendar.getInstance()
         val midnight = Calendar.getInstance()
-        val threeMinutes = 3 * 60 * 1000
         midnight.add(Calendar.DAY_OF_YEAR, 1)
         midnight.set(Calendar.HOUR_OF_DAY, 0)
         midnight.set(Calendar.MINUTE, 0)
         midnight.set(Calendar.SECOND, 0)
-        val timeDifferenceMillis = (midnight.timeInMillis - threeMinutes) - currentTime.timeInMillis
+        val timeDifferenceMillis = midnight.timeInMillis - currentTime.timeInMillis
 
         val userDetails = mSharedPrefMidNightUserDetails.getDataObject(Constants.MID_NIGHT_USER_DATA)
         val updatedPoints = PointsCalculation(userDetails, timeUsageData).calculate()
@@ -164,7 +186,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun permissionGranted() {
          if(isUsageStatsPermissionGranted()) {
-            binding.apply {
+             binding.apply {
                 includeAppBarLayout.MainScreenUsageActivity.permissionTextView.visibility = View.INVISIBLE
                 includeAppBarLayout.MainScreenUsageActivity.givePermissionButton.visibility = View.INVISIBLE
                 includeAppBarLayout.MainScreenUsageActivity.marketPlaceButton.isEnabled = true
@@ -196,9 +218,11 @@ class MainActivity : AppCompatActivity() {
         midNightWorkScheduler(appInfoList)
         val mAdapter1 = AppInfoListAdapter(this@MainActivity, appInfoList)
         binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.adapter = mAdapter1
+        binding.includeAppBarLayout.MainScreenUsageActivity.progressBarButton.visibility = View.GONE
     }
     private fun setUpActionBar(){
         setSupportActionBar(binding.includeAppBarLayout.toolbar)
+        supportActionBar?.title = "Nouzze"
         binding.includeAppBarLayout.toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
         binding.includeAppBarLayout.toolbar.setNavigationOnClickListener {
             toggleDrawer()
@@ -224,6 +248,9 @@ class MainActivity : AppCompatActivity() {
     }
     fun updateNavigationUserDetails(user: UserDetails){
         mUserDetails = user
+        if(!mSharedPrefMidNightUserDetails.containsData(Constants.MID_NIGHT_USER_DATA)) {
+            mSharedPrefMidNightUserDetails.saveDataObject(Constants.MID_NIGHT_USER_DATA, mUserDetails)
+        }
         Glide
             .with(this)
             .load(user.image)
@@ -276,6 +303,9 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
+        if(mUser.isEmailVerified && isUsageStatsPermissionGranted()) {
+            binding.includeAppBarLayout.MainScreenUsageActivity.progressBarButton.visibility = View.VISIBLE
+        }
         mUser.reload().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 mUser = FirebaseAuth.getInstance().currentUser!!
@@ -326,14 +356,13 @@ class MainActivity : AppCompatActivity() {
 
         for (i in packageInfoList.indices) {
             val packageInfo: PackageInfo = packageInfoList[i]
-            if (packageManager.getLaunchIntentForPackage(packageInfo.packageName) != null
-                && Constants.MAP_PACKAGE_APP_NAME.containsKey(packageInfo.packageName)) {
+            if (packageManager.getLaunchIntentForPackage(packageInfo.packageName) != null) {
                 val appName: String = packageInfo.applicationInfo.loadLabel(packageManager).toString()
                 val appIcon: Drawable = packageInfo.applicationInfo.loadIcon(packageManager)
                 val packageName: String = packageInfo.packageName
 
                 val useTime = getTimeUsage(packageName).toLong()
-                appInfoList.add(AppInfo(appName, packageName, false, false, useTime))
+                appInfoList.add(AppInfo(appName, packageName, false, false, useTime, appIcon))
             }
         }
         appInfoList.sort()
@@ -344,5 +373,12 @@ class MainActivity : AppCompatActivity() {
         var usageTime: Int? = appUsageMap[packageName]
         if (usageTime == null) usageTime = 0
         return usageTime
+    }
+
+    private fun isInternetConnected(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 }

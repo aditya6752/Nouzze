@@ -28,6 +28,7 @@ object Constants {
     const val MID_NIGHT_USER_DATA = "midNightUserData"
 
     const val WORK_MANAGER_INPUT_DATA = "workManagerInputData"
+    const val NO_INTERNET_POINT_STORE = "noInternetMidNight"
 
     fun getFileExtension(activity: Activity, uri: Uri?): String?{
         return MimeTypeMap.getSingleton().
