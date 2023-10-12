@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
+import com.screentimex.nouzze.Services.MidNightUsageStateSharedPref
 import com.screentimex.nouzze.Services.ProductDetailSharedPref
 import com.screentimex.nouzze.databinding.ActivityCheckOutBinding
 import com.screentimex.nouzze.models.AddressDetails
@@ -34,6 +35,7 @@ class CheckOut : AppCompatActivity() {
     lateinit var mAddressDetails : AddressDetails
     lateinit var mUserDetails: UserDetails
     lateinit var productDetailSharedPrefCheckOut : ProductDetailSharedPref
+    private lateinit var mSharedPrefMidNightUserDetails: MidNightUsageStateSharedPref
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCheckOutBinding.inflate(layoutInflater)
@@ -43,8 +45,10 @@ class CheckOut : AppCompatActivity() {
         productDetailSharedPrefCheckOut = ProductDetailSharedPref(this)
         productDetails = productDetailSharedPrefCheckOut.getDataObject(Constants.PRODUCTDETAILS)!!
 
+        mSharedPrefMidNightUserDetails = MidNightUsageStateSharedPref(this@CheckOut)
+
         FireStoreClass().getAddress(this)
-        FireStoreClass().loadUserData(this)
+        mUserDetails = mSharedPrefMidNightUserDetails.getDataObject(Constants.MID_NIGHT_USER_DATA)
 
         binding.productName.text = productDetails.productName
         binding.productPrice.text = "Product Price: " + productDetails.productPrice
