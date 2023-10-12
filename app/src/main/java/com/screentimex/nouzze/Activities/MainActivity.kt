@@ -224,6 +224,11 @@ class MainActivity : AppCompatActivity() {
         val mAdapter1 = AppInfoListAdapter(this@MainActivity, appInfoList)
         binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.adapter = mAdapter1
         binding.includeAppBarLayout.MainScreenUsageActivity.progressBarButton.visibility = View.GONE
+        val userDetails = mSharedPrefMidNightUserDetails.getDataObject(Constants.MID_NIGHT_USER_DATA)
+        if(mUserDetails.points != userDetails.points) {
+            userDetails.points = mUserDetails.points
+            mSharedPrefMidNightUserDetails.saveDataObject(Constants.MID_NIGHT_USER_DATA, userDetails)
+        }
     }
     private fun setUpActionBar(){
         setSupportActionBar(binding.includeAppBarLayout.toolbar)
