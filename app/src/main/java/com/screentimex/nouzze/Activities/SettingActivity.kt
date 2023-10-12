@@ -1,32 +1,49 @@
 package com.screentimex.nouzze.Activities
 
 import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivitySettingBinding
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
+
+    private lateinit var modeSwitch : SwitchCompat
+    private var nightMode = false
+    private var editor : SharedPreferences.Editor?= null
+    private var sharedPreferences:SharedPreferences?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpActionBar()
 
-        // Set the initial state of the switch based on the current app theme
-        binding.themeSwitch.isChecked = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+        modeSwitch = binding.modeSwitch
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
 
-// Listen for changes to the switch
-        binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                // Switch to night mode
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                // Switch to light mode
+        nightMode = sharedPreferences?.getBoolean("night",false)!!
+
+        if ( nightMode ){
+            modeSwitch.isChecked = true
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+
+        modeSwitch.setOnClickListener{
+            if ( nightMode ){
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                editor = sharedPreferences?.edit()
+                editor?.putBoolean("night",false)
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                editor = sharedPreferences?.edit()
+                editor?.putBoolean("night",true)
             }
+            editor?.apply()
         }
 
     }

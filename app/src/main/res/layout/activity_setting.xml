@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".Activities.SettingActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -17,19 +18,42 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <Switch
-        android:id="@+id/themeSwitch"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Night Mode"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="5dp"
         app:layout_constraintTop_toBottomOf="@id/customToolBar"
-        android:padding="10dp"
-        />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:text="Light Mode">
+        </TextView>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/mode_switch"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:checked="false">
+
+        </androidx.appcompat.widget.SwitchCompat>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/textColor"
+            android:textSize="17sp"
+            android:gravity="right"
+            android:text="Dark Mode">
+        </TextView>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
