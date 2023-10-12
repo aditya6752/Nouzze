@@ -50,7 +50,7 @@ class CheckOut : AppCompatActivity() {
         FireStoreClass().getAddress(this)
         mUserDetails = mSharedPrefMidNightUserDetails.getDataObject(Constants.MID_NIGHT_USER_DATA)
         binding.userNameWelcome.setText("Hi ${mUserDetails.name} , Your Order  ")
-        binding.balance.text = "Balance: " + mUserDetails.points.toString()
+        binding.balance.text = "My Points: " + mUserDetails.points.toString()
 
         binding.productName.text = productDetails.productName
         binding.productPrice.text = "Product Price: " + productDetails.productPrice
