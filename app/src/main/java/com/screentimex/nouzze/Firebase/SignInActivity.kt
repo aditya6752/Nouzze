@@ -2,6 +2,8 @@ package com.screentimex.nouzze.Firebase
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -23,16 +25,23 @@ class SignInActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if ( !isInternetConnected(this) ){
+            showSnackBar("No Internet !!")
+        }
 
         binding.loginButton.setOnClickListener {
             hideKeyboard()
-            binding.progressBarButton.visibility = View.VISIBLE
-            signInAuth()
+            if ( isInternetConnected(this) ) {
+                binding.progressBarButton.visibility = View.VISIBLE
+                signInAuth()
+            }
         }
         binding.signUpButton.setOnClickListener {
             hideKeyboard()
-            val intent = Intent(this@SignInActivity, IntroActivity::class.java)
-            startActivity(intent)
+            if ( isInternetConnected(this) ) {
+                val intent = Intent(this@SignInActivity, IntroActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
@@ -42,17 +51,20 @@ class SignInActivity : AppCompatActivity() {
             val email = binding.loginEmailTextView.text.toString().trim{ it<=' '}.toLowerCase()
             val password = binding.loginPasswordTextView.text.toString().trim{ it<=' '}
             //showCustomProgressDialog(resources.getString(R.string.please_wait))
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener{ task ->
-                if(task.isSuccessful){
-                    signInSuccess()
-                }
-                else{
-                    //hideProgressDialog()
-                    binding.progressBarButton.visibility = View.GONE
-                    val errorMessage = task.exception!!.message!!.substringAfter("[").substringBefore("]")
-                    showError(errorMessage)
-                }
-            }
+
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            signInSuccess()
+                        } else {
+                            //hideProgressDialog()
+                            binding.progressBarButton.visibility = View.GONE
+                            val errorMessage =
+                                task.exception!!.message!!.substringAfter("[").substringBefore("]")
+                            showError(errorMessage)
+                        }
+                    }
+
         }
         else{
             binding.progressBarButton.visibility = View.GONE
@@ -105,5 +117,23 @@ class SignInActivity : AppCompatActivity() {
         if ( inputManager.isAcceptingText ){
             inputManager.hideSoftInputFromWindow(currentFocus!!.windowToken,0)
         }
+    }
+    fun showSnackBar(message: String){
+        val snackBar =
+            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        snackBarView.setBackgroundColor(
+            ContextCompat.getColor(
+                this@SignInActivity,
+                R.color.snackBarColor
+            )
+        )
+        snackBar.show()
+    }
+    private fun isInternetConnected(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 }

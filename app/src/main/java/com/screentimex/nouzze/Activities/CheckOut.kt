@@ -53,7 +53,9 @@ class CheckOut : AppCompatActivity() {
 
         binding.BuyNowButton.setOnClickListener {
             val balance = mUserDetails.points - productDetails.productPrice.toLong()
-            if(balance > 0 && isInternetConnected()) {
+            if ( !isInternetConnected() ){
+                showSnackBar("No Internet !!")
+            } else if(balance > 0 ) {
                 GlobalScope.launch(Dispatchers.IO) {
                     sendEmail()
                 }
@@ -61,10 +63,8 @@ class CheckOut : AppCompatActivity() {
                 userHashMap[Constants.POINTS] = balance
                 FireStoreClass().updateProfileData(this@CheckOut, userHashMap)
             } else {
-                if(balance < 0)
-                    showSnackBar("Insufficient Balance!!")
-                else
-                    showSnackBar("No Internet!!")
+                showSnackBar("Insufficient Balance!!")
+
             }
         }
 
@@ -82,7 +82,7 @@ class CheckOut : AppCompatActivity() {
         supportActionBar?.title = "Order Review"
         supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
         binding.customToolBar.setNavigationOnClickListener {
-            onBackPressed()
+            finish()
         }
     }
 

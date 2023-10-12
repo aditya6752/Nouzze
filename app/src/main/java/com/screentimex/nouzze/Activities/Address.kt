@@ -1,7 +1,10 @@
 package com.screentimex.nouzze.Activities
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,6 +28,9 @@ class Address : AppCompatActivity() {
         binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpActionBar()
+        if ( !isInternetConnected(this) ){
+            showSnackBar("No Internet !!")
+        }
         binding.addOrUpdateAddressButton.setOnClickListener {
             startActivity(Intent(this@Address, AddAddress::class.java))
         }
@@ -51,6 +57,7 @@ class Address : AppCompatActivity() {
 
     // No address saved -> Billing button unClickable - Add Address
     fun noAddressSaved() {
+        showSnackBar("No Address Saved")
         binding.apply {
             AddressRecyclerView.visibility = View.GONE
             noAddressTestView.visibility = View.VISIBLE
@@ -85,5 +92,11 @@ class Address : AppCompatActivity() {
             )
         )
         snackBar.show()
+    }
+    private fun isInternetConnected(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 }

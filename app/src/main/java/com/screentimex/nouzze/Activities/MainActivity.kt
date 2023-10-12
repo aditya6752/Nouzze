@@ -88,6 +88,11 @@ class MainActivity : AppCompatActivity() {
             FireStoreClass().updateProfileData(this, userHashMap)
         }
 
+        if( !isInternetConnected(this) ){
+            binding.includeAppBarLayout.MainScreenUsageActivity.progressBarButton.visibility = View.GONE
+            showSnackBar("No Internet !!")
+        }
+
         binding.apply {
             shareButton.setOnClickListener {
                 shareAppLinkRecommendFriend()

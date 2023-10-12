@@ -2,6 +2,8 @@ package com.screentimex.nouzze.Firebase
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -22,7 +24,6 @@ import com.screentimex.nouzze.models.UserDetails
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityCreateUserBinding
-    private lateinit var mFireStore: FirebaseFirestore
     private lateinit var mIntroDetails: Array<String>
     private lateinit var mUserName: String
     private var mUserAge: Int = 0
@@ -40,12 +41,15 @@ class SignUpActivity : AppCompatActivity() {
             mUserAge = mIntroDetails[1].toInt()
             mUserProfession = mIntroDetails[2]
         }
-
-        mFireStore = FirebaseFirestore.getInstance()
+        if ( !isInternetConnected(this) ){
+            showSnackBar("No Internet !!")
+        }
         binding.signUpButton.setOnClickListener {
             hideKeyboard()
-            binding.progressBarButton.visibility = View.VISIBLE
-            registerUser()
+            if ( isInternetConnected(this) ) {
+                binding.progressBarButton.visibility = View.VISIBLE
+                registerUser()
+            }
         }
 
     }
@@ -126,5 +130,23 @@ class SignUpActivity : AppCompatActivity() {
         if ( inputManager.isAcceptingText ){
             inputManager.hideSoftInputFromWindow(currentFocus!!.windowToken,0)
         }
+    }
+    fun showSnackBar(message: String){
+        val snackBar =
+            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        snackBarView.setBackgroundColor(
+            ContextCompat.getColor(
+                this@SignUpActivity,
+                R.color.snackBarColor
+            )
+        )
+        snackBar.show()
+    }
+    private fun isInternetConnected(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 }

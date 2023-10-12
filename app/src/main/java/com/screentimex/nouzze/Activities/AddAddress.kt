@@ -1,6 +1,8 @@
 package com.screentimex.nouzze.Activities
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -23,11 +25,20 @@ class AddAddress : AppCompatActivity() {
 
         setUpActionBar()
         enableSpinner(false)
+        if ( !isInternetConnected(this) ) {
+            showSnackBar("No Internet !!")
+        }
         FireStoreClass().getAddress(this@AddAddress)
+
         binding.addOrUpdateAddressButton.setOnClickListener {
             hideKeyboard()
-            enableSpinner(true)
-            addOrUpdateAddressToDatabase()
+            if ( isInternetConnected(this) ) {
+                enableSpinner(true)
+                addOrUpdateAddressToDatabase()
+            }else{
+                showSnackBar("No Internet !!")
+
+            }
         }
     }
 
@@ -138,5 +149,11 @@ class AddAddress : AppCompatActivity() {
         binding.customToolBar.setNavigationOnClickListener {
             onBackPressed()
         }
+    }
+    private fun isInternetConnected(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 }

@@ -50,6 +50,8 @@ class SettingActivity : AppCompatActivity() {
 
     }
 
+
+
     private fun setUpActionBar() {
         setSupportActionBar(binding.customToolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

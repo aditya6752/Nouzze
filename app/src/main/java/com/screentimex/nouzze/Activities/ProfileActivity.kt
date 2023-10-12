@@ -1,7 +1,10 @@
 package com.screentimex.nouzze.Activities
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -40,12 +43,16 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.updateButton.setOnClickListener {
-            binding.progressBarButton.visibility = View.VISIBLE
-            binding.updateTextViewOnButton.visibility = View.GONE
-            if(selectedImageUri != null) {
-                uploadUserImage()
-            }  else{
-                updateProfileData()
+            if ( isInternetConnected(this@ProfileActivity) ) {
+                binding.progressBarButton.visibility = View.VISIBLE
+                binding.updateTextViewOnButton.visibility = View.GONE
+                if (selectedImageUri != null) {
+                    uploadUserImage()
+                } else {
+                    updateProfileData()
+                }
+            }else{
+                showSnackBar("No Internet !!")
             }
         }
     }
@@ -164,5 +171,12 @@ class ProfileActivity : AppCompatActivity() {
         if(user.phoneNumber != 0L){
             binding.profilePhoneNumberTextView.setText(user.phoneNumber.toString())
         }
+    }
+
+    private fun isInternetConnected(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 }

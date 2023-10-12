@@ -125,7 +125,6 @@ class FireStoreClass: AppCompatActivity() {
             .addOnSuccessListener {
                 activity.addressAddedUpdateSuccessfully()
             }.addOnFailureListener {
-                Toast.makeText(activity, it.toString(), Toast.LENGTH_LONG).show()
                 activity.showSnackBar(it.message!!)
             }
     }
@@ -157,18 +156,16 @@ class FireStoreClass: AppCompatActivity() {
             }.addOnFailureListener {
                 if(activity is Address) {
                     activity.showSnackBar(it.message!!)
-                }
-                else if(activity is AddAddress) {
+                }else if(activity is AddAddress) {
                     activity.showSnackBar(it.message!!)
                 }else if ( activity is CheckOut ){
                     activity.showSnackBar(it.message!!)
                 }
-                Toast.makeText(activity, it.toString(), Toast.LENGTH_LONG).show()
             }
     }
 
 
-    fun getCurrentUUID(): String{
+    private fun getCurrentUUID(): String{
         val currentUser = FirebaseAuth.getInstance().currentUser
         var currentUserId = ""
         if(currentUser != null) {

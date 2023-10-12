@@ -3,16 +3,21 @@ package com.screentimex.nouzze.Activities
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.Firebase.SignInActivity
+import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.ActivitySplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {
@@ -40,18 +45,42 @@ class SplashScreen : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        val isUserLoggedIn = FirebaseAuth.getInstance().currentUser
+        if ( isInternetConnected(this) ) {
+            val isUserLoggedIn = FirebaseAuth.getInstance().currentUser
 
-        Handler().postDelayed({
-            if(isUserLoggedIn != null){
-                val intent = Intent(this@SplashScreen, MainActivity::class.java)
-                startActivity(intent)
-            }
-            else{
-                val intent = Intent(this@SplashScreen, SignInActivity::class.java)
-                startActivity(intent)
-            }
-            finish()
-        }, 1300)
+            Handler().postDelayed({
+                if (isUserLoggedIn != null) {
+                    val intent = Intent(this@SplashScreen, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this@SplashScreen, SignInActivity::class.java)
+                    startActivity(intent)
+                }
+                finish()
+            }, 1300)
+        }else{
+            showSnackBar("No Internet !!")
+            val intent = Intent(this@SplashScreen, SignInActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    fun showSnackBar(message: String){
+        val snackBar =
+            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        snackBarView.setBackgroundColor(
+            ContextCompat.getColor(
+                this@SplashScreen,
+                R.color.snackBarColor
+            )
+        )
+        snackBar.show()
+    }
+    private fun isInternetConnected(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 }
