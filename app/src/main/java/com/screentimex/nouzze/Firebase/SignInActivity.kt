@@ -80,9 +80,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     fun signInSuccess(){
-        //hideProgressDialog()
         binding.progressBarButton.visibility = View.GONE
-        // Toast.makeText(this@SignInActivity, ":Login Success!!",Toast.LENGTH_SHORT).show()
         startActivity(Intent(this@SignInActivity, MainActivity::class.java))
         finish()
     }

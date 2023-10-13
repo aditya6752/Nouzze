@@ -14,6 +14,10 @@ import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -405,6 +409,22 @@ class MainActivity : AppCompatActivity() {
     private fun showCustomDialog() {
         val builder = AlertDialog.Builder(this)
         val dialogView = layoutInflater.inflate(R.layout.custom_dialog_main_screen,null )
+        val dialogText = dialogView.findViewById<TextView>(R.id.messageTextView)
+        val text = "Welcome to Nouzze. \uD83D\uDC80 \nWe're excited to have you on board. With Nouzze, you can earn coins by using other apps. Here's a quick guide to get you started:\n" +
+                "\n" +
+                "Use other apps like Snapchat, Instagram, zomato and many more.\n" +
+                "The more time you spend on those apps, the more coins you'll earn.\n" +
+                "Collect coins and redeem rewards in our store.\n" +
+                "If you have any questions or need assistance, don't hesitate to contact our support team at (nouzzehelp@gmail.com). Happy earning!" +
+                "\n" +  "\n" + "An app in which you can earn, without using the app itself."
+
+        val spannableText = SpannableStringBuilder(text)
+
+        val startIndex = text.indexOf("An app in which you can earn, without using the app itself.")
+        val endIndex = startIndex + "An app in which you can earn, without using the app itself.".length
+
+        spannableText.setSpan(StyleSpan(Typeface.BOLD), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        dialogText.text = spannableText
 
         builder.setView(dialogView)
             .setCancelable(false)
@@ -414,5 +434,4 @@ class MainActivity : AppCompatActivity() {
                 editor.apply()
             }.show()
     }
-
 }

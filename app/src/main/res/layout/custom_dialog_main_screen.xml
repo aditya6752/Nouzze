@@ -20,8 +20,9 @@
         android:id="@+id/messageTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Message"
-        android:textColor="@color/textColor"
+        android:background="@color/white"
+        android:text="message"
+        android:textColor="@color/black"
         android:padding="16dp"/>
 
 

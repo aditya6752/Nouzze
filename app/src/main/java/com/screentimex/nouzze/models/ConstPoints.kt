@@ -10,7 +10,6 @@ object ConstPoints {
         "Snapchat" to "Messaging",
         "Telegram" to "Messaging",
         "Messenger" to "Messaging",
-        "Call" to "Messaging",
         "LinkedIn" to "Productivity social media app",
         "Reddit" to "Productivity social media app",
         "YouTube" to "Free Entertainment",
