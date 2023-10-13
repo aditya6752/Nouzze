@@ -132,6 +132,31 @@
                 />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/aboutAppButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal" >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/image_contentDescription"
+                android:src="@drawable/about_app"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About App"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:textSize="17sp"
+                android:textColor="@color/textColor"
+                />
+        </LinearLayout>
+
     </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -2,6 +2,7 @@ package com.screentimex.nouzze.Activities
 
 import android.app.Activity
 import android.app.AppOpsManager
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -15,7 +16,10 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -54,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tapTargetSequence: TapTargetSequence
     private lateinit var mSharedPrefMidNightUserDetails: MidNightUsageStateSharedPref
     private lateinit var mSharedPrefPointsStoreMidNight: SharedPreferences
-
+    private lateinit var mSharedPrefAboutAppDialog: SharedPreferences
     companion object {
         const val MY_PROFILE_REQ_CODE = 101
     }
@@ -72,7 +76,12 @@ class MainActivity : AppCompatActivity() {
         FireStoreClass().loadUserData(this@MainActivity)
         mSharedPrefMidNightUserDetails = MidNightUsageStateSharedPref(this@MainActivity)
 
-        mSharedPrefPointsStoreMidNight = getSharedPreferences("STORE_POINTS", Context.MODE_PRIVATE)
+        mSharedPrefPointsStoreMidNight = getSharedPreferences(Constants.STORE_POINTS, Context.MODE_PRIVATE)
+        mSharedPrefAboutAppDialog = getSharedPreferences(Constants.CUSTOM_DIALOG, Context.MODE_PRIVATE)
+
+        if(!mSharedPrefAboutAppDialog.getBoolean(Constants.CUSTOM_DIALOG, false)) {
+            showCustomDialog()
+        }
 
         if(mSharedPrefPointsStoreMidNight.contains(Constants.NO_INTERNET_POINT_STORE)
             && isInternetConnected(this@MainActivity)) {
@@ -106,6 +115,9 @@ class MainActivity : AppCompatActivity() {
             tutorialButton.setOnClickListener {
                 showTutorial()
             }
+            aboutAppButton.setOnClickListener {
+                showCustomDialog()
+            }
             navDraawerHeaderInclude.logOutButton.setOnClickListener {
                 signOut()
             }
@@ -124,6 +136,7 @@ class MainActivity : AppCompatActivity() {
                 askForUsageAccessPermission()
             }
         }
+
     }
 
     private fun showTutorial() {
@@ -178,8 +191,10 @@ class MainActivity : AppCompatActivity() {
         val timeDifferenceMillis = midnight.timeInMillis - currentTime.timeInMillis
 
         val userDetails = mSharedPrefMidNightUserDetails.getDataObject(Constants.MID_NIGHT_USER_DATA)
-        val updatedPoints = PointsCalculation(userDetails, timeUsageData).calculate()
-
+        var updatedPoints = PointsCalculation(userDetails, timeUsageData).calculate()
+        if(updatedPoints <= 0) {
+            updatedPoints = 53
+        }
         Log.i("WorkManager", "Main")
         val workRequest = OneTimeWorkRequest.Builder(MidNightWordManager::class.java)
             .setInputData(Data.Builder().putLong(Constants.WORK_MANAGER_INPUT_DATA, updatedPoints).build())
@@ -224,11 +239,6 @@ class MainActivity : AppCompatActivity() {
         val mAdapter1 = AppInfoListAdapter(this@MainActivity, appInfoList)
         binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.adapter = mAdapter1
         binding.includeAppBarLayout.MainScreenUsageActivity.progressBarButton.visibility = View.GONE
-        val userDetails = mSharedPrefMidNightUserDetails.getDataObject(Constants.MID_NIGHT_USER_DATA)
-        if(mUserDetails.points != userDetails.points) {
-            userDetails.points = mUserDetails.points
-            mSharedPrefMidNightUserDetails.saveDataObject(Constants.MID_NIGHT_USER_DATA, userDetails)
-        }
     }
     private fun setUpActionBar(){
         setSupportActionBar(binding.includeAppBarLayout.toolbar)
@@ -391,4 +401,18 @@ class MainActivity : AppCompatActivity() {
         val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
+
+    private fun showCustomDialog() {
+        val builder = AlertDialog.Builder(this)
+        val dialogView = layoutInflater.inflate(R.layout.custom_dialog_main_screen,null )
+
+        builder.setView(dialogView)
+            .setCancelable(false)
+            .setPositiveButton("Ok Got It !!"){ _, _ ->
+                val editor = mSharedPrefAboutAppDialog.edit()
+                editor.putBoolean(Constants.CUSTOM_DIALOG, true)
+                editor.apply()
+            }.show()
+    }
+
 }

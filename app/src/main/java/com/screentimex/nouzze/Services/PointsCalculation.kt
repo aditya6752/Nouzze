@@ -18,9 +18,13 @@ class PointsCalculation(userDetails: UserDetails, timeUsageData: List<AppInfo>) 
 
         for ( applicationsData in timeList ){
             val applicationName = applicationsData.appName
-            val applicationTime = applicationsData.timeUseApp / 60
-            val packageName = applicationsData.packageName
-            if(!Constants.MAP_PACKAGE_APP_NAME.containsKey(packageName)) {
+            var applicationTime = applicationsData.timeUseApp
+            if(applicationTime < 16) {
+                continue
+            }
+            applicationTime /= 60
+
+            if(!ConstPoints.MAP_APP_TYPE.containsKey(applicationName)) {
                 continue
             }
 

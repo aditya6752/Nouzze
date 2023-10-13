@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 class MidNightWordManager(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     private val mFireStore = FirebaseFirestore.getInstance()
     private val mSharedPrefMidNightPointsUpdate = MidNightUsageStateSharedPref(context)
-    private val mSharedPrefPointsStoreMidNight = context.getSharedPreferences("STORE_POINTS", Context.MODE_PRIVATE)
+    private val mSharedPrefPointsStoreMidNight = context.getSharedPreferences(Constants.STORE_POINTS, Context.MODE_PRIVATE)
     override suspend fun doWork(): Result {
         return withContext(Dispatchers.IO) {
             val updatedPoints = inputData.getLong(Constants.WORK_MANAGER_INPUT_DATA, 0L)
