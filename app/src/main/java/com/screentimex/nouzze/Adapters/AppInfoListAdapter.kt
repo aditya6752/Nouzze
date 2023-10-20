@@ -53,7 +53,7 @@ class AppInfoListAdapter(private val context: Context, private val appInfoList: 
     }
     private fun showTimeSpent(timeSpent: Int): String {
         val timesAllowed = Utils.reverseProcessTime(timeSpent)
-        return String.format("%02d : %02d : %02d ", timesAllowed[0], timesAllowed[1], timesAllowed[2])
+        return String.format("%02dhr: %02dmin: %02dsec", timesAllowed[0], timesAllowed[1], timesAllowed[2])
     }
 
     class ViewHolder {

@@ -284,6 +284,7 @@ class MainActivity : AppCompatActivity() {
         binding.navDraawerHeaderInclude.userEmailNavHeader.text = user.email
         binding.navDraawerHeaderInclude.userNameNavHeader.text = user.name
         binding.includeAppBarLayout.MainScreenUsageActivity.userPoints.text = "Points: " + user.points.toString()
+        binding.includeAppBarLayout.MainScreenUsageActivity.userIntroText.text = "Hi ${user.name}, your screentime activity is"
     }
     private fun signOut(){
         FirebaseAuth.getInstance().signOut()

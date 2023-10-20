@@ -70,6 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
+                    android:maxLength="10"
                     android:hint="Mobile Number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,6 +140,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
+                    android:maxLength="6"
                     android:hint="Pincode" />
             </com.google.android.material.textfield.TextInputLayout>
 

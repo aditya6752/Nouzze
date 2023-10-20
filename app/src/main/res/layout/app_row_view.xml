@@ -19,9 +19,9 @@
         android:paddingLeft="8dp"
         android:paddingTop="4dp"
         android:text="App Name"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:textStyle="bold"
-        android:maxLength="20"
+        android:maxLength="18"
         android:textColor="@color/mainScreenAppTextColor"
         />
 
@@ -47,7 +47,7 @@
         android:paddingRight="4dp"
         android:text="TRACKING"
         android:textColor="#2E6F31"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:visibility="invisible" />
 
 </LinearLayout>

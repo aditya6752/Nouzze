@@ -65,6 +65,14 @@ class AddAddress : AppCompatActivity() {
             binding.city.text.toString(),
             binding.state.text.toString()
         )
+        if(binding.mobileNumber.text.toString().length != 10) {
+            showSnackBar("Enter Valid Mobile Number")
+            return
+        }
+        if(binding.pincode.text.toString().length != 6) {
+            showSnackBar("Enter Valid Pin-Code")
+            return
+        }
         currentSavedAddressDetails = addressDetails
         FireStoreClass().addOrUpdateAddress(this@AddAddress, addressDetails)
     }

@@ -118,6 +118,13 @@ class ProfileActivity : AppCompatActivity() {
         }
         if(!binding.profilePhoneNumberTextView.text.toString().isBlank()
             && binding.profilePhoneNumberTextView.text.toString() != userDetails.phoneNumber.toString()){
+            val phoneNumber = binding.profilePhoneNumberTextView.text.toString()
+            if(phoneNumber.length != 10 || phoneNumber.contains("")) {
+                showSnackBar("Enter Valid Mobile Number")
+                binding.progressBarButton.visibility = View.GONE
+                binding.updateTextViewOnButton.visibility = View.VISIBLE
+                return
+            }
             userHashMap[Constants.PHONENUMBER] =
                 binding.profilePhoneNumberTextView.text.toString().toLong()
             isChanged = true

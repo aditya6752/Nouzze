@@ -114,6 +114,7 @@
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"
                     android:textColor="@color/textColor"
+                    android:maxLength="10"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
