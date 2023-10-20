@@ -351,7 +351,7 @@ class MainActivity : AppCompatActivity() {
     private fun shareAppLinkRecommendFriend() {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain" // Set the type to plain text for sharing a link
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.example.com") // Replace with the URL you want to share
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.screentimex.nouzze") // Replace with the URL you want to share
         startActivity(Intent.createChooser(shareIntent, "Share Link"))
     }
     private fun openGmailHelpButton() {
