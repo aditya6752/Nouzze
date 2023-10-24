@@ -57,7 +57,6 @@ class Address : AppCompatActivity() {
 
     // No address saved -> Billing button unClickable - Add Address
     fun noAddressSaved() {
-        showSnackBar("No Address Saved")
         binding.apply {
             AddressRecyclerView.visibility = View.GONE
             noAddressTestView.visibility = View.VISIBLE

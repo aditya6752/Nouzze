@@ -31,6 +31,8 @@ object Constants {
     const val NO_INTERNET_POINT_STORE = "noInternetMidNight"
     const val STORE_POINTS = "storePoints"
     const val CUSTOM_DIALOG = "dialog"
+    const val FREE_POINTS = "freePoints"
+    const val FREE_POINTS_BOOL = "freePointsBool"
 
     fun getFileExtension(activity: Activity, uri: Uri?): String?{
         return MimeTypeMap.getSingleton().

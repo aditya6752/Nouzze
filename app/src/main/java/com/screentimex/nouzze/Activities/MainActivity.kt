@@ -50,6 +50,10 @@ import com.screentimex.nouzze.databinding.ActivityDrawerBinding
 import com.screentimex.nouzze.models.AppInfo
 import com.screentimex.nouzze.models.Constants
 import com.screentimex.nouzze.models.UserDetails
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
@@ -63,6 +67,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mSharedPrefMidNightUserDetails: MidNightUsageStateSharedPref
     private lateinit var mSharedPrefPointsStoreMidNight: SharedPreferences
     private lateinit var mSharedPrefAboutAppDialog: SharedPreferences
+    private lateinit var mSharedPrefFreePoints: SharedPreferences
     companion object {
         const val MY_PROFILE_REQ_CODE = 101
     }
@@ -82,9 +87,18 @@ class MainActivity : AppCompatActivity() {
 
         mSharedPrefPointsStoreMidNight = getSharedPreferences(Constants.STORE_POINTS, Context.MODE_PRIVATE)
         mSharedPrefAboutAppDialog = getSharedPreferences(Constants.CUSTOM_DIALOG, Context.MODE_PRIVATE)
+        mSharedPrefFreePoints = getSharedPreferences(Constants.FREE_POINTS, Context.MODE_PRIVATE)
 
         if(!mSharedPrefAboutAppDialog.getBoolean(Constants.CUSTOM_DIALOG, false)) {
             showCustomDialog()
+        }
+
+        if(!mSharedPrefFreePoints.getBoolean(Constants.FREE_POINTS_BOOL, false)) {
+            val editorFreePoints = mSharedPrefFreePoints.edit()
+            editorFreePoints.putBoolean(Constants.FREE_POINTS_BOOL, true)
+            editorFreePoints.putInt(Constants.FREE_POINTS, 50)
+            editorFreePoints.apply()
+            editorFreePoints.commit()
         }
 
         if(mSharedPrefPointsStoreMidNight.contains(Constants.NO_INTERNET_POINT_STORE)
@@ -118,6 +132,9 @@ class MainActivity : AppCompatActivity() {
             }
             tutorialButton.setOnClickListener {
                 showTutorial()
+            }
+            freePointsButton.setOnClickListener {
+                getFreePoints()
             }
             aboutAppButton.setOnClickListener {
                 showCustomDialog()
@@ -238,11 +255,15 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
     private fun setUpRecyclerView() {
-        val appInfoList: List<AppInfo> = getAppInfoList()
-        midNightWorkScheduler(appInfoList)
-        val mAdapter1 = AppInfoListAdapter(this@MainActivity, appInfoList)
-        binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.adapter = mAdapter1
-        binding.includeAppBarLayout.MainScreenUsageActivity.progressBarButton.visibility = View.GONE
+        CoroutineScope(Dispatchers.Default).launch {
+            val appInfoList: List<AppInfo> = getAppInfoList()
+            withContext(Dispatchers.Main) {
+                midNightWorkScheduler(appInfoList)
+                val mAdapter1 = AppInfoListAdapter(this@MainActivity, appInfoList)
+                binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.adapter = mAdapter1
+                binding.includeAppBarLayout.MainScreenUsageActivity.progressBarButton.visibility = View.GONE
+            }
+        }
     }
     private fun setUpActionBar(){
         setSupportActionBar(binding.includeAppBarLayout.toolbar)
@@ -358,6 +379,20 @@ class MainActivity : AppCompatActivity() {
         val email = "nouzzehelp@gmail.com"
         val intent = Intent(Intent.ACTION_VIEW,Uri.parse("mailto:$email"))
         startActivity(intent)
+    }
+    private fun getFreePoints() {
+        if(mSharedPrefFreePoints.contains(Constants.FREE_POINTS)) {
+            val pointsHashMap = HashMap<String, Any>()
+            pointsHashMap[Constants.POINTS] = mSharedPrefFreePoints.getInt(Constants.FREE_POINTS, 0) + mUserDetails.points
+            val editorFreePoints = mSharedPrefFreePoints.edit()
+            editorFreePoints.remove(Constants.FREE_POINTS)
+            editorFreePoints.apply()
+            editorFreePoints.commit()
+            showToast("Claimed Successfully")
+            FireStoreClass().updateProfileData(this@MainActivity, pointsHashMap)
+        } else {
+            showToast("Already claimed, come back tomorrow")
+        }
     }
     fun showToast(error: String) {
         Toast.makeText(this@MainActivity, error, Toast.LENGTH_SHORT).show()

@@ -12,7 +12,7 @@ android {
         applicationId "com.screentimex.nouzze"
         minSdk 26
         targetSdk 34
-        versionCode 1
+        versionCode 3
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -83,4 +83,7 @@ dependencies {
 
     // tap target view
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.3")
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }

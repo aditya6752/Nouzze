@@ -17,6 +17,7 @@ class MidNightWordManager(context: Context, params: WorkerParameters) : Coroutin
     private val mFireStore = FirebaseFirestore.getInstance()
     private val mSharedPrefMidNightPointsUpdate = MidNightUsageStateSharedPref(context)
     private val mSharedPrefPointsStoreMidNight = context.getSharedPreferences(Constants.STORE_POINTS, Context.MODE_PRIVATE)
+    private val mSharedPrefFreePoints = context.getSharedPreferences(Constants.FREE_POINTS, Context.MODE_PRIVATE)
     override suspend fun doWork(): Result {
         return withContext(Dispatchers.IO) {
             val updatedPoints = inputData.getLong(Constants.WORK_MANAGER_INPUT_DATA, 0L)
@@ -24,7 +25,11 @@ class MidNightWordManager(context: Context, params: WorkerParameters) : Coroutin
             userDataFromSharedPref.points = updatedPoints
             mSharedPrefMidNightPointsUpdate.saveDataObject(Constants.MID_NIGHT_USER_DATA, userDataFromSharedPref)
 
-            Log.i("lke", "1")
+            val editorFreePoints = mSharedPrefFreePoints.edit()
+            editorFreePoints.putInt(Constants.FREE_POINTS, 50)
+            editorFreePoints.apply()
+            editorFreePoints.commit()
+
             if(isInternetConnected(applicationContext)) {
                 val userHashMap = HashMap<String, Any>()
                 userHashMap[Constants.POINTS] = updatedPoints
