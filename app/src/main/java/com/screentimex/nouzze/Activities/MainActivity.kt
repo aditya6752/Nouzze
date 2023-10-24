@@ -255,13 +255,16 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
     private fun setUpRecyclerView() {
-        CoroutineScope(Dispatchers.Default).launch {
-            val appInfoList: List<AppInfo> = getAppInfoList()
-            withContext(Dispatchers.Main) {
-                midNightWorkScheduler(appInfoList)
-                val mAdapter1 = AppInfoListAdapter(this@MainActivity, appInfoList)
-                binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.adapter = mAdapter1
-                binding.includeAppBarLayout.MainScreenUsageActivity.progressBarButton.visibility = View.GONE
+        if(binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.adapter == null) {
+            binding.includeAppBarLayout.MainScreenUsageActivity.progressBarButton.visibility = View.VISIBLE
+            CoroutineScope(Dispatchers.Default).launch {
+                val appInfoList: List<AppInfo> = getAppInfoList()
+                withContext(Dispatchers.Main) {
+                    midNightWorkScheduler(appInfoList)
+                    val mAdapter1 = AppInfoListAdapter(this@MainActivity, appInfoList)
+                    binding.includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.adapter = mAdapter1
+                    binding.includeAppBarLayout.MainScreenUsageActivity.progressBarButton.visibility = View.GONE
+                }
             }
         }
     }
@@ -293,9 +296,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun updateNavigationUserDetails(user: UserDetails){
         mUserDetails = user
-        if(!mSharedPrefMidNightUserDetails.containsData(Constants.MID_NIGHT_USER_DATA)) {
-            mSharedPrefMidNightUserDetails.saveDataObject(Constants.MID_NIGHT_USER_DATA, mUserDetails)
-        }
+        mSharedPrefMidNightUserDetails.saveDataObject(Constants.MID_NIGHT_USER_DATA, mUserDetails)
         Glide
             .with(this)
             .load(user.image)
@@ -349,9 +350,6 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        if(mUser.isEmailVerified && isUsageStatsPermissionGranted()) {
-            binding.includeAppBarLayout.MainScreenUsageActivity.progressBarButton.visibility = View.VISIBLE
-        }
         mUser.reload().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 mUser = FirebaseAuth.getInstance().currentUser!!
