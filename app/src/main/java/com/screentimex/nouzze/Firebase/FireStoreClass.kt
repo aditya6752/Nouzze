@@ -37,25 +37,25 @@ class FireStoreClass: AppCompatActivity() {
             }
     }
 
-    fun sendEmailVerificationLink(activity: Activity, user: FirebaseUser) {
-        user.sendEmailVerification()
-            .addOnCompleteListener { task ->
-                if(task.isSuccessful) {
-                    if(activity is MainActivity) {
-                        activity.emailVerificationLinkSendSuccessfully()
-                    }
-                } else {
-                    if(activity is MainActivity) {
-                        activity.emailVerificationLinkSendFailed()
-                    }
-                }
-            }.addOnFailureListener {
-                if(activity is MainActivity) {
-                    activity.showSnackBar(it.message!!)
-                }
-                Log.e("FireStoreClassSignUp", it.message!!)
-            }
-    }
+//    fun sendEmailVerificationLink(activity: Activity, user: FirebaseUser) {
+//        user.sendEmailVerification()
+//            .addOnCompleteListener { task ->
+//                if(task.isSuccessful) {
+//                    if(activity is MainActivity) {
+//                        activity.emailVerificationLinkSendSuccessfully()
+//                    }
+//                } else {
+//                    if(activity is MainActivity) {
+//                        activity.emailVerificationLinkSendFailed()
+//                    }
+//                }
+//            }.addOnFailureListener {
+//                if(activity is MainActivity) {
+//                    activity.showSnackBar(it.message!!)
+//                }
+//                Log.e("FireStoreClassSignUp", it.message!!)
+//            }
+//    }
 
     fun loadUserData(activity: Activity){
         mFireStore.collection(Constants.USERS)

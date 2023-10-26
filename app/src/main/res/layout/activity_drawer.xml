@@ -7,13 +7,15 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/background"
-    tools:openDrawer="start">
+   >
 
     <include
         android:id="@+id/include_app_bar_layout"
         layout="@layout/app_bar_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -192,4 +194,6 @@
 
     </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
+
+
 </androidx.drawerlayout.widget.DrawerLayout>

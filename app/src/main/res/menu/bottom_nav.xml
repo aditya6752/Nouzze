@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id ="@+id/nav_ScreenTime"
+        android:title="ScreenTime"
+        android:icon="@drawable/setting"
+        />
+    <item android:id ="@+id/nav_marketPlace"
+        android:title="Market"
+        android:icon="@drawable/setting"
+        />
+    <item android:id ="@+id/nav_CoinEarning"
+        android:title="Coin"
+        android:icon="@drawable/setting"
+       />
+    <item android:id ="@+id/nav_Feedback"
+        android:title="Feedback"
+        android:icon="@drawable/setting"
+        />
+    <item android:id ="@+id/nav_LeaderBoard"
+        android:title="Leaderboard"
+        android:icon="@drawable/setting"
+        />
+
+</menu>

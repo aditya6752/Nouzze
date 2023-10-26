@@ -149,4 +149,41 @@ class SignUpActivity : AppCompatActivity() {
         val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
+
+//    private fun checkEmailVerifiedOrNot() {
+//        mUser.reload().addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                mUser = FirebaseAuth.getInstance().currentUser!! // Refresh the user object
+//
+//                if (mUser.isEmailVerified) {
+//                    // User's email is verified
+//                    binding.apply {
+//                        includeAppBarLayout.MainScreenUsageActivity.verifyEmailButton.visibility = View.GONE
+//                        includeAppBarLayout.MainScreenUsageActivity.permissionTextView.visibility = View.VISIBLE
+//                        includeAppBarLayout.MainScreenUsageActivity.givePermissionButton.visibility = View.VISIBLE
+//                    }
+//                } else {
+//                    // User's email is not verified
+//                    binding.apply {
+//                        includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.visibility = View.INVISIBLE
+//                        includeAppBarLayout.MainScreenUsageActivity.verifyEmailButton.visibility = View.VISIBLE
+//                        includeAppBarLayout.MainScreenUsageActivity.marketPlaceButton.isEnabled = false
+//                    }
+//                }
+//            } else {
+//                // Error occurred while reloading user data
+//                // Handle the error, check task.exception for details
+//                val errorMessage = task.exception?.message ?: "Unknown error"
+//                Log.e("EmailVerification", "Error: $errorMessage")
+//            }
+//        }
+//    }
+//    fun emailVerificationLinkSendSuccessfully() {
+//        Toast.makeText(this@MainActivity, "Verification link sent. Please check your email", Toast.LENGTH_LONG).show()
+//        checkEmailVerifiedOrNot()
+//    }
+//    fun emailVerificationLinkSendFailed() {
+//        Toast.makeText(this@MainActivity, "Network Issue!!", Toast.LENGTH_LONG).show()
+//    }
+
 }

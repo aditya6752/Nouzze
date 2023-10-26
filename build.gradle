@@ -6,9 +6,11 @@ buildscript {
     dependencies {
         classpath ("com.google.gms:google-services:4.4.0")
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.4")
     }
     repositories {
         mavenCentral()
+        maven { url 'https://www.jitpack.io' }
     }
 }
 plugins {

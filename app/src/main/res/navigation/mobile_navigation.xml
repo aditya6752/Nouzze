@@ -3,23 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_ScreenTime">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.screentimex.nouzze.Firebase.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_ScreenTime"
+        android:name="com.screentimex.nouzze.Fragments.ScreenTimeFragment"
+        android:label="Screen Time"
+        tools:layout="@layout/fragment_screen_time" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.screentimex.nouzze.Firebase.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_marketPlace"
+        android:name="com.screentimex.nouzze.Fragments.MarketPlaceFragment"
+        android:label="Market Place"
+        tools:layout="@layout/fragment_market_place" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.screentimex.nouzze.Firebase.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_CoinEarning"
+        android:name="com.screentimex.nouzze.Fragments.CoinEarningFragment"
+        android:label="Coin Earning"
+        tools:layout="@layout/fragment_coin_earning" />
+    <fragment
+        android:id="@+id/nav_Feedback"
+        android:name="com.screentimex.nouzze.Fragments.FeedbackFragment"
+        android:label="Feedback"
+        tools:layout="@layout/fragment_feedback" />
+
+    <fragment
+        android:id="@+id/nav_LeaderBoard"
+        android:name="com.screentimex.nouzze.Fragments.LeaderboardFragment"
+        android:label="LeaderBoard"
+        tools:layout="@layout/fragment_leaderboard" />
 </navigation>

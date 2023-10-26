@@ -22,7 +22,6 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
     <include
         android:id="@+id/MainScreenUsageActivity"
         layout="@layout/content_drawer" />
