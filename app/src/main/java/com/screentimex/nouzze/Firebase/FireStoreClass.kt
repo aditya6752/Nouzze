@@ -4,6 +4,7 @@ import android.app.Activity
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.screentimex.nouzze.Activities.AddAddress
@@ -17,38 +18,40 @@ import com.screentimex.nouzze.models.UserDetails
 
 class FireStoreClass: AppCompatActivity() {
     private val mFireStore = FirebaseFirestore.getInstance()
+    private val mUser = FirebaseAuth.getInstance().currentUser!!
 
     fun registerUser(activity: SignUpActivity, userInfo: UserDetails){
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUUID())
             .set(userInfo, SetOptions.merge()).addOnSuccessListener {
                 Log.e("MyTag", "Register")
-                activity.userRegisteredSuccess()
+                activity.userRegisteredSuccess(mUser)
             }.addOnFailureListener {
                 Log.e("FireStoreClassSignUp", it.message!!)
                 activity.showError(it.message!!)
             }
     }
 
-//    fun sendEmailVerificationLink(activity: Activity, user: FirebaseUser) {
-//        user.sendEmailVerification()
-//            .addOnCompleteListener { task ->
-//                if(task.isSuccessful) {
-//                    if(activity is MainActivity) {
-//                        activity.emailVerificationLinkSendSuccessfully()
-//                    }
-//                } else {
-//                    if(activity is MainActivity) {
-//                        activity.emailVerificationLinkSendFailed()
-//                    }
-//                }
-//            }.addOnFailureListener {
-//                if(activity is MainActivity) {
-//                    activity.showSnackBar(it.message!!)
-//                }
-//                Log.e("FireStoreClassSignUp", it.message!!)
-//            }
-//    }
+    fun sendEmailVerificationLink(activity: Activity, user: FirebaseUser) {
+        user.sendEmailVerification()
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful) {
+                    if(activity is SignUpActivity) {
+                        activity.emailVerificationLinkSendSuccessfully()
+                    }
+                    if(activity is SignInActivity) {
+                        activity.emailVerificationLinkSentSuccess()
+                    }
+                }
+            }.addOnFailureListener {
+                if(activity is SignUpActivity) {
+                    activity.showSnackBar(it.message!!)
+                }
+                if(activity is SignInActivity) {
+                    activity.emailVerificationLinkSentFail("Email Verification Link Sent. Please Verify and Sign In")
+                }
+            }
+    }
 
     fun loadUserData(activity: Activity){
         mFireStore.collection(Constants.USERS)

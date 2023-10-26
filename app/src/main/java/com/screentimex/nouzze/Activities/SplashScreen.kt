@@ -49,7 +49,7 @@ class SplashScreen : AppCompatActivity() {
             val isUserLoggedIn = FirebaseAuth.getInstance().currentUser
 
             Handler().postDelayed({
-                if (isUserLoggedIn != null) {
+                if (isUserLoggedIn != null && isUserLoggedIn.isEmailVerified) {
                     val intent = Intent(this@SplashScreen, MainActivity::class.java)
                     startActivity(intent)
                 } else {

@@ -65,7 +65,7 @@ class SignUpActivity : AppCompatActivity() {
                     if(task.isSuccessful){
                         val firebaseUser: FirebaseUser = task.result!!.user!!
                         val user = UserDetails(firebaseUser.uid, email, mUserName, mUserAge, mUserProfession)
-                        mSharedPref.saveDataObject(Constants.MID_NIGHT_USER_DATA, user)
+                        //mSharedPref.saveDataObject(Constants.MID_NIGHT_USER_DATA, user)
                         FireStoreClass().registerUser(this, user)
                     }
                     else{
@@ -92,26 +92,9 @@ class SignUpActivity : AppCompatActivity() {
         return lis
     }
 
-    fun userRegisteredSuccess(){
-        //hideProgressDialog()
-        Toast.makeText(this,"User Registered!!", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
+    fun userRegisteredSuccess(user: FirebaseUser){
+        FireStoreClass().sendEmailVerificationLink(this, user)
     }
-
-    /*private fun setUpActionBar() {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
-        setSupportActionBar(binding.customToolBar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Sign Up"
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
-        binding.customToolBar.setNavigationOnClickListener {
-            onBackPressed()
-        }
-    }*/
 
     fun showError(message: String){
         val snackBar =
@@ -125,7 +108,7 @@ class SignUpActivity : AppCompatActivity() {
         )
         snackBar.show()
     }
-    fun hideKeyboard(){
+    private fun hideKeyboard(){
         val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         if ( inputManager.isAcceptingText ){
             inputManager.hideSoftInputFromWindow(currentFocus!!.windowToken,0)
@@ -178,12 +161,18 @@ class SignUpActivity : AppCompatActivity() {
 //            }
 //        }
 //    }
-//    fun emailVerificationLinkSendSuccessfully() {
-//        Toast.makeText(this@MainActivity, "Verification link sent. Please check your email", Toast.LENGTH_LONG).show()
-//        checkEmailVerifiedOrNot()
-//    }
-//    fun emailVerificationLinkSendFailed() {
-//        Toast.makeText(this@MainActivity, "Network Issue!!", Toast.LENGTH_LONG).show()
-//    }
+    fun emailVerificationLinkSendSuccessfully() {
+        binding.apply {
+            emailTextViewLayout.visibility = View.GONE
+            loginPasswordTextViewLayout.visibility = View.GONE
+            confirmPasswordTextViewLayout.visibility = View.GONE
+            signUpButton.visibility = View.GONE
+            progressBarButton.visibility = View.GONE
+            emailVerificationLinkText.visibility = View.VISIBLE
+        }
+    }
+    fun emailVerificationLinkSendFailed() {
+        Toast.makeText(this@SignUpActivity, "Network Issue!!", Toast.LENGTH_LONG).show()
+    }
 
 }

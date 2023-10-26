@@ -14,7 +14,7 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         android:backgroundTint="@color/cardViewBackground"
-        android:layout_margin="8dp"
+        android:layout_margin="4dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +44,7 @@
                 app:civ_border_width="@dimen/nav_image_circular_border_width"
                 android:src="@drawable/ic_user_holder"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="5dp"
                 tools:src="@drawable/ic_user_holder"
                 android:contentDescription="@string/image_contentDescription"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -56,26 +56,47 @@
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="8dp"
                 android:textColor="@color/textColor"
-                android:textSize="17sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/userImage"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Name" />
 
-            <TextView
-                android:id="@+id/userPoints"
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/textColor"
-                android:textSize="18sp"
-                android:layout_marginEnd="15dp"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:cardCornerRadius="15dp"
+                android:layout_marginEnd="7dp"
+                android:backgroundTint="#dee2e6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                >
+                <LinearLayout
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    >
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:src="@drawable/coin_96"
+                        />
+                    <TextView
+                        android:id="@+id/userPoints"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="999k"
+                        android:gravity="center"
+                        android:textColor="@color/mainScreenAppTextColor"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

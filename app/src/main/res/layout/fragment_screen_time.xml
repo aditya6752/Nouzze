@@ -6,23 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ScreenTimeFragment">
 
-        <Button
-            android:id="@+id/verifyEmailButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/verify_your_email"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="gone"
-            android:textSize="16sp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/rounded_button"
-            android:textColor="@color/textColor"
-            android:textStyle="bold"/>
-
         <TextView
             android:id="@+id/permissionTextView"
             android:layout_width="match_parent"
@@ -48,7 +31,6 @@
             app:layout_constraintTop_toBottomOf="@id/permissionTextView"
             android:visibility="gone"
             android:textSize="18sp"
-            tools:visibility="visible"
             android:textAllCaps="false"
             android:layout_marginTop="5dp"
             android:layout_marginStart="8dp"
@@ -57,27 +39,15 @@
             android:background="@drawable/custom_button_background_profile_page"
             android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/userIntroText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hi, "
-            android:layout_marginLeft="8dp"
-            android:textSize="16sp"
-            android:textColor="@color/textColor"
-            android:padding="1dp"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mainScreenRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userIntroText" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressBarButton"

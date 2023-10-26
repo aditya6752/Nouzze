@@ -8,9 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.screentimex.nouzze.Activities.IntroActivity
 import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.R
@@ -79,24 +81,22 @@ class SignInActivity : AppCompatActivity() {
         return lis
     }
 
-    fun signInSuccess(){
+    private fun signInSuccess(){
         binding.progressBarButton.visibility = View.GONE
-        startActivity(Intent(this@SignInActivity, MainActivity::class.java))
-        finish()
-    }
-    /*private fun setUpActionBar() {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
-        setSupportActionBar(binding.customToolBar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Sign In"
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_ios_24)
-        binding.customToolBar.setNavigationOnClickListener {
-            onBackPressed()
+        val mUser = FirebaseAuth.getInstance().currentUser!!
+        if(mUser.isEmailVerified) {
+            startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+        } else {
+            FireStoreClass().sendEmailVerificationLink(this, mUser)
         }
-    }*/
+    }
+
+    fun emailVerificationLinkSentSuccess() {
+        Toast.makeText(this, "Email Verification Link Sent. Please Verify and Sign In", Toast.LENGTH_LONG).show()
+    }
+    fun emailVerificationLinkSentFail(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 
     private fun showError(message: String){
         val snackBar =

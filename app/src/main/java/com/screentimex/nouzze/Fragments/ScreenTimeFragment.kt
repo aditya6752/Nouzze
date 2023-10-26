@@ -16,13 +16,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.getkeepsafe.taptargetview.TapTargetSequence
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseUser
 import com.screentimex.nouzze.Adapters.AppInfoListAdapter
+import com.screentimex.nouzze.Firebase.FireBaseFragments
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.Services.MidNightUsageStateSharedPref
 import com.screentimex.nouzze.Services.MidNightWordManager
@@ -52,37 +57,42 @@ class ScreenTimeFragment : Fragment() {
     private lateinit var mSharedPrefAboutAppDialog: SharedPreferences
     private lateinit var mSharedPrefFreePoints: SharedPreferences
 
-    private lateinit var mContext: Context
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-
         // Inflate the layout for this fragment
         binding = FragmentScreenTimeBinding.inflate(inflater,container,false)
-        mContext = requireContext()
-        setUpRecyclerView()
+
+        binding.givePermissionButton.setOnClickListener {
+            askForUsageAccessPermission()
+        }
+
+
         return binding.root
     }
 
-    fun setHostContext(context: Context){
-        mContext = context
-        setUpRecyclerView()
+    override fun onResume() {
+        super.onResume()
+        binding.progressBarButton.visibility = View.VISIBLE
+        if(isInternetConnected(requireContext())) {
+            FireBaseFragments().loadUserData(this)
+        } else {
+            showSnackBar("No Internet !!")
+        }
     }
 
     private fun askForUsageAccessPermission() {
         val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
         startActivity(intent)
     }
-    private fun permissionGranted() {
+    private fun permissionGranted(user: UserDetails) {
         if(isUsageStatsPermissionGranted()) {
             binding.apply {
                 permissionTextView.visibility = View.INVISIBLE
                 givePermissionButton.visibility = View.INVISIBLE
                 mainScreenRecyclerView.visibility = View.VISIBLE
-                setUpRecyclerView()
+                setUpRecyclerView(user)
             }
         } else {
             binding.apply {
@@ -92,29 +102,37 @@ class ScreenTimeFragment : Fragment() {
         }
     }
     private fun isUsageStatsPermissionGranted(): Boolean {
-        val appOps = mContext.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        val appOps = requireContext().getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
         val mode = appOps.checkOpNoThrow(
             AppOpsManager.OPSTR_GET_USAGE_STATS,
             android.os.Process.myUid(),
-            mContext.packageName
+            requireContext().packageName
         )
         return mode == AppOpsManager.MODE_ALLOWED
     }
-    private fun setUpRecyclerView() {
+    private fun setUpRecyclerView(user: UserDetails) {
         if(binding.mainScreenRecyclerView.adapter == null) {
-            binding.progressBarButton.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.Default).launch {
-                val appInfoList: List<AppInfo> = getAppInfoList()
+                val appInfoList: ArrayList<AppInfo> = getAppInfoList()
                 withContext(Dispatchers.Main) {
-                    //midNightWorkScheduler(appInfoList)
-                    val mAdapter1 = AppInfoListAdapter(mContext, appInfoList)
+                    midNightWorkScheduler(appInfoList, user)
+                    val mAdapter1 = AppInfoListAdapter(requireContext(), appInfoList)
+                    binding.mainScreenRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                     binding.mainScreenRecyclerView.adapter = mAdapter1
                     binding.progressBarButton.visibility = View.GONE
                 }
             }
         }
     }
-    /*private fun midNightWorkScheduler(timeUsageData: List<AppInfo>) {
+
+    fun loadUserDataSuccessfully(user: UserDetails) {
+        permissionGranted(user)
+    }
+    fun failedToGetUserData(message: String) {
+        showSnackBar(message)
+    }
+
+    private fun midNightWorkScheduler(timeUsageData: List<AppInfo>, userDetails: UserDetails) {
         val currentTime = Calendar.getInstance()
         val midnight = Calendar.getInstance()
         midnight.add(Calendar.DAY_OF_YEAR, 1)
@@ -123,7 +141,6 @@ class ScreenTimeFragment : Fragment() {
         midnight.set(Calendar.SECOND, 0)
         val timeDifferenceMillis = midnight.timeInMillis - currentTime.timeInMillis
 
-        val userDetails = mSharedPrefMidNightUserDetails.getDataObject(Constants.MID_NIGHT_USER_DATA)
         var updatedPoints = PointsCalculation(userDetails, timeUsageData).calculate()
         if(updatedPoints <= 0) {
             updatedPoints = 53
@@ -135,12 +152,12 @@ class ScreenTimeFragment : Fragment() {
             .build()
 
         // Schedule the task
-        WorkManager.getInstance(mContext).enqueue(workRequest)
-    }*/
-    private fun getAppInfoList(): List<AppInfo> {
-        val packageManager: PackageManager = mContext.packageManager
+        WorkManager.getInstance(requireContext()).enqueue(workRequest)
+    }
+    private fun getAppInfoList(): ArrayList<AppInfo> {
+        val packageManager: PackageManager = requireContext().packageManager
         val packageInfoList: List<PackageInfo> = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
-        val appInfoList: MutableList<AppInfo> = ArrayList()
+        val appInfoList: ArrayList<AppInfo> = ArrayList()
 
         for (i in packageInfoList.indices) {
             val packageInfo: PackageInfo = packageInfoList[i]
@@ -153,11 +170,11 @@ class ScreenTimeFragment : Fragment() {
                 appInfoList.add(AppInfo(appName, packageName, false, false, useTime, appIcon))
             }
         }
-        appInfoList.sort()
+        appInfoList.sortByDescending { it.timeUseApp }
         return appInfoList
     }
     private fun getTimeUsage(packageName: String): Int {
-        val appUsageMap: HashMap<String, Int> = Utils.getTimeSpent(mContext, packageName)
+        val appUsageMap: HashMap<String, Int> = Utils.getTimeSpent(requireContext(), packageName)
         var usageTime: Int? = appUsageMap[packageName]
         if (usageTime == null) usageTime = 0
         return usageTime
@@ -170,4 +187,20 @@ class ScreenTimeFragment : Fragment() {
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 
+    private fun showToast(error: String) {
+        Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+    }
+    fun showSnackBar(message: String) {
+        view?.let { fragmentView ->
+            val snackBar = Snackbar.make(fragmentView, message, Snackbar.LENGTH_LONG)
+            val snackBarView = snackBar.view
+            snackBarView.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.snackBarColor
+                )
+            )
+            snackBar.show()
+        }
+    }
 }

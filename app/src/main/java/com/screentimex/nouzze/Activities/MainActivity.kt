@@ -68,7 +68,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mUserDetails: UserDetails
     private lateinit var mSharedPreferences: SharedPreferences
 
-    private lateinit var tapTargetSequence: TapTargetSequence
     private lateinit var mSharedPrefMidNightUserDetails: MidNightUsageStateSharedPref
     private lateinit var mSharedPrefPointsStoreMidNight: SharedPreferences
     private lateinit var mSharedPrefAboutAppDialog: SharedPreferences
@@ -172,21 +171,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        navController.addOnDestinationChangedListener(object : NavController.OnDestinationChangedListener{
-            override fun onDestinationChanged(
-                controller: NavController,
-                destination: NavDestination,
-                arguments: Bundle?
-            ) {
-                title = when(destination.id){
-                    R.id.nav_marketPlace -> "Market Place"
-                    R.id.nav_CoinEarning -> "Coin Earning"
-                    R.id.nav_Feedback -> "Feedback"
-                    R.id.nav_LeaderBoard -> "Leaderboard"
-                    else -> "Screen Time"
-                }
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            title = when (destination.id) {
+                R.id.nav_marketPlace -> "Market Place"
+                R.id.nav_CoinEarning -> "Coin Earning"
+                R.id.nav_Feedback -> "Feedback"
+                R.id.nav_LeaderBoard -> "Leaderboard"
+                else -> "Screen Time"
             }
-        })
+        }
     }
     private fun setUpActionBar(){
         setSupportActionBar(binding.includeAppBarLayout.toolbar)
@@ -232,24 +225,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, SignInActivity::class.java))
         finish()
     }
-//    override fun onResume() {
-//        super.onResume()
-//        mUser.reload().addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
-//                mUser = FirebaseAuth.getInstance().currentUser!!
-//                if (!mUser.isEmailVerified) {
-//                    binding.apply {
-//                        includeAppBarLayout.MainScreenUsageActivity.mainScreenRecyclerView.visibility = View.INVISIBLE
-//                        includeAppBarLayout.MainScreenUsageActivity.verifyEmailButton.visibility = View.VISIBLE
-//                        includeAppBarLayout.MainScreenUsageActivity.marketPlaceButton.isEnabled = false
-//                    }
-//                } else {
-//                    binding.includeAppBarLayout.MainScreenUsageActivity.verifyEmailButton.visibility = View.INVISIBLE
-//                    permissionGranted()
-//                }
-//            }
-//        }
-//    }
 
     private fun shareAppLinkRecommendFriend() {
         val shareIntent = Intent(Intent.ACTION_SEND)
@@ -276,7 +251,7 @@ class MainActivity : AppCompatActivity() {
             showToast("Already claimed, come back tomorrow")
         }
     }
-    fun showToast(error: String) {
+    private fun showToast(error: String) {
         Toast.makeText(this@MainActivity, error, Toast.LENGTH_SHORT).show()
     }
     fun showSnackBar(message: String){

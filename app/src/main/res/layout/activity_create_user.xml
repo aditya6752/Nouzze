@@ -9,9 +9,22 @@
     android:background="@color/background"
     tools:context=".Firebase.SignUpActivity">
 
+    <TextView
+        android:id="@+id/emailVerificationLinkText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email Verification Link Sent. Please Verify and Sign In"
+        android:gravity="center"
+        android:layout_gravity="center"
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/textColor" />
 
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTextViewLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColorHint="@color/textColor"
@@ -35,6 +48,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginPasswordTextViewLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
@@ -58,6 +72,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confirmPasswordTextViewLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"

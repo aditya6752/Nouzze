@@ -17,5 +17,5 @@
     <dimen name="nav_content_margin_StartEnd">16dp</dimen>
     <dimen name="nav_content_margin_top">5dp</dimen>
     <dimen name="nav_content_margin_bottom">10dp</dimen>
-    <dimen name="leader_board_image">41dp</dimen>
+    <dimen name="leader_board_image">30dp</dimen>
 </resources>
