@@ -22,10 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nouzze"
         tools:targetApi="31">
-        <activity
-            android:name=".Activities.LeaderBoard"
-            android:exported="false"
-            android:theme="@style/Theme.Nouzze.NoActionBar" />
+        >
         <activity
             android:name=".Activities.SettingActivity"
             android:exported="false"

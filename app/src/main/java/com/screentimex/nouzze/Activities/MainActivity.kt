@@ -143,9 +143,6 @@ class MainActivity : AppCompatActivity() {
             aboutAppButton.setOnClickListener {
                 showCustomDialog()
             }
-            leaderboard.setOnClickListener {
-                startActivity(Intent(this@MainActivity, LeaderBoard::class.java))
-            }
             navDraawerHeaderInclude.logOutButton.setOnClickListener {
                 signOut()
             }
@@ -190,9 +187,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-
-        val x = ScreenTimeFragment()
-        x.setHostContext(this)
     }
     private fun setUpActionBar(){
         setSupportActionBar(binding.includeAppBarLayout.toolbar)

@@ -2,25 +2,18 @@ package com.screentimex.nouzze.Firebase
 
 import android.app.Activity
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.screentimex.nouzze.Activities.AddAddress
 import com.screentimex.nouzze.Activities.Address
 import com.screentimex.nouzze.Activities.CheckOut
-import com.screentimex.nouzze.Activities.LeaderBoard
 import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.Activities.ProfileActivity
 import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Constants
-import com.screentimex.nouzze.models.LeaderBoardDetails
 import com.screentimex.nouzze.models.UserDetails
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class FireStoreClass: AppCompatActivity() {
     private val mFireStore = FirebaseFirestore.getInstance()
@@ -136,57 +129,31 @@ class FireStoreClass: AppCompatActivity() {
             .document(getCurrentUUID())
             .get()
             .addOnSuccessListener { document ->
-                if(document.exists()) {
+                if (document.exists()) {
                     val address = document.toObject(AddressDetails::class.java)
-                    if(activity is Address) {
+                    if (activity is Address) {
                         activity.getAddressFromDatabase(address!!)
-                    }
-                    else if(activity is AddAddress) {
+                    } else if (activity is AddAddress) {
                         activity.populateActivity(address!!)
-                    }else if ( activity is CheckOut ){
+                    } else if (activity is CheckOut) {
                         activity.populateAdress(address!!)
                     }
-                }
-                else {
-                    if(activity is Address) {
+                } else {
+                    if (activity is Address) {
                         activity.noAddressSaved()
-                    }
-                    else if(activity is AddAddress) {
+                    } else if (activity is AddAddress) {
                         activity.noAddressInDatabase()
                     }
                 }
             }.addOnFailureListener {
-                if(activity is Address) {
+                if (activity is Address) {
                     activity.showSnackBar(it.message!!)
-                }else if(activity is AddAddress) {
+                } else if (activity is AddAddress) {
                     activity.showSnackBar(it.message!!)
-                }else if ( activity is CheckOut ){
+                } else if (activity is CheckOut) {
                     activity.showSnackBar(it.message!!)
                 }
             }
-    }
-
-    fun getAllUserData(activity: Activity) {
-        mFireStore.collection(Constants.USERS).get().addOnSuccessListener { doc ->
-            val leaderBoardList = ArrayList<LeaderBoardDetails>()
-            for(it in doc) {
-                val data = it.toObject(UserDetails::class.java)
-                leaderBoardList.add(LeaderBoardDetails(
-                    0, data.image, data.name, data.points
-                ))
-            }
-            when(activity) {
-                is LeaderBoard -> {
-                    activity.getLeaderBoardData(leaderBoardList)
-                }
-            }
-        }.addOnFailureListener {
-            when(activity) {
-                is LeaderBoard -> {
-                    activity.failedToGetData(it.message!!)
-                }
-            }
-        }
     }
 
     private fun getCurrentUUID(): String{

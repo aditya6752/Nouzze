@@ -57,12 +57,13 @@ class ScreenTimeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+
         // Inflate the layout for this fragment
         binding = FragmentScreenTimeBinding.inflate(inflater,container,false)
-
-        binding.mainScreenRecyclerView.visibility = View.VISIBLE
-
-
+        mContext = requireContext()
+        setUpRecyclerView()
         return binding.root
     }
 
@@ -80,7 +81,6 @@ class ScreenTimeFragment : Fragment() {
             binding.apply {
                 permissionTextView.visibility = View.INVISIBLE
                 givePermissionButton.visibility = View.INVISIBLE
-                marketPlaceButton.isEnabled = true
                 mainScreenRecyclerView.visibility = View.VISIBLE
                 setUpRecyclerView()
             }
@@ -100,23 +100,21 @@ class ScreenTimeFragment : Fragment() {
         )
         return mode == AppOpsManager.MODE_ALLOWED
     }
-    fun setUpRecyclerView() {
-
-        Log.i("Ritik","Hello , outside coroutine")
-
+    private fun setUpRecyclerView() {
+        if(binding.mainScreenRecyclerView.adapter == null) {
             binding.progressBarButton.visibility = View.VISIBLE
-
+            CoroutineScope(Dispatchers.Default).launch {
                 val appInfoList: List<AppInfo> = getAppInfoList()
-                Log.i("Ritik","Hello , coroutine")
-
-                    midNightWorkScheduler(appInfoList)
+                withContext(Dispatchers.Main) {
+                    //midNightWorkScheduler(appInfoList)
                     val mAdapter1 = AppInfoListAdapter(mContext, appInfoList)
                     binding.mainScreenRecyclerView.adapter = mAdapter1
                     binding.progressBarButton.visibility = View.GONE
-
-
+                }
+            }
+        }
     }
-    private fun midNightWorkScheduler(timeUsageData: List<AppInfo>) {
+    /*private fun midNightWorkScheduler(timeUsageData: List<AppInfo>) {
         val currentTime = Calendar.getInstance()
         val midnight = Calendar.getInstance()
         midnight.add(Calendar.DAY_OF_YEAR, 1)
@@ -138,7 +136,7 @@ class ScreenTimeFragment : Fragment() {
 
         // Schedule the task
         WorkManager.getInstance(mContext).enqueue(workRequest)
-    }
+    }*/
     private fun getAppInfoList(): List<AppInfo> {
         val packageManager: PackageManager = mContext.packageManager
         val packageInfoList: List<PackageInfo> = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
