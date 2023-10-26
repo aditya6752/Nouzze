@@ -139,6 +139,9 @@ class MainActivity : AppCompatActivity() {
             aboutAppButton.setOnClickListener {
                 showCustomDialog()
             }
+            leaderboard.setOnClickListener {
+                startActivity(Intent(this@MainActivity, LeaderBoard::class.java))
+            }
             navDraawerHeaderInclude.logOutButton.setOnClickListener {
                 signOut()
             }

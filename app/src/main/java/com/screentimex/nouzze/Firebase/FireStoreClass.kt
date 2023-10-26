@@ -11,10 +11,12 @@ import com.google.firebase.firestore.SetOptions
 import com.screentimex.nouzze.Activities.AddAddress
 import com.screentimex.nouzze.Activities.Address
 import com.screentimex.nouzze.Activities.CheckOut
+import com.screentimex.nouzze.Activities.LeaderBoard
 import com.screentimex.nouzze.Activities.MainActivity
 import com.screentimex.nouzze.Activities.ProfileActivity
 import com.screentimex.nouzze.models.AddressDetails
 import com.screentimex.nouzze.models.Constants
+import com.screentimex.nouzze.models.LeaderBoardDetails
 import com.screentimex.nouzze.models.UserDetails
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -164,6 +166,28 @@ class FireStoreClass: AppCompatActivity() {
             }
     }
 
+    fun getAllUserData(activity: Activity) {
+        mFireStore.collection(Constants.USERS).get().addOnSuccessListener { doc ->
+            val leaderBoardList = ArrayList<LeaderBoardDetails>()
+            for(it in doc) {
+                val data = it.toObject(UserDetails::class.java)
+                leaderBoardList.add(LeaderBoardDetails(
+                    0, data.image, data.name, data.points
+                ))
+            }
+            when(activity) {
+                is LeaderBoard -> {
+                    activity.getLeaderBoardData(leaderBoardList)
+                }
+            }
+        }.addOnFailureListener {
+            when(activity) {
+                is LeaderBoard -> {
+                    activity.failedToGetData(it.message!!)
+                }
+            }
+        }
+    }
 
     private fun getCurrentUUID(): String{
         val currentUser = FirebaseAuth.getInstance().currentUser
