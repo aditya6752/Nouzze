@@ -19,14 +19,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
 
-    <me.ibrahimsn.lib.SmoothBottomBar
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:backgroundColor="@color/buttonBackground"
-        app:iconMargin="8dp"
-        app:iconSize="24dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemTextColor="@color/textColor"
+        android:background="@color/buttonBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav"/>
+        app:menu="@menu/bottom_nav"
+        app:labelVisibilityMode="labeled" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,5 +24,7 @@
     <color name="snackBarColor">#ff6b6b</color> <!-- Reddish snackbar color for contrast -->
     <color name="finalScreenBackground">#1a1a2e</color> <!-- Dark Blue background for final screens -->
     <color name="mainScreenAppTextColor">#FFFFFF</color>
+    <color name="coinCardViewBackground">#FF000000</color>
+    <color name="coinCardViewText">#dee2e6</color>
 
 </resources>

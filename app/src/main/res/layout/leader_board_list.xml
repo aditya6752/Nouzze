@@ -70,7 +70,7 @@
                 android:elevation="5dp"
                 app:cardCornerRadius="15dp"
                 android:layout_marginEnd="7dp"
-                android:backgroundTint="#dee2e6"
+                android:backgroundTint="@color/coinCardViewBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -93,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:text="999k"
                         android:gravity="center"
-                        android:textColor="@color/mainScreenAppTextColor"
+                        android:textColor="@color/coinCardViewText"
                         android:textSize="10sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

@@ -24,6 +24,9 @@
     <color name="snackBarColor">#FF5722</color> <!-- Deep orange snackbar color -->
     <color name="finalScreenBackground">#F5F5F5</color> <!-- Light gray background -->
     <color name="mainScreenAppTextColor">#000000</color>
+    <color name="coinCardViewBackground">#dee2e6</color>
+    <color name="coinCardViewText">#FF000000</color>
+
 
 
 </resources>

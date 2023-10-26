@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_screen_time" />
 
     <fragment
-        android:id="@+id/nav_marketPlace"
+        android:id="@+id/nav_MarketPlace"
         android:name="com.screentimex.nouzze.Fragments.MarketPlaceFragment"
         android:label="Market Place"
         tools:layout="@layout/fragment_market_place" />

@@ -30,6 +30,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
@@ -45,6 +46,10 @@ import com.google.firebase.auth.FirebaseUser
 import com.screentimex.nouzze.Adapters.AppInfoListAdapter
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.Firebase.SignInActivity
+import com.screentimex.nouzze.Fragments.CoinEarningFragment
+import com.screentimex.nouzze.Fragments.FeedbackFragment
+import com.screentimex.nouzze.Fragments.LeaderboardFragment
+import com.screentimex.nouzze.Fragments.MarketPlaceFragment
 import com.screentimex.nouzze.Fragments.ScreenTimeFragment
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.Services.MidNightUsageStateSharedPref
@@ -151,34 +156,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
-        val navController  = navHostFragment!!.findNavController()
-
-        val popUpMenu = PopupMenu(this,null)
-        popUpMenu.inflate(R.menu.bottom_nav)
-        binding.includeAppBarLayout.MainScreenUsageActivity.bottomBar.setupWithNavController(popUpMenu.menu,navController)
-
-        binding.includeAppBarLayout.MainScreenUsageActivity.bottomBar.onItemSelected = {
-            when(it){
-                0->{
-                    i = 0
-                    navController.navigate(R.id.nav_ScreenTime)
-                }
-                1 -> i = 1
-                2 -> i = 2
-                3 -> i = 3
-                4 -> i = 4
+        binding.includeAppBarLayout.MainScreenUsageActivity.bottomBar.setOnItemSelectedListener { item ->
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+            val selectedFragment = when (item.itemId) {
+                R.id.nav_ScreenTime -> ScreenTimeFragment()
+                R.id.nav_MarketPlace -> MarketPlaceFragment()
+                R.id.nav_CoinEarning -> CoinEarningFragment()
+                R.id.nav_Feedback -> FeedbackFragment()
+                R.id.nav_LeaderBoard -> LeaderboardFragment()
+                else -> return@setOnItemSelectedListener false
             }
+
+            if (currentFragment != selectedFragment ) {
+                setCurrentFragment(selectedFragment)
+            }
+            true
         }
+    }
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            title = when (destination.id) {
-                R.id.nav_marketPlace -> "Market Place"
-                R.id.nav_CoinEarning -> "Coin Earning"
-                R.id.nav_Feedback -> "Feedback"
-                R.id.nav_LeaderBoard -> "Leaderboard"
-                else -> "Screen Time"
-            }
+    private fun setCurrentFragment( fragment: Fragment){
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentContainer,fragment)
+            commit()
         }
     }
     private fun setUpActionBar(){

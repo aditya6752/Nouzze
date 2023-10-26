@@ -73,7 +73,6 @@ class ScreenTimeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.progressBarButton.visibility = View.VISIBLE
         if(isInternetConnected(requireContext())) {
             FireBaseFragments().loadUserData(this)
         } else {
@@ -112,6 +111,7 @@ class ScreenTimeFragment : Fragment() {
     }
     private fun setUpRecyclerView(user: UserDetails) {
         if(binding.mainScreenRecyclerView.adapter == null) {
+            binding.progressBarButton.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.Default).launch {
                 val appInfoList: ArrayList<AppInfo> = getAppInfoList()
                 withContext(Dispatchers.Main) {
