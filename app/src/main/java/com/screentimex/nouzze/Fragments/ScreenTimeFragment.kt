@@ -68,7 +68,6 @@ class ScreenTimeFragment : Fragment() {
             askForUsageAccessPermission()
         }
 
-
         return binding.root
     }
 
@@ -78,6 +77,7 @@ class ScreenTimeFragment : Fragment() {
         if(isInternetConnected(requireContext())) {
             FireBaseFragments().loadUserData(this)
         } else {
+            binding.progressBarButton.visibility = View.GONE
             showSnackBar("No Internet !!")
         }
     }
@@ -122,6 +122,8 @@ class ScreenTimeFragment : Fragment() {
                     binding.progressBarButton.visibility = View.GONE
                 }
             }
+        } else {
+            binding.progressBarButton.visibility = View.GONE
         }
     }
 

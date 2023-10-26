@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.screentimex.nouzze.R
 import com.screentimex.nouzze.models.Category
 
-class CategoryAdapter(val categoryList : List<Category>, val context : Activity  ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewModel>() {
+class CategoryAdapter(val categoryList : List<Category>, val context : Context) : RecyclerView.Adapter<CategoryAdapter.CategoryViewModel>() {
 
     private lateinit var myListener : onItemClickListener
     interface onItemClickListener {
