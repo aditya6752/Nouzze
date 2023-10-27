@@ -47,7 +47,7 @@ class CoinEarningFragment : Fragment() {
             showSnackBar("No Internet !!")
         }
 
-        coinEarningBinding.EarnCoins.setOnClickListener{
+        coinEarningBinding.EarnCoinsCardView.setOnClickListener{
             getFreePoints()
         }
 
@@ -56,6 +56,10 @@ class CoinEarningFragment : Fragment() {
 
     fun loadUserDataSuccessfully(user: UserDetails) {
         mUserDetails = user
+    }
+
+    fun failedToGetUserData(message: String) {
+        showSnackBar(message)
     }
     private fun getFreePoints() {
         if(mSharedPrefFreePoints.contains(Constants.FREE_POINTS)) {

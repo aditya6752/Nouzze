@@ -8,6 +8,15 @@
     android:background="@color/background"
     tools:context=".Fragments.MarketPlaceFragment">
 
+    <TextView
+        android:id="@+id/marketPlaceIntroText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:textSize="16sp"
+        android:textColor="@color/textColor"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecylerViewCategories"
         android:layout_width="match_parent"

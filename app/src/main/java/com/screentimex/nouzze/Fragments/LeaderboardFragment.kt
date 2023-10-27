@@ -34,7 +34,7 @@ class LeaderboardFragment : Fragment() {
     fun getLeaderBoardData(data: ArrayList<LeaderBoardDetails>) {
         val topTenUsers = arrayListOf<LeaderBoardDetails>()
         data.sortByDescending { it.userPoints }
-        for (i in 0 until minOf(data.size, 10)) {
+        for (i in 0 until minOf(data.size, 15)) {
             data[i].userRank = i + 1
             topTenUsers.add(data[i])
         }

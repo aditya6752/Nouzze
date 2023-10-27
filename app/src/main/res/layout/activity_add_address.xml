@@ -187,7 +187,7 @@
                 android:layout_height="wrap_content"
                 android:text="Add Address"
                 android:layout_margin="5dp"
-                android:textColor="@color/textColor"
+                android:textColor="@color/buttonText"
                 android:background="@drawable/rounded_button"                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">

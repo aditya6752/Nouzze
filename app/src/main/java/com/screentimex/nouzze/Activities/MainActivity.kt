@@ -16,6 +16,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.graphics.Typeface
 import android.text.Spannable
+import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
 import android.util.Log
@@ -163,10 +164,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun setUpActionBar(){
         setSupportActionBar(binding.includeAppBarLayout.toolbar)
-        supportActionBar?.title = "Nouzze"
+        val title = SpannableString("NOUZZE")
+        title.setSpan(
+            StyleSpan(Typeface.BOLD),
+            0, // Start index
+            title.length, // End index (length of the title)
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        supportActionBar?.title = title
         binding.includeAppBarLayout.toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
         binding.includeAppBarLayout.toolbar.setNavigationOnClickListener {
             toggleDrawer()
@@ -201,7 +208,7 @@ class MainActivity : AppCompatActivity() {
             .into(binding.navDraawerHeaderInclude.userImageNavHeader)
         binding.navDraawerHeaderInclude.userEmailNavHeader.text = user.email
         binding.navDraawerHeaderInclude.userNameNavHeader.text = user.name
-        binding.includeAppBarLayout.userPoints.text = formatNumber(user.points)
+        binding.includeAppBarLayout.userPoints.text = user.points.toString()
 
     }
 

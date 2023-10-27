@@ -105,7 +105,7 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/rounded_button"
         android:text="@string/sign_up"
-        android:textColor="@color/textColor"
+        android:textColor="@color/buttonText"
         />
 
     <ProgressBar

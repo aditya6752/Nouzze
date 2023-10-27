@@ -1,0 +1,9 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="20dp" />
+            <solid android:color="@color/appBarCoinCardViewBackground" />
+
+        </shape>
+    </item>
+</layer-list>

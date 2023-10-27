@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/background"
+    tools:openDrawer="start"
    >
 
     <include
@@ -39,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal" >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -59,11 +61,18 @@
                 />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/viewColor"
+            />
+
         <LinearLayout
             android:id="@+id/settingsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal" >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -84,11 +93,18 @@
                 />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/viewColor"
+            />
+
         <LinearLayout
             android:id="@+id/helpButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal" >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -109,11 +125,18 @@
                 />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/viewColor"
+            />
+
         <LinearLayout
             android:id="@+id/tutorialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal" >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -134,11 +157,18 @@
                 />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/viewColor"
+            />
+
         <LinearLayout
             android:id="@+id/aboutAppButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal" >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -159,6 +189,21 @@
                 />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/viewColor"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:textStyle="italic"
+            android:layout_margin="5dp"
+            android:text="Version 4.0"
+            android:textSize="15sp"
+            />
     </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
 

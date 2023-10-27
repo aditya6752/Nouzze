@@ -48,7 +48,7 @@ class FireStoreClass: AppCompatActivity() {
                     activity.showSnackBar(it.message!!)
                 }
                 if(activity is SignInActivity) {
-                    activity.emailVerificationLinkSentFail("Email Verification Link Sent. Please Verify and Sign In")
+                    activity.emailVerificationLinkSentFail("Email Verification Link Sent Already. Please Verify and Sign In")
                 }
             }
     }

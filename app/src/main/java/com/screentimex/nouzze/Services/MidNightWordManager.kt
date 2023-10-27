@@ -1,7 +1,6 @@
 package com.screentimex.nouzze.Services
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
@@ -9,6 +8,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.screentimex.nouzze.Fragments.ScreenTimeFragment
 import com.screentimex.nouzze.models.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,7 +30,7 @@ class MidNightWordManager(context: Context, params: WorkerParameters) : Coroutin
             editorFreePoints.apply()
             editorFreePoints.commit()
 
-
+            ScreenTimeFragment().loadAppList()
 
             if(isInternetConnected(applicationContext)) {
                 val userHashMap = HashMap<String, Any>()

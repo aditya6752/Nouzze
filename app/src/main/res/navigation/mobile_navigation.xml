@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_ScreenTime"
         android:name="com.screentimex.nouzze.Fragments.ScreenTimeFragment"
-        android:label="Screen Time"
+        android:label="Activity"
         tools:layout="@layout/fragment_screen_time" />
 
     <fragment
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/nav_CoinEarning"
         android:name="com.screentimex.nouzze.Fragments.CoinEarningFragment"
-        android:label="Coin Earning"
+        android:label="Offers"
         tools:layout="@layout/fragment_coin_earning" />
     <fragment
         android:id="@+id/nav_Feedback"

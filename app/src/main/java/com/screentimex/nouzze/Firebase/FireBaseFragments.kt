@@ -62,6 +62,9 @@ class FireBaseFragments: AppCompatActivity() {
                     is ScreenTimeFragment -> {
                         fragment.failedToGetUserData(it.message!!)
                     }
+                    is CoinEarningFragment -> {
+                        fragment.failedToGetUserData(it.message!!)
+                    }
                 }
             }
     }

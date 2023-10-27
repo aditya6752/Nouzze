@@ -141,7 +141,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/btn_marginStartEnd"
                     android:layout_marginEnd="@dimen/btn_marginStartEnd"
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/buttonText"
                     />
                 <ProgressBar
                     android:id="@+id/progress_bar_button"

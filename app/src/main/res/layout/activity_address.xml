@@ -51,7 +51,7 @@
         app:layout_constraintBottom_toTopOf="@+id/proceed_to_buy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        android:textColor="@color/textColor"
+        android:textColor="@color/buttonText"
         android:layout_marginBottom="2dp"
         android:background="@drawable/rounded_button"
         app:layout_constraintStart_toStartOf="parent" />
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:text="Proceed To Buy"
         android:background="@drawable/rounded_button"
-        android:textColor="@color/textColor"
+        android:textColor="@color/buttonText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

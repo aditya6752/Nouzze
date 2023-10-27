@@ -12,14 +12,12 @@
     <color name="blue_grey">#1F2933</color>
 
 
-    <color name="background">#1a1a2e</color> <!-- Dark Blue background -->
+    <color name="background">#272829</color> <!-- Dark Blue background -->
     <color name="textColor">#eaeaea</color> <!-- Light gray text color -->
-    <color name="buttonBackground">#007AFF</color> <!-- Light blue button background (you can keep this for contrast) -->
-    <color name="actionBarColor">#1a1a2e</color> <!-- Dark Blue action bar color -->
+    <color name="buttonBackground">#6f4685</color> <!-- Light blue button background (you can keep this for contrast) -->
     <color name="drawerColor">#121212</color> <!-- Dark gray drawer color -->
     <color name="iconColors">#eaeaea</color> <!-- Light gray icon color -->
     <color name="cardViewBackground">#121212</color> <!-- Dark gray card view background -->
-    <color name="statusBarColor">#0c0c0c</color> <!-- Almost black status bar color -->
     <color name="splashScreenColor">#0a2472</color> <!-- Deep Blue splash screen color -->
     <color name="snackBarColor">#ff6b6b</color> <!-- Reddish snackbar color for contrast -->
     <color name="finalScreenBackground">#1a1a2e</color> <!-- Dark Blue background for final screens -->
@@ -27,4 +25,10 @@
     <color name="coinCardViewBackground">#FF000000</color>
     <color name="coinCardViewText">#dee2e6</color>
 
+    <color name="bottomNavBarColor">#61677A</color>
+    <color name="actionBarColor">#6f4685</color> <!-- Dark Blue action bar color -->
+    <color name="statusBarColor">#6f4685</color> <!-- Almost black status bar color -->
+    <color name="viewColor">#FFFFFF</color>
+    <color name="buttonText">#FFFFFF</color>
+    <color name="appBarCoinCardViewBackground">#b19cd9</color>
 </resources>

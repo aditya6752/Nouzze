@@ -216,7 +216,7 @@
                 android:layout_margin="8dp"
                 android:padding="5dp"
                 android:text="Confirm Order"
-                android:textColor="@color/textColor"
+                android:textColor="@color/buttonText"
                 android:background="@drawable/custom_button_background_profile_page">
             </Button>
 

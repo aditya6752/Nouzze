@@ -29,4 +29,5 @@
     <string name="dialogMessage">Message</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="feedback_message">Exciting news! 🚀 \nIn our next release, we\'ll provide personalized feedback on your app usage to boost your productivity. Stay tuned for the update and earn even more rewards! \nThanks for being part of our community!</string>
 </resources>

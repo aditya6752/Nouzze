@@ -6,11 +6,15 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,7 +22,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
@@ -46,7 +49,7 @@ import java.util.concurrent.TimeUnit
 
 class ScreenTimeFragment : Fragment() {
 
-    private lateinit var binding : FragmentScreenTimeBinding
+    private lateinit var screeenTimeBinding : FragmentScreenTimeBinding
     private lateinit var mUser: FirebaseUser
     private lateinit var mUserDetails: UserDetails
     private lateinit var mSharedPreferences: SharedPreferences
@@ -64,13 +67,13 @@ class ScreenTimeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentScreenTimeBinding.inflate(inflater,container,false)
+        screeenTimeBinding = FragmentScreenTimeBinding.inflate(inflater,container,false)
 
-        binding.givePermissionButton.setOnClickListener {
+        screeenTimeBinding.givePermissionButton.setOnClickListener {
             askForUsageAccessPermission()
         }
 //        mSharedPrefAppList = getSharedPreferences("MyAppListPreferences", Context.MODE_PRIVATE)
-        return binding.root
+        return screeenTimeBinding.root
     }
 
     override fun onResume() {
@@ -78,7 +81,7 @@ class ScreenTimeFragment : Fragment() {
         if(isInternetConnected(requireContext())) {
             FireBaseFragments().loadUserData(this)
         } else {
-            binding.progressBarButton.visibility = View.GONE
+            screeenTimeBinding.progressBarButton.visibility = View.GONE
             showSnackBar("No Internet !!")
         }
     }
@@ -89,14 +92,14 @@ class ScreenTimeFragment : Fragment() {
     }
     private fun permissionGranted(user: UserDetails) {
         if(isUsageStatsPermissionGranted()) {
-            binding.apply {
+            screeenTimeBinding.apply {
                 permissionTextView.visibility = View.INVISIBLE
                 givePermissionButton.visibility = View.INVISIBLE
                 mainScreenRecyclerView.visibility = View.VISIBLE
                 setUpRecyclerView(user)
             }
         } else {
-            binding.apply {
+            screeenTimeBinding.apply {
                 permissionTextView.visibility = View.VISIBLE
                 givePermissionButton.visibility = View.VISIBLE
             }
@@ -112,25 +115,36 @@ class ScreenTimeFragment : Fragment() {
         return mode == AppOpsManager.MODE_ALLOWED
     }
     private fun setUpRecyclerView(user: UserDetails) {
-        if(binding.mainScreenRecyclerView.adapter == null) {
-            binding.progressBarButton.visibility = View.VISIBLE
+        if(screeenTimeBinding.mainScreenRecyclerView.adapter == null) {
+            screeenTimeBinding.progressBarButton.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.Default).launch {
                 val appInfoList: ArrayList<AppInfo> = getAppInfoList()
                 appList = appInfoList
                 withContext(Dispatchers.Main) {
                     midNightWorkScheduler(appInfoList, user)
                     val mAdapter1 = AppInfoListAdapter(requireContext(), appInfoList)
-                    binding.mainScreenRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-                    binding.mainScreenRecyclerView.adapter = mAdapter1
-                    binding.progressBarButton.visibility = View.GONE
+                    screeenTimeBinding.mainScreenRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    screeenTimeBinding.mainScreenRecyclerView.adapter = mAdapter1
+                    screeenTimeBinding.progressBarButton.visibility = View.GONE
                 }
             }
         } else {
-            binding.progressBarButton.visibility = View.GONE
+            screeenTimeBinding.progressBarButton.visibility = View.GONE
         }
     }
 
+    private fun stringToBoldItalic(str: String): Spannable{
+        val spannable = SpannableStringBuilder(str)
+        val boldSpan = StyleSpan(Typeface.BOLD)
+        spannable.setSpan(boldSpan, 0, spannable.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        val italicSpan = StyleSpan(Typeface.ITALIC)
+        spannable.setSpan(italicSpan, 0, spannable.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        return spannable
+    }
+
     fun loadUserDataSuccessfully(user: UserDetails) {
+        screeenTimeBinding.introUserText.text =
+            stringToBoldItalic("Hi, ${user.name} your screentime activity is")
         permissionGranted(user)
     }
     fun failedToGetUserData(message: String) {
@@ -159,8 +173,8 @@ class ScreenTimeFragment : Fragment() {
         // Schedule the task
         WorkManager.getInstance(requireContext()).enqueue(workRequest)
     }
-    fun loadAopList() {
-
+    fun loadAppList() {
+        showToast("ok")
     }
     private fun getAppInfoList(): ArrayList<AppInfo> {
         val packageManager: PackageManager = requireContext().packageManager

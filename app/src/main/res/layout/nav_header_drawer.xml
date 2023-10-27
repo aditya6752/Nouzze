@@ -12,9 +12,12 @@
         android:id="@+id/userImageNavHeader"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="1dp"
         android:contentDescription="@string/nav_header_desc"
         android:layout_marginStart="@dimen/nav_content_margin_StartEnd"
         android:layout_marginEnd="@dimen/nav_content_margin_StartEnd"
+        android:layout_marginBottom="7dp"
         android:src="@drawable/ic_user_holder"/>
 
     <TextView
@@ -25,9 +28,9 @@
         android:textSize="18sp"
         android:layout_marginStart="@dimen/nav_content_margin_StartEnd"
         android:layout_marginEnd="@dimen/nav_content_margin_StartEnd"
-        android:layout_marginTop="3dp"
         android:text="UserName"
-        android:textColor="@color/textColor"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         />
 
     <TextView
@@ -37,21 +40,20 @@
         android:text="Mail"
         android:layout_marginStart="@dimen/nav_content_margin_StartEnd"
         android:layout_marginEnd="@dimen/nav_content_margin_StartEnd"
-        android:textColor="@color/textColor"
+        android:textColor="@color/white"
         tools:text="abc@gmail.com"
-        android:layout_marginBottom="1dp"/>
-
+        android:layout_marginBottom="2dp"/>
     <TextView
         android:id="@+id/logOutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/nav_content_margin_StartEnd"
         android:layout_marginEnd="@dimen/nav_content_margin_StartEnd"
-        android:textColor="@color/textColor"
+        android:textColor="@color/white"
         android:text="LOGOUT"
         android:textStyle="bold"
         android:textSize="14sp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="10dp"
         />
 
 </LinearLayout>

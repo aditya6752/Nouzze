@@ -7,17 +7,31 @@
     android:background="@color/background"
     tools:context=".Fragments.LeaderboardFragment">
 
-    <TextView
+    <androidx.cardview.widget.CardView
         android:id="@+id/leaderBoardTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="LEADERBOARD"
-        android:textColor="@color/textColor"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="5dp"
         android:layout_margin="7dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/cardViewBackground"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="LEADERBOARD"
+            android:textColor="@color/textColor"
+            android:layout_gravity="center"
+            android:layout_margin="7dp"
+            android:textStyle="bold"
+            />
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/leaderboardRecyclerView"

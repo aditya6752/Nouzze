@@ -29,7 +29,7 @@ RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 .placeholder(R.drawable.ic_user_holder)
                 .into(holder.userImage)
             holder.userName.text = model.userName
-            holder.userPoints.text = formatNumber(model.userPoints)
+            holder.userPoints.text = model.userPoints.toString()
         }
     }
 

@@ -22,8 +22,8 @@ class FeedbackFragment : Fragment() {
 
         FireBaseFragments().getAllUserData(this)
 
-        binding.positiveFeedbackText.text = positiveText()
-        binding.negativeFeedbackText.text = negativeText()
+        //binding.positiveFeedbackText.text = positiveText()
+        //binding.negativeFeedbackText.text = negativeText()
 
         return binding.root
     }
