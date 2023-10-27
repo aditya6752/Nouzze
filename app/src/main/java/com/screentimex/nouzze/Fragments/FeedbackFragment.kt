@@ -5,56 +5,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.screentimex.nouzze.Firebase.FireBaseFragments
 import com.screentimex.nouzze.R
+import com.screentimex.nouzze.databinding.FragmentFeedbackBinding
+import com.screentimex.nouzze.databinding.FragmentMarketPlaceBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FeedbackFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FeedbackFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private lateinit var binding : FragmentFeedbackBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feedback, container, false)
+        binding = FragmentFeedbackBinding.inflate(inflater, container, false)
+
+        FireBaseFragments().getAllUserData(this)
+
+        binding.positiveFeedbackText.text = positiveText()
+        binding.negativeFeedbackText.text = negativeText()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FeedbackFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FeedbackFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun negativeText(): String {
+        val text = "Don't worry, we all have our distractions. Here are the bottom three apps where you've spent more time than desired:\n[List the names of the apps]\nIt's okay, we can work on this together! \uD83D\uDCAA"
+        return text
+    }
+
+    private fun positiveText(): String {
+        val text = "Congratulations! \uD83D\uDE80 You're acing your productivity game. Here are your top three most productive apps: \n[List the names of the apps] \nKeep up the good work! \uD83C\uDF1F"
+        return text
     }
 }

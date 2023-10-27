@@ -17,7 +17,45 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/actionBarColor"
-            app:popupTheme="@style/Theme.Nouzze.PopupOverlay" />
+            app:popupTheme="@style/Theme.Nouzze.PopupOverlay" >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginEnd="7dp"
+                android:backgroundTint="@color/buttonBackground"
+                android:layout_gravity="right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                >
+                <LinearLayout
+                    android:layout_width="75dp"
+                    android:layout_height="32dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    >
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/coin_96"
+                        />
+                    <TextView
+                        android:id="@+id/userPoints"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="999k"
+                        android:gravity="center"
+                        android:textColor="@color/coinCardViewText"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

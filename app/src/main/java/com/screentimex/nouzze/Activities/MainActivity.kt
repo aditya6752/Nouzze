@@ -144,9 +144,6 @@ class MainActivity : AppCompatActivity() {
             helpButton.setOnClickListener {
                 openGmailHelpButton()
             }
-            freePointsButton.setOnClickListener {
-                getFreePoints()
-            }
             aboutAppButton.setOnClickListener {
                 showCustomDialog()
             }
@@ -204,7 +201,22 @@ class MainActivity : AppCompatActivity() {
             .into(binding.navDraawerHeaderInclude.userImageNavHeader)
         binding.navDraawerHeaderInclude.userEmailNavHeader.text = user.email
         binding.navDraawerHeaderInclude.userNameNavHeader.text = user.name
+        binding.includeAppBarLayout.userPoints.text = formatNumber(user.points)
 
+    }
+
+    private fun formatNumber(number: Long): String {
+        return when {
+            number in 1000..999999 -> {
+                val thousands = number / 1000
+                "${thousands}k"
+            }
+            number >= 1000000 -> {
+                val millions = number / 1000000
+                "${millions}M"
+            }
+            else -> number.toString()
+        }
     }
     private fun signOut(){
         FirebaseAuth.getInstance().signOut()
@@ -222,20 +234,6 @@ class MainActivity : AppCompatActivity() {
         val email = "nouzzehelp@gmail.com"
         val intent = Intent(Intent.ACTION_VIEW,Uri.parse("mailto:$email"))
         startActivity(intent)
-    }
-    private fun getFreePoints() {
-        if(mSharedPrefFreePoints.contains(Constants.FREE_POINTS)) {
-            val pointsHashMap = HashMap<String, Any>()
-            pointsHashMap[Constants.POINTS] = mSharedPrefFreePoints.getInt(Constants.FREE_POINTS, 0) + mUserDetails.points
-            val editorFreePoints = mSharedPrefFreePoints.edit()
-            editorFreePoints.remove(Constants.FREE_POINTS)
-            editorFreePoints.apply()
-            editorFreePoints.commit()
-            showToast("Claimed Successfully")
-            FireStoreClass().updateProfileData(this@MainActivity, pointsHashMap)
-        } else {
-            showToast("Already claimed, come back tomorrow")
-        }
     }
     private fun showToast(error: String) {
         Toast.makeText(this@MainActivity, error, Toast.LENGTH_SHORT).show()

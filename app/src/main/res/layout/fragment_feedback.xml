@@ -1,14 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.FeedbackFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.cardview.widget.CardView
+        android:id="@+id/positiveCardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp"
+        android:backgroundTint="@color/cardViewBackground"
+        android:layout_margin="10dp">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/positiveFeedbackText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Positive Feedback"
+            android:padding="10dp"
+            android:textColor="@color/textColor"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/negativeCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/positiveCardView"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp"
+        android:backgroundTint="@color/cardViewBackground"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/negativeFeedbackText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Negative Feedback"
+            android:padding="10dp"
+            android:textColor="@color/textColor"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

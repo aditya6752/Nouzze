@@ -76,15 +76,15 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 >
                 <LinearLayout
-                    android:layout_width="45dp"
+                    android:layout_width="55dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:padding="5dp"
                     >
                     <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="13dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:src="@drawable/coin_96"
                         />
                     <TextView
@@ -94,7 +94,7 @@
                         android:text="999k"
                         android:gravity="center"
                         android:textColor="@color/coinCardViewText"
-                        android:textSize="10sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>

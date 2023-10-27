@@ -30,6 +30,8 @@ class MidNightWordManager(context: Context, params: WorkerParameters) : Coroutin
             editorFreePoints.apply()
             editorFreePoints.commit()
 
+
+
             if(isInternetConnected(applicationContext)) {
                 val userHashMap = HashMap<String, Any>()
                 userHashMap[Constants.POINTS] = updatedPoints

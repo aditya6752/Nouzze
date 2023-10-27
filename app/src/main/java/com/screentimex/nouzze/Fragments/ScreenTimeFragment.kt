@@ -57,6 +57,8 @@ class ScreenTimeFragment : Fragment() {
     private lateinit var mSharedPrefAboutAppDialog: SharedPreferences
     private lateinit var mSharedPrefFreePoints: SharedPreferences
 
+    private lateinit var appList : ArrayList<AppInfo>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,7 +69,7 @@ class ScreenTimeFragment : Fragment() {
         binding.givePermissionButton.setOnClickListener {
             askForUsageAccessPermission()
         }
-
+//        mSharedPrefAppList = getSharedPreferences("MyAppListPreferences", Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -114,6 +116,7 @@ class ScreenTimeFragment : Fragment() {
             binding.progressBarButton.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.Default).launch {
                 val appInfoList: ArrayList<AppInfo> = getAppInfoList()
+                appList = appInfoList
                 withContext(Dispatchers.Main) {
                     midNightWorkScheduler(appInfoList, user)
                     val mAdapter1 = AppInfoListAdapter(requireContext(), appInfoList)
@@ -156,6 +159,9 @@ class ScreenTimeFragment : Fragment() {
         // Schedule the task
         WorkManager.getInstance(requireContext()).enqueue(workRequest)
     }
+    fun loadAopList() {
+
+    }
     private fun getAppInfoList(): ArrayList<AppInfo> {
         val packageManager: PackageManager = requireContext().packageManager
         val packageInfoList: List<PackageInfo> = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
@@ -181,6 +187,7 @@ class ScreenTimeFragment : Fragment() {
         if (usageTime == null) usageTime = 0
         return usageTime
     }
+
 
     private fun isInternetConnected(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
