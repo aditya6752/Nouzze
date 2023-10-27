@@ -33,7 +33,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
@@ -156,30 +159,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.includeAppBarLayout.MainScreenUsageActivity.bottomBar.setOnItemSelectedListener { item ->
-            val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
-            val selectedFragment = when (item.itemId) {
-                R.id.nav_ScreenTime -> ScreenTimeFragment()
-                R.id.nav_MarketPlace -> MarketPlaceFragment()
-                R.id.nav_CoinEarning -> CoinEarningFragment()
-                R.id.nav_Feedback -> FeedbackFragment()
-                R.id.nav_LeaderBoard -> LeaderboardFragment()
-                else -> return@setOnItemSelectedListener false
-            }
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        val navController = navHostFragment.navController
+        val bottomNavBar = binding.includeAppBarLayout.MainScreenUsageActivity.bottomBar
+        bottomNavBar.setupWithNavController(navController)
 
-            if (currentFragment != selectedFragment ) {
-                setCurrentFragment(selectedFragment)
-            }
-            true
-        }
     }
 
-    private fun setCurrentFragment( fragment: Fragment){
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentContainer,fragment)
-            commit()
-        }
-    }
+
     private fun setUpActionBar(){
         setSupportActionBar(binding.includeAppBarLayout.toolbar)
         supportActionBar?.title = "Nouzze"
