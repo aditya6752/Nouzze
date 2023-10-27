@@ -18,7 +18,7 @@
     <color name="drawerColor">#121212</color> <!-- Dark gray drawer color -->
     <color name="iconColors">#eaeaea</color> <!-- Light gray icon color -->
     <color name="cardViewBackground">#121212</color> <!-- Dark gray card view background -->
-    <color name="splashScreenColor">#0a2472</color> <!-- Deep Blue splash screen color -->
+    <color name="splashScreenColor">#8a2be2</color> <!-- Deep Blue splash screen color -->
     <color name="snackBarColor">#ff6b6b</color> <!-- Reddish snackbar color for contrast -->
     <color name="finalScreenBackground">#1a1a2e</color> <!-- Dark Blue background for final screens -->
     <color name="mainScreenAppTextColor">#FFFFFF</color>

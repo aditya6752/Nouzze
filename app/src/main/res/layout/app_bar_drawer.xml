@@ -39,7 +39,7 @@
                         android:id="@+id/userPoints"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="999k"
+                        tools:text="999"
                         android:gravity="center"
                         android:textStyle="bold"
                         android:textColor="@color/white"

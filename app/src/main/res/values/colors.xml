@@ -18,7 +18,7 @@
     <color name="drawerColor">#FFFFFF</color> <!-- White drawer color -->
     <color name="iconColors">#5A68A3</color> <!-- Icon color using accent color -->
     <color name="cardViewBackground">#FFFFFF</color> <!-- White card view background -->
-    <color name="splashScreenColor">#5A68A3</color> <!-- Splash screen color using accent color -->
+    <color name="splashScreenColor">#8a2be2</color> <!-- Splash screen color using accent color -->
     <color name="snackBarColor">#FF5722</color> <!-- Deep orange snackbar color -->
     <color name="finalScreenBackground">#F5F5F5</color> <!-- Light gray background -->
     <color name="mainScreenAppTextColor">#000000</color>
