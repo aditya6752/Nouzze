@@ -70,10 +70,6 @@
             android:exported="false"
             android:theme="@style/Theme.Nouzze.NoActionBar" />
         <activity
-            android:name=".Activities.StoreActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Nouzze.NoActionBar" />
-        <activity
             android:name=".Activities.MainActivity"
             android:exported="false"
             android:label="@string/title_activity_drawer"
