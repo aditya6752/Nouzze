@@ -1,6 +1,6 @@
 package com.screentimex.nouzze.models
 
 class CategoryModel (
-    var categoryName : String? = "",
-    var categoryimg : String? = ""
+    var cat : String = "",
+    var img : String = ""
 )

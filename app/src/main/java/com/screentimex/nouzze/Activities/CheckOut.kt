@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.screentimex.nouzze.Firebase.FireStoreClass
 import com.screentimex.nouzze.R
@@ -53,12 +54,15 @@ class CheckOut : AppCompatActivity() {
         binding.balance.text = "My Points: " + mUserDetails.points.toString()
 
         binding.productName.text = productDetails.productName
-        binding.productPrice.text = "Product Price: " + productDetails.productPrice
-        val imgId = this.resources.getIdentifier(productDetails.productImg,"drawable",this.packageName)
-        binding.productImg.setImageResource(imgId)
+        binding.productPrice.text = "Product Price: " + productDetails.productMrp
+        Glide.with(this)
+            .load(productDetails.productCoverImage)
+            .centerCrop()
+            .placeholder(R.drawable.ic_user_holder)
+            .into(binding.productImg)
 
         binding.BuyNowButton.setOnClickListener {
-            val balance = mUserDetails.points - productDetails.productPrice.toLong()
+            val balance = mUserDetails.points - productDetails.productMrp.toLong()
             if ( !isInternetConnected() ){
                 showSnackBar("No Internet !!")
             } else if(balance > 0 ) {
@@ -140,7 +144,7 @@ class CheckOut : AppCompatActivity() {
 
     private fun mEmailMessage() : String {
         val response : String = "Hi ${mUserDetails.name} ,\nYour order is placed.\nYou ordered a ${productDetails.productName} which has a" +
-                "value of ${productDetails.productPrice} points. After this order , you've left with ${mUserDetails.points - productDetails.productPrice.toLong()} points . \n" +
+                "value of ${productDetails.productMrp} points. After this order , you've left with ${mUserDetails.points - productDetails.productMrp.toLong()} points . \n" +
                 "Your Order will be shipped to ${mAddressDetails.Flat_Number} / ${mAddressDetails.Area} , ${mAddressDetails.Landmark} , " +
                 "${mAddressDetails.City} , ${mAddressDetails.State} , ${mAddressDetails.Pincode} and your Mobile Number is" +
                 "${mAddressDetails.Mobile_Number} .\nThank You \nTeam Nouzze"

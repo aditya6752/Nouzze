@@ -14,7 +14,7 @@ object Constants {
     const val APPICONIMAGE: String = "appIconImage"
     const val TIME: String = "appUsage-time"
     const val APPNAME: String = "appName"
-    const val PRODUCT_NAME: String = "productName"
+    const val PRODUCT_CAT: String = "productName"
     const val ADDRESS: String = "addressDetails"
     const val PRODUCTDETAILS : String = "productDetails"
     const val INTRODETAILS: String = "introDetails"

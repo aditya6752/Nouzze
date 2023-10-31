@@ -14,12 +14,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.test.Services.DataService
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.screentimex.nouzze.Activities.Products
 import com.screentimex.nouzze.Adapters.CategoryAdapter
-import com.screentimex.nouzze.R
 import com.screentimex.nouzze.databinding.FragmentMarketPlaceBinding
 import com.screentimex.nouzze.models.Category
 import com.screentimex.nouzze.models.CategoryModel
@@ -55,12 +52,12 @@ class MarketPlaceFragment : Fragment() {
 
     private fun getCategories() {
         val list = ArrayList<CategoryModel>()
-        Firebase.firestore.collection("categories")
-            .get().addOnSuccessListener {
-                list.clear()
-                for(doc in it.documents){
-                    val data = doc.toObject(CategoryModel::class.java)
-                    list.add(data!!)
+        FirebaseFirestore.getInstance().collection("categories")
+            .get().addOnSuccessListener { document ->
+                for(doc in document){
+                    val data = doc.toObject(CategoryModel::class.java)!!
+                    list.add(CategoryModel(data.cat, data.img))
+                    Log.i("lode3Sum", "${data.cat}")
                 }
                 Log.i("SetUp","Going")
                 setUpRecyclerView(list)
@@ -71,19 +68,18 @@ class MarketPlaceFragment : Fragment() {
     }
     private fun setUpRecyclerView( list : ArrayList<CategoryModel>){
         categoryRecyclerView = marketPlaceBinding.RecylerViewCategories
-
-        categoryAdapter = CategoryAdapter(requireContext(),list)
         categoryRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        categoryAdapter = CategoryAdapter(requireContext(), list)
         categoryRecyclerView.adapter = categoryAdapter
 
-        categoryAdapter.setItemClickListener( object : CategoryAdapter.onItemClickListener {
-            override fun onItemClick(position: Int) {
+        categoryAdapter.setOnClickListener(object: CategoryAdapter.OnClickListener{
+            override fun onClick(position: Int, model: CategoryModel) {
+                Log.d("divyam", "Item clicked at position $position")
                 val intent = Intent(requireContext(), Products::class.java)
-                val productName = DataService.categories[position].categoryName
-                intent.putExtra(Constants.PRODUCT_NAME, productName)
+                val productName = list[position].cat
+                intent.putExtra(Constants.PRODUCT_CAT, productName)
                 startActivity(intent)
             }
         })
-
     }
 }
